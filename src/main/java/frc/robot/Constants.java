@@ -12,4 +12,21 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {}
+public final class Constants {
+
+    // Port mappings
+
+    // CAN
+    //! Taken from TestBot code, subject to change on actual robot
+    public static int DMTopLeftPort = 1;
+    public static int DMBottomLeftPort = 2; 
+    public static int DMTopRightPort = 3;
+    public static int DMBottomRightPort = 4;
+
+    // Joystick port mappings
+    public static int MAINCON_PORT = 0;
+
+    // Other Constantss
+    public static double thrustSpeedMult = 1.5;
+
+}
