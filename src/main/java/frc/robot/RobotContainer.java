@@ -6,9 +6,15 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
-
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.LimeLight;
+import libs.OI.ConsoleController;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.TankDrive;
+
+
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -17,12 +23,24 @@ import frc.robot.subsystems.DriveTrain;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain m_driveTrain;
+  private final DriveTrain m_drivetrain = new DriveTrain();
+  private final LimeLight m_limelight = new LimeLight();
+
+  //Creates joystick object for the Main and Aux controllers
+  private final ConsoleController m_joystick = new ConsoleController(0);
+
+  // Create SmartDashboard chooser for autonomous routines
+  private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    m_driveTrain = new DriveTrain();
+     // Sets driving to either the main joystick or aux xbox controller (Note to self make method in Joysticks that adjust for thrust and twist)
+    
+     //m_drivetrain.setDefaultCommand(
+        //new TankDrive(m_joystick.getLeftY(), m_joystick.getRightY(), m_drivetrain));
+    m_drivetrain.setDefaultCommand(
+        new TankDrive(m_joystick::getLeftStickY, m_joystick::getRightStickY, m_drivetrain));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -43,6 +61,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return m_chooser.getSelected();
   }
 }
