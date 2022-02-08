@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.SPI;
 
 import java.util.function.DoubleSupplier;
 
@@ -20,7 +19,6 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import frc.robot.Constants.DriveConstants;
 
 
@@ -28,8 +26,6 @@ import frc.robot.Constants.DriveConstants;
  * Add your docs here.
  */
 public class DriveTrain extends SubsystemBase {
-
-  private final SPI.Port sPort = SPI.Port.kOnboardCS0;
 
   private final WPI_TalonSRX leftMaster = new WPI_TalonSRX(DriveConstants.kLeftMotor1Port);
   private final WPI_VictorSPX leftSlave = new WPI_VictorSPX(DriveConstants.kLeftMotor2Port);
@@ -80,7 +76,7 @@ public class DriveTrain extends SubsystemBase {
    * @param left Speed in range [-1,1]
    * @param right Speed in range [-1,1]
    */
-  public void drive(double leftSpeed, double rightSpeed) {
+  public void tankDrive(double leftSpeed, double rightSpeed) {
     m_drive.tankDrive(leftSpeed, rightSpeed);
   }
 
@@ -118,13 +114,31 @@ public class DriveTrain extends SubsystemBase {
     return rightMaster.getSelectedSensorPosition(0);
   }
 
+  /**
+   * Get the distance of the left encoder since the last reset.
+   *
+   * @return The distance driven using the left encoder.
+   */
+  public double getLeftDistance(){
+    return leftPosition.getAsDouble();
+  }
+
+  /**
+   * Get the distance of the right encoder since the last reset.
+   *
+   * @return The distance driven using the right encoder.
+   */
+  public double getRightDistance(){
+    return rightPosition.getAsDouble();
+  }
+
     /**
    * Get the average distance of the encoders since the last reset.
    *
    * @return The distance driven (average of left and right encoders).
    */
   public double getDistance() {
-    return (leftPosition.getAsDouble() + rightPosition.getAsDouble()) / 2;
+    return (getLeftDistance() + getRightDistance()) / 2;
   }
 
 
