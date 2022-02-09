@@ -51,4 +51,8 @@ public final class Constants {
     public static final int PISTON_REV = 1; //Put in random integer
     
   }
+  
+  public static final class LauncherConstants{}
+  
+  public static final class ClimberConstants{}
 }
