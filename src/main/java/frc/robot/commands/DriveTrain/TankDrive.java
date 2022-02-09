@@ -14,8 +14,8 @@ import java.util.function.DoubleSupplier;
 public class TankDrive extends CommandBase {
   private final DriveTrain m_drivetrain;
 
-  private double m_left;
-  private double m_right;
+  private DoubleSupplier m_left;
+  private DoubleSupplier m_right;
 
   /**
    * Creates a new TankDrive command.
@@ -26,24 +26,26 @@ public class TankDrive extends CommandBase {
    */
   public TankDrive(DoubleSupplier left, DoubleSupplier right, DriveTrain drivetrain) {
     m_drivetrain = drivetrain;
-    m_left = left.getAsDouble() * OIConstants.kThrustSpeedMult;
-    m_right = right.getAsDouble() * OIConstants.kThrustSpeedMult;
+    m_left = left;
+    m_right = right;
     addRequirements(drivetrain);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
+    double leftSpeed = m_left.getAsDouble() * OIConstants.kThrustSpeedMult;
+    double rightSpeed = m_right.getAsDouble() * OIConstants.kThrustSpeedMult;
 
-    if(Math.abs(m_left) < 0.2) {
-        m_left = 0;
+    if(Math.abs(leftSpeed) < 0.2) {
+      leftSpeed = 0;
       }
   
-      if(Math.abs(m_right) < 0.2) {
-        m_right = 0;
-      }
+    if(Math.abs(rightSpeed) < 0.2) {
+      rightSpeed = 0;
+    }
 
-    m_drivetrain.tankDrive(m_left, m_right);
+    m_drivetrain.tankDrive(leftSpeed, rightSpeed);
   }
 
   // Called once after isFinished returns true
