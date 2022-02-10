@@ -45,7 +45,7 @@ public final class Constants {
   }
   
   public static final class IntakeConstants{
-    public static final int MOTOR_PORT = 5; //Assumption, need to actually check if true
+    public static final int MOTOR_PORT = 8;
     
     public static final int PISTON_FWD = 0; //Put in random integer 
     public static final int PISTON_REV = 1; //Put in random integer
@@ -53,7 +53,10 @@ public final class Constants {
     
   }
   
-  public static final class LauncherConstants{}
+  public static final class LauncherConstants{
+    public static final int kFlyWheelMotorPort = 9;
+    public static final int kPreLaunchWheelMotorPort = 10;
+  }
   
   public static final class ClimberConstants{}
 }
