@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /*
 Decimal	    Binary(pin/code)			        Action	
@@ -16,7 +17,7 @@ Decimal	    Binary(pin/code)			        Action
 6           1           1           0           Enforcers
 */
 
-public class ArduinoLights {
+public class ArduinoLights extends SubsystemBase {
 
     protected boolean alliance;//false for blue alliance, true for red alliance
     protected DigitalOutput do0;
@@ -25,13 +26,8 @@ public class ArduinoLights {
 
     public ArduinoLights(int d0, int d1, int d2){
         //sets the color of the alliance
-        if(DriverStation.getAlliance()==Alliance.Blue){
-            alliance=false;
-        }
-        else{
-            alliance=true;
-        }
-
+        syncAlliance();
+        
         //sets the pins used for boolean communication
         do0 = new DigitalOutput(d0);
         do1 = new DigitalOutput(d1);
@@ -64,8 +60,7 @@ public class ArduinoLights {
         }
     }
 
-    public void climb()
-    {
+    public void climb(){
         if(alliance){
             do0.set(false);
             do1.set(true);
@@ -83,4 +78,15 @@ public class ArduinoLights {
         do1.set(true);
         do2.set(false);
     }
+
+    private void syncAlliance(){
+        alliance = DriverStation.getAlliance().equals(Alliance.Blue);
+    }
+
+    @Override
+  public void periodic() {
+    // This method will be called once per scheduler run during simulation
+    syncAlliance();
+  }
+
 }
