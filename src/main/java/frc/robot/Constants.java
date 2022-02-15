@@ -58,5 +58,14 @@ public final class Constants {
     public static final int kPreLaunchWheelMotorPort = 10;
   }
   
-  public static final class ClimberConstants{}
+  public static final class ClimberConstants{
+    public static final int kClimberMotorPort = 5;
+    public static final int kExtendingArmWinchPort = 6; 
+
+    public static final int kHookSolenoidPort = 1;
+
+    public static final int kHighLimitSwitchPort = 0;
+    public static final int kLowLimitSwitchPort = 1;
+
+  }
 }
