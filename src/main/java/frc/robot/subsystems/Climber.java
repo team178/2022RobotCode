@@ -61,10 +61,18 @@ public class Climber extends SubsystemBase {
     HookSolenoid.toggle();
 
   }
+  
+  /**
+    * Gets the high limit switch
+  */
 
   public DigitalInput getHighLimitSwitch() {
     return HighlimitSwitch;
   }
+  
+  /**
+    * Gets the low limit switch
+  */
 
   public DigitalInput getLowLimitSwitch() {
     return LowlimitSwitch;
