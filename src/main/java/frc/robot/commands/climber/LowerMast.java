@@ -23,7 +23,7 @@ public class LowerMast extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_climber.setExtendingArmWinchSpeed(-1);
+        m_climber.setExtendingArmWinchSpeed(-1); //may need to adjust based on winch
     }
   
     // Called once the command ends or is interrupted.
