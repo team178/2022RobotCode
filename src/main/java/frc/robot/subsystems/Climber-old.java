@@ -15,8 +15,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import frc.robot.Constants.ClimberConstants;
 
-
-
 public class Climber extends SubsystemBase {
 
   private final WPI_VictorSPX climberMotor = new WPI_VictorSPX(ClimberConstants.kClimberMotorPort);
