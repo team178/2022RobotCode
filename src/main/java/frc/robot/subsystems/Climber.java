@@ -27,8 +27,8 @@ public class Climber extends SubsystemBase {
   private final DigitalInput HighlimitSwitch = new DigitalInput(ClimberConstants.kHighLimitSwitchPort);
   private final DigitalInput LowlimitSwitch = new DigitalInput(ClimberConstants.kLowLimitSwitchPort);
 
-//Ask if You need to use rate for climber motor(with a double supplier)
-//ask if we need to include conditionals for the limit switches to halt the motors when they are at limit levels
+  // Do we need to use rate for climber motor (with a double supplier)
+  // Do we need to include conditionals for the limit switches to halt the motors when they are at limit levels
 public Climber() {
 
     climberMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
@@ -62,14 +62,11 @@ public Climber() {
     climberMotor.setSelectedSensorPosition(0);
     ExtendingArmWinch.setSelectedSensorPosition(0);
   }
-//Is this right???
+  //Is this right???
   public double getClimberMotorEncoder() {
     return climberMotor.getSelectedSensorPosition(0);
   }
-
-
-
-
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
