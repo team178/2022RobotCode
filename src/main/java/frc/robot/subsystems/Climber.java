@@ -10,12 +10,9 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-//import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import frc.robot.Constants.ClimberConstants;
-
-
 
 public class Climber extends SubsystemBase {
 
@@ -28,13 +25,11 @@ public class Climber extends SubsystemBase {
   private final DigitalInput LowlimitSwitch = new DigitalInput(ClimberConstants.kLowLimitSwitchPort);
 
   // Do we need to use rate for climber motor (with a double supplier)
-  // Do we need to include conditionals for the limit switches to halt the motors when they are at limit levels
-public Climber() {
+  public Climber() {
 
     climberMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     climberMotor.setSensorPhase(true);
 
-    //Is this right???
     ExtendingArmWinch.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     ExtendingArmWinch.setSensorPhase(true);
 
@@ -58,11 +53,19 @@ public Climber() {
 
   }
 
+  public DigitalInput getHighLimitSwitch() {
+    return HighlimitSwitch;
+  }
+
+  public DigitalInput getLowLimitSwitch() {
+    return LowlimitSwitch;
+  }
+
   public void reset() {
     climberMotor.setSelectedSensorPosition(0);
     ExtendingArmWinch.setSelectedSensorPosition(0);
   }
-  //Is this right???
+  
   public double getClimberMotorEncoder() {
     return climberMotor.getSelectedSensorPosition(0);
   }
