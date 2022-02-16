@@ -20,13 +20,13 @@ public class Launcher extends SubsystemBase {
   private final WPI_TalonSRX MotorFlywheel = new WPI_TalonSRX(LauncherConstants.kFlyWheelMotorPort);
   private final WPI_VictorSPX PrelaunchWheel = new WPI_VictorSPX(LauncherConstants.kPreLaunchWheelMotorPort);
 
-  //Encoder methods
+  //Encoder method
   public DoubleSupplier flywheelRate;
 
-
+  /**
+    * Sets up the ball to be launched
+  */ 
   public Launcher() {
-
-
     // Sets the distance per pulse for the encoders
     MotorFlywheel.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     
@@ -36,27 +36,37 @@ public class Launcher extends SubsystemBase {
 
   }
 
+  /**
+    * Sets FlyWheelSpeed to a random int
+  */ 
   public void setFlyWheelSpeed(double speed){
 
     MotorFlywheel.set(speed);
 
   }
 
+  /**
+    * Sets PrelaunchWheelSpeed to a random int
+  */ 
   public void setPrelaunchWheelSpeed(double speed){
 
     PrelaunchWheel.set(speed);
 
   }
 
+  /**
+    * Resets FlyWheelSpeed to 0
+  */ 
   public void reset() {
     MotorFlywheel.setSelectedSensorPosition(0);
   }
 
+  /**
+    * Gets encoder
+  */ 
   public double getFlywheelEncoder() {
     return MotorFlywheel.getSelectedSensorPosition(0);
   }
-
-
 
   @Override
   public void periodic() {

@@ -35,18 +35,27 @@ public class Climber extends SubsystemBase {
 
   }
 
+  /**
+   * Sets climberMotorSpeed to a random int
+  */ 
   public void setClimberMotorSpeed(double speed){
 
     climberMotor.set(speed);
 
   }
 
+  /**
+    * Sets ExtendingArmWinchSpeed to a random int
+  */ 
   public void setExtendingArmWinchSpeed(double speed){
 
     ExtendingArmWinch.set(speed);
 
   }
 
+  /**
+    * Toggles the Hook release
+  */ 
   public void toggleHookSolenoid(){
 
     HookSolenoid.toggle();
