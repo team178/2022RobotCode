@@ -29,7 +29,10 @@ public class Climber extends SubsystemBase {
 
   // Do we need to use rate for climber motor (with a double supplier)
   // Do we need to include conditionals for the limit switches to halt the motors when they are at limit levels
-public Climber() {
+  /**
+    * Sets up climber
+  */ 
+  public Climber() {
 
     climberMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     climberMotor.setSensorPhase(true);
@@ -40,29 +43,43 @@ public Climber() {
 
   }
 
+  /**
+   * Sets climberMotorSpeed to a random int
+  */ 
   public void setClimberMotorSpeed(double speed){
 
     climberMotor.set(speed);
 
   }
 
+  /**
+    * Sets ExtendingArmWinchSpeed to a random int
+  */ 
   public void setExtendingArmWinchSpeed(double speed){
 
     ExtendingArmWinch.set(speed);
 
   }
 
+  /**
+    * Toggles the Hook release
+  */ 
   public void toggleHookSolenoid(){
 
     HookSolenoid.toggle();
 
   }
 
+  /**
+    * Resets the climber
+  */ 
   public void reset() {
     climberMotor.setSelectedSensorPosition(0);
     ExtendingArmWinch.setSelectedSensorPosition(0);
   }
-  //Is this right???
+  /**
+    * Gets climber position (currently just sets it to zero) 
+  */ 
   public double getClimberMotorEncoder() {
     return climberMotor.getSelectedSensorPosition(0);
   }
