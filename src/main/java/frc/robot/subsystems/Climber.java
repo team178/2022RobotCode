@@ -26,29 +26,24 @@ public class Climber extends SubsystemBase {
 
   // Do we need to use rate for climber motor (with a double supplier)
   public Climber() {
-
     climberMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     climberMotor.setSensorPhase(true);
 
     ExtendingArmWinch.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     ExtendingArmWinch.setSensorPhase(true);
-
   }
 
   /**
    * Sets climberMotorSpeed to a random int
   */ 
-  public void setClimberMotorSpeed(double speed){
-
+  public void setClimberMotorSpeed(double speed) {
     climberMotor.set(speed);
-
   }
 
   /**
     * Sets ExtendingArmWinchSpeed to a random int
   */ 
-  public void setExtendingArmWinchSpeed(double speed){
-
+  public void setExtendingArmWinchSpeed(double speed) {
     ExtendingArmWinch.set(speed);
 
   }
@@ -56,10 +51,8 @@ public class Climber extends SubsystemBase {
   /**
     * Toggles the Hook release
   */ 
-  public void toggleHookSolenoid(){
-
+  public void toggleHookSolenoid() {
     HookSolenoid.toggle();
-
   }
   
   /**
