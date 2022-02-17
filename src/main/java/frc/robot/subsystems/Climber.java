@@ -71,6 +71,10 @@ public class Climber extends SubsystemBase {
     return LowlimitSwitch;
   }
 
+  public Solenoid getHookSolenoid() {
+    return HookSolenoid;
+  }
+
   public void reset() {
     climberMotor.setSelectedSensorPosition(0);
     ExtendingArmWinch.setSelectedSensorPosition(0);
