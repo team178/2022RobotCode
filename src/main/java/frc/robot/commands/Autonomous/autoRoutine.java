@@ -1,10 +1,10 @@
-package frc.robot.commands.Autonomous;
+package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveTrain.DriveStraight;
 import frc.robot.commands.DriveTrain.TurnDegrees;
 import frc.robot.commands.Intake.PickUp;
-import frc.robot.commands.Launcher.shootBall;
+import frc.robot.commands.launcher.ShootBall;
 import frc.robot.commands.Limelight.aimRange;
 import frc.robot.commands.climber.LowerMast;
 import frc.robot.commands.climber.RaiseMast;
@@ -18,11 +18,12 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.Turret.Intake;
 import frc.robot.subsystems.Turret.Launcher;
+import frc.robot.subsystems.ArduinoLights;
 import frc.robot.subsystems.Climber;
 
 public class AutoRoutine extends SequentialCommandGroup {
     
-    public AutoRoutine(DriveTrain drivetrain, Intake intake, Launcher launcher, Climber climber, Arduino arduino, LimeLight limelight){
+    public AutoRoutine(DriveTrain drivetrain, Intake intake, Launcher launcher, Climber climber, ArduinoLights arduino, LimeLight limelight){
         addCommands(
             //add commands for the robot to drive (More commands to driveTrain will be added once PathFinder is coded)
             new DriveStraight(10, drivetrain),
@@ -42,13 +43,12 @@ public class AutoRoutine extends SequentialCommandGroup {
             new aimRange(drivetrain, limelight),
 
             //add launcher command to shoot ball
-            new shootBall(launcher)
+            new ShootBall(launcher),
             
             //add arduino commands
-            new ArduinoClimb(arduino, climb);
-            new ArduinoSendNormal(arduino, sendnormal);
-            new ArduinoShoot(arduino, shoot);
-            
+            new Climb(arduino),
+            new SendNormal(arduino),
+            new Shoot(arduino)
         );
     }
 }
