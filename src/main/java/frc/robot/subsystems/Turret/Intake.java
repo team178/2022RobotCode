@@ -20,7 +20,7 @@ public class Intake extends SubsystemBase {
   /**
    * Sets intakeMotorSpeed to a random int
   */ 
-  public void setClimberMotorSpeed(double speed) {
+  public void setIntakeMotorSpeed(double speed) {
     intakeMotor.set(speed);
   }
   
@@ -28,7 +28,7 @@ public class Intake extends SubsystemBase {
     * Resets position of motor
   */
   
-  public void reset() {
+  public void intakeReset() {
     intakeMotor.setSelectedSensorPosition(0);
   }
   
@@ -36,7 +36,7 @@ public class Intake extends SubsystemBase {
     * Encoder for motor
   */
   
-  public double getClimberMotorEncoder() {
+  public double getIntakeMotorEncoder() {
     return intakeMotor.getSelectedSensorPosition(0);
   }
 
