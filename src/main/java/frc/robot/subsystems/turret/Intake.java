@@ -12,7 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import frc.robot.Constants.IntakeConstants;
 
-public class Intake extends SubsystemBase {
+public class Intake extends SubsystemBase implements AutoCloseable {
   private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(IntakeConstants.MOTOR_PORT);
   
   private final PISTON1_FWD = new DoubleSolenoid(PneumaticsModuleType.CTREPCH, IntakeConstants.PISTON_FWD, IntakeConstants.PISTON_REV); 
