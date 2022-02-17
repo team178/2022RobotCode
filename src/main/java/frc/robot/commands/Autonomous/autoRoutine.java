@@ -3,7 +3,7 @@ package frc.robot.commands.Autonomous;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveTrain.DriveStraight;
 import frc.robot.commands.DriveTrain.TurnDegrees;
-import frc.robot.commands.Intake.pickUp;
+import frc.robot.commands.Intake.PickUp;
 import frc.robot.commands.Launcher.shootBall;
 import frc.robot.commands.Limelight.aimRange;
 import frc.robot.commands.climber.LowerMast;
@@ -17,9 +17,9 @@ import frc.robot.subsystems.Turret.Intake;
 import frc.robot.subsystems.Turret.Launcher;
 import frc.robot.subsystems.Climber;
 
-public class autoRoutine extends SequentialCommandGroup {
+public class AutoRoutine extends SequentialCommandGroup {
     
-    public autoRoutine(DriveTrain drivetrain, Intake intake, Launcher launcher, Climber climber, LimeLight limelight){
+    public AutoRoutine(DriveTrain drivetrain, Intake intake, Launcher launcher, Climber climber, LimeLight limelight){
         addCommands(
             //add commands for the robot to drive (More commands to driveTrain will be added once PathFinder is coded)
             new DriveStraight(10, drivetrain),
@@ -33,7 +33,7 @@ public class autoRoutine extends SequentialCommandGroup {
             new TomahawkUp(climber), 
 
             //add intake command to pick up ball
-            new pickUp(intake),
+            new PickUp(intake),
 
             //add limelight command to get in range and aim
             new aimRange(drivetrain, limelight),
