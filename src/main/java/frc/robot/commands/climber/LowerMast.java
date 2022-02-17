@@ -30,6 +30,7 @@ public class LowerMast extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         m_climber.setExtendingArmWinchSpeed(0);
+        m_climber.reset();
     }
   
     // Returns true when the command should end.
