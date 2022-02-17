@@ -8,7 +8,7 @@ import frc.robot.subsystems.Turret.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class pickUp extends CommandBase {
+public class PickUp extends CommandBase {
   private final Intake m_intake;
 
   /**
@@ -16,7 +16,7 @@ public class pickUp extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public pickUp(Intake intake) {
+  public PickUp(Intake intake) {
     m_intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
