@@ -16,7 +16,7 @@ public class ShootBall extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public shootBall(Launcher launcher) {
+  public ShootBall(Launcher launcher) {
     m_launcher = launcher;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(launcher);
