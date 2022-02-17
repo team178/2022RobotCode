@@ -83,7 +83,7 @@ public class Climber extends SubsystemBase {
     * Resets position of motor/winch
   */
   
-  public void reset() {
+  public void climberReset() {
     climberMotor.setSelectedSensorPosition(0);
     ExtendingArmWinch.setSelectedSensorPosition(0);
   }
