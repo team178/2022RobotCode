@@ -1,23 +1,23 @@
 package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.DriveTrain.DriveStraight;
-import frc.robot.commands.DriveTrain.TurnDegrees;
-import frc.robot.commands.Intake.PickUp;
 import frc.robot.commands.launcher.ShootBall;
-import frc.robot.commands.Limelight.aimRange;
+import frc.robot.commands.limelight.AimRange;
+import frc.robot.commands.arduinolights.Climb;
+import frc.robot.commands.arduinolights.SendNormal;
+import frc.robot.commands.arduinolights.Shoot;
 import frc.robot.commands.climber.LowerMast;
 import frc.robot.commands.climber.RaiseMast;
 import frc.robot.commands.climber.ToggleHook;
 import frc.robot.commands.climber.TomahawkDown;
 import frc.robot.commands.climber.TomahawkUp;
-import frc.robot.commands.ArduinoLights.Climb;
-import frc.robot.commands.ArduinoLights.SendNormal;
-import frc.robot.commands.ArduinoLights.Shoot;
+import frc.robot.commands.drivetrain.DriveStraight;
+import frc.robot.commands.drivetrain.TurnDegrees;
+import frc.robot.commands.intake.PickUp;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimeLight;
-import frc.robot.subsystems.Turret.Intake;
-import frc.robot.subsystems.Turret.Launcher;
+import frc.robot.subsystems.turret.Intake;
+import frc.robot.subsystems.turret.Launcher;
 import frc.robot.subsystems.ArduinoLights;
 import frc.robot.subsystems.Climber;
 
@@ -40,7 +40,7 @@ public class AutoRoutine extends SequentialCommandGroup {
             new PickUp(intake),
 
             //add limelight command to get in range and aim
-            new aimRange(drivetrain, limelight),
+            new AimRange(drivetrain, limelight),
 
             //add launcher command to shoot ball
             new ShootBall(launcher),

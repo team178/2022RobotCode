@@ -1,4 +1,4 @@
-package frc.robot.commands.ArduinoLights;
+package frc.robot.commands.arduinolights;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArduinoLights;

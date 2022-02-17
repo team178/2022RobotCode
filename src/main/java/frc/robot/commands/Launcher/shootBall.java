@@ -4,8 +4,8 @@
 
 package frc.robot.commands.launcher;
 
-import frc.robot.subsystems.Turret.Launcher;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.turret.Launcher;
 
 /** An example command that uses an example subsystem. */
 public class ShootBall extends CommandBase {

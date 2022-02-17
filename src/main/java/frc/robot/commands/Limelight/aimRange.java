@@ -2,14 +2,14 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Limelight;
+package frc.robot.commands.limelight;
 
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimeLight;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class aimRange extends CommandBase {
+public class AimRange extends CommandBase {
   
   private final DriveTrain m_drivetrain;
   private final LimeLight m_limelight;
@@ -35,7 +35,7 @@ public class aimRange extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public aimRange(DriveTrain drivetrain, LimeLight limelight) {
+  public AimRange(DriveTrain drivetrain, LimeLight limelight) {
     m_drivetrain = drivetrain;
     m_limelight = limelight;
     
