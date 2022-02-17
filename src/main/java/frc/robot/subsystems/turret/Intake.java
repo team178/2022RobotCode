@@ -5,6 +5,7 @@
 package frc.robot.subsystems.turret;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.DoubleSolenoid
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -14,34 +15,49 @@ import frc.robot.Constants.IntakeConstants;
 public class Intake extends SubsystemBase {
   private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(IntakeConstants.MOTOR_PORT);
   
+  private final PISTON1_FWD = new DoubleSolenoid(PneumaticsModuleType.CTREPCH, IntakeConstants.PISTON_FWD, IntakeConstants.PISTON_REV); 
+  private final PISTON2_FWD = new DoubleSolenoid(PneumaticsModuleType.CTREPCH, IntakeConstants.PISTON_FWD, IntakeConstants.PISTON2_REV); 
+  
   public Intake() {
     intakeMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     intakeMotor.setSensorPhase(true);
   }
   
   /**
-   * Sets intakeMotorSpeed to a random int
+   * Deploys the pistons
   */ 
-  public void setIntakeMotorSpeed(double speed) {
-    intakeMotor.set(speed);
+  public void deploy() {
+    PISTON1_FWD.set(DoubleSolenoid.Value.kForward);
+    PISTON2_FWD.set(DoubleSolenoid.Value.kForward);
+  } 
+  
+  /**
+    * Retracts/undeploys the pistons
+  */
+  public void retract() {
+    PISTON1_FWD.set(DoubleSolenoid.Value.kReverse);
+    PISTON2_FWD.set(DoubleSolenoid.Value.kReverse);
+    //intakeMotor.set(0);
   }
   
   /**
-    * Resets position of motor
+    * Activates the motor and pistons
   */
-  
-  public void intakeReset() {
-    intakeMotor.setSelectedSensorPosition(0);
+  public void activate(double speed) {
+    if (PISTON1_FWD.get() == DoubleSolenoid.Value.kForward && PISTON2_FWD.get() == DoubleSolenoid.Value.kForward) {
+      intakeMotor.set(speed);
+    } else {
+      intakeMotor.set(0);
+    }
   }
   
-  /**
-    * Encoder for motor
-  */
-  
-  public double getIntakeMotorEncoder() {
-    return intakeMotor.getSelectedSensorPosition(0);
+  @Override
+  public void close() throws Exception {
+    PISTON1_FWD.close();
+    PISTON2_FWD.close();
+    intakeMotor.close();
   }
-
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
