@@ -70,15 +70,27 @@ public class Climber extends SubsystemBase {
   public DigitalInput getLowLimitSwitch() {
     return LowlimitSwitch;
   }
+  
+  /**
+    * Toggles hook
+  */
 
   public Solenoid getHookSolenoid() {
     return HookSolenoid;
   }
 
+  /**
+    * Resets position of motor/winch
+  */
+  
   public void reset() {
     climberMotor.setSelectedSensorPosition(0);
     ExtendingArmWinch.setSelectedSensorPosition(0);
   }
+  
+  /**
+    * Encoder for motor
+  */
   
   public double getClimberMotorEncoder() {
     return climberMotor.getSelectedSensorPosition(0);
