@@ -16,7 +16,7 @@ public class RaiseMast extends CommandBase {
     @Override
     public void initialize() {
         m_climber.setExtendingArmWinchSpeed(0);
-        m_climber.reset();
+        m_climber.climberReset();
     }
   
     // Called every time the scheduler runs while the command is scheduled.
@@ -29,7 +29,7 @@ public class RaiseMast extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         m_climber.setExtendingArmWinchSpeed(0);
-        m_climber.reset();
+        m_climber.climberReset();
     }
   
     // Returns true when the command should end.
