@@ -3,9 +3,9 @@ package frc.robot.commands.ArduinoLights;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArduinoLights;
 
-public class shoot extends CommandBase{
+public class Shoot extends CommandBase{
     private final ArduinoLights m_ArduinoLights;
-    public shoot(ArduinoLights lights){
+    public Shoot(ArduinoLights lights){
         m_ArduinoLights = lights;
         addRequirements(lights);
     }
