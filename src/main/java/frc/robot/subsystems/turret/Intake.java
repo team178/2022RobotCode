@@ -44,16 +44,17 @@ public class Intake extends SubsystemBase implements AutoCloseable {
   /**
     * Activates the motor and pistons
   */
-  public void activate(double speed) {
+  public boolean activate(double speed) {
     if (PISTON1_FWD.get() == DoubleSolenoid.Value.kForward && PISTON2_FWD.get() == DoubleSolenoid.Value.kForward) {
       intakeMotor.set(speed);
-    } else {
-      intakeMotor.set(0);
+      return true;
     }
+    intakeMotor.set(0);
+    return false;
   }
   
   @Override
-  public void close() throws Exception {
+  public void close() throws RuntimeException {
     PISTON1_FWD.close();
     PISTON2_FWD.close();
     intakeMotor.close();
