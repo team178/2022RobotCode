@@ -4,8 +4,9 @@
 
 package frc.robot.subsystems.turret;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.DoubleSolenoid
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -15,8 +16,8 @@ import frc.robot.Constants.IntakeConstants;
 public class Intake extends SubsystemBase implements AutoCloseable {
   private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(IntakeConstants.MOTOR_PORT);
   
-  private final PISTON1_FWD = new DoubleSolenoid(PneumaticsModuleType.CTREPCH, IntakeConstants.PISTON_FWD, IntakeConstants.PISTON_REV); 
-  private final PISTON2_FWD = new DoubleSolenoid(PneumaticsModuleType.CTREPCH, IntakeConstants.PISTON_FWD, IntakeConstants.PISTON2_REV); 
+  private final DoubleSolenoid PISTON1_FWD = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.PISTON_FWD, IntakeConstants.PISTON_REV); 
+  private final DoubleSolenoid PISTON2_FWD = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.PISTON_FWD, IntakeConstants.PISTON2_REV); 
   
   public Intake() {
     intakeMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
