@@ -24,15 +24,24 @@ public class PickUp extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_intake.close();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if(!m_intake.activate(1)) { //direction may need to be changed based on intake
+      m_intake.deploy();
+      m_intake.activate(1);
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) throws RuntimeException {
+    m_intake.close();
+  }
 
   // Returns true when the command should end.
   @Override
