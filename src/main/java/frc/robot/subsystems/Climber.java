@@ -17,11 +17,11 @@ import frc.robot.Constants.ClimberConstants;
 public class Climber extends SubsystemBase {
 
   private final WPI_VictorSPX climberMotor = new WPI_VictorSPX(ClimberConstants.kClimberMotorPort);
-  private final WPI_VictorSPX ExtendingArmWinch = new WPI_VictorSPX(ClimberConstants.kExtendingArmWinchPort);
+  private final WPI_VictorSPX extendingArmWinch = new WPI_VictorSPX(ClimberConstants.kExtendingArmWinchPort);
 
-  private final Solenoid HookSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, ClimberConstants.kHookSolenoidPort);
+  private final Solenoid hookSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, ClimberConstants.kHookSolenoidPort);
 
-  private final DigitalInput HighlimitSwitch = new DigitalInput(ClimberConstants.kHighLimitSwitchPort);
+  private final DigitalInput highlimitSwitch = new DigitalInput(ClimberConstants.kHighLimitSwitchPort);
   private final DigitalInput LowlimitSwitch = new DigitalInput(ClimberConstants.kLowLimitSwitchPort);
 
   // Do we need to use rate for climber motor (with a double supplier)
@@ -29,8 +29,8 @@ public class Climber extends SubsystemBase {
     climberMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     climberMotor.setSensorPhase(true);
 
-    ExtendingArmWinch.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
-    ExtendingArmWinch.setSensorPhase(true);
+    extendingArmWinch.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
+    extendingArmWinch.setSensorPhase(true);
   }
 
   /**
@@ -44,7 +44,7 @@ public class Climber extends SubsystemBase {
     * Sets ExtendingArmWinchSpeed to a random int
   */ 
   public void setExtendingArmWinchSpeed(double speed) {
-    ExtendingArmWinch.set(speed);
+    extendingArmWinch.set(speed);
 
   }
 
@@ -52,7 +52,7 @@ public class Climber extends SubsystemBase {
     * Toggles the Hook release
   */ 
   public void toggleHookSolenoid() {
-    HookSolenoid.toggle();
+    hookSolenoid.toggle();
   }
   
   /**
@@ -60,7 +60,7 @@ public class Climber extends SubsystemBase {
   */
 
   public DigitalInput getHighLimitSwitch() {
-    return HighlimitSwitch;
+    return highlimitSwitch;
   }
   
   /**
@@ -76,7 +76,7 @@ public class Climber extends SubsystemBase {
   */
 
   public Solenoid getHookSolenoid() {
-    return HookSolenoid;
+    return hookSolenoid;
   }
 
   /**
@@ -85,7 +85,7 @@ public class Climber extends SubsystemBase {
   
   public void climberReset() {
     climberMotor.setSelectedSensorPosition(0);
-    ExtendingArmWinch.setSelectedSensorPosition(0);
+    extendingArmWinch.setSelectedSensorPosition(0);
   }
   
   /**
