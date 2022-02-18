@@ -1,6 +1,8 @@
 package frc.robot.commands.autonomous;
 
+import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.launcher.ShootBall;
 import frc.robot.commands.limelight.AimRange;
 import frc.robot.commands.arduinolights.Climb;
@@ -22,6 +24,11 @@ import frc.robot.subsystems.ArduinoLights;
 import frc.robot.subsystems.Climber;
 
 public class AutoRoutine extends SequentialCommandGroup {
+    // Paths
+    private final Drivetrain drivetrain = null;
+    public static SequentialCommandGroup BasicLeftAuto = new SequentialCommandGroup(new DriveForward(-.5, DriveTrain));
+    public static SequentialCommandGroup BasicMiddleAuto = new SequentialCommandGroup(new DriveForawrd(-.5, 9), new WaitCommand(0.2));
+    public static SequentialCommandGroup BasicRightAuto = new SequentialCommandGroup(new DriveForward(1, -3.116));
     
     public AutoRoutine(DriveTrain drivetrain, Intake intake, Launcher launcher, Climber climber, ArduinoLights arduino, LimeLight limelight){
         addCommands(
