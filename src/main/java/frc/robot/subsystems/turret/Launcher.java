@@ -6,66 +6,64 @@ package frc.robot.subsystems.turret;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import java.util.function.DoubleSupplier;
-
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import frc.robot.Constants.DriveConstants;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.SparkMaxRelativeEncoder;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import frc.robot.Constants.LauncherConstants;
 
 public class Launcher extends SubsystemBase {
   
-  private final WPI_TalonSRX MotorFlywheel = new WPI_TalonSRX(LauncherConstants.kFlyWheelMotorPort);
-  private final WPI_VictorSPX PrelaunchWheel = new WPI_VictorSPX(LauncherConstants.kPreLaunchWheelMotorPort);
+  private CANSparkMax m_flywheel;
+  private CANSparkMax m_flywheel_follower;
+  private WPI_VictorSPX m_feedwheel;
 
-  //Encoder method
-  public DoubleSupplier flywheelRate;
+  private SparkMaxPIDController m_pidController;
+  private RelativeEncoder m_encoder;
 
-  /**
-    * Sets up the ball to be launched
-  */ 
   public Launcher() {
-    // Sets the distance per pulse for the encoders
-    MotorFlywheel.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
-    
-    MotorFlywheel.setSensorPhase(true);
-    
-    flywheelRate = () -> MotorFlywheel.getSelectedSensorVelocity(0) * DriveConstants.kEncoderDistancePerPulse * 10; //r
+    m_flywheel = new CANSparkMax(LauncherConstants.kFlyWheelMotorPort1, MotorType.kBrushed);
+    m_flywheel_follower = new CANSparkMax(LauncherConstants.kFlyWheelMotorPort2, MotorType.kBrushed);
+    m_feedwheel = new WPI_VictorSPX(LauncherConstants.kFeedWheelMotorPort);
+
+    m_flywheel.restoreFactoryDefaults();
+
+    m_flywheel_follower.follow(m_flywheel);
+
+    m_encoder = m_flywheel.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 4096);
+
+    m_pidController = m_flywheel.getPIDController();
+
+    m_pidController.setP(LauncherConstants.kP);
+    m_pidController.setI(LauncherConstants.kI);
+    m_pidController.setD(LauncherConstants.kD);
+    m_pidController.setIZone(LauncherConstants.kIz);
+    m_pidController.setFF(LauncherConstants.kFF);
+    m_pidController.setOutputRange(0, 1);
 
   }
 
-  /**
-    * Sets FlyWheelSpeed to a random int
-  */ 
   public void setFlyWheelSpeed(double speed){
+    double setPoint = speed * LauncherConstants.kMaxRPM;
+    m_pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
+  }
 
-    MotorFlywheel.set(speed);
+  public void setFeedWheelSpeed(double speed){
+
+    m_feedwheel.set(speed);
 
   }
 
-  /**
-    * Sets PrelaunchWheelSpeed to a random int
-  */ 
-  public void setPrelaunchWheelSpeed(double speed){
-
-    PrelaunchWheel.set(speed);
-
-  }
-
-  /**
-    * Resets FlyWheelSpeed to 0
-  */ 
   public void reset() {
-    MotorFlywheel.setSelectedSensorPosition(0);
+    m_encoder.setPosition(0);
   }
 
-  /**
-    * Gets encoder
-  */ 
-  public double getFlywheelEncoder() {
-    return MotorFlywheel.getSelectedSensorPosition(0);
+  public double getSpeed() {
+    return m_encoder.getVelocity();
   }
 
   @Override

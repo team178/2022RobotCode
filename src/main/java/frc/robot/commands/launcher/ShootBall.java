@@ -26,7 +26,7 @@ public class ShootBall extends CommandBase {
   @Override
   public void initialize() {
     m_launcher.setFlyWheelSpeed(0);
-    m_launcher.setPrelaunchWheelSpeed(0);
+    m_launcher.setFeedWheelSpeed(0);
     m_launcher.reset();
   }
 
@@ -34,14 +34,15 @@ public class ShootBall extends CommandBase {
   @Override
   public void execute() {
     m_launcher.setFlyWheelSpeed(1);
-    m_launcher.setPrelaunchWheelSpeed(1);
+    m_launcher.setFeedWheelSpeed(1);
+    System.out.println("helo!");
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_launcher.setFlyWheelSpeed(0);
-    m_launcher.setPrelaunchWheelSpeed(0);
+    m_launcher.setFeedWheelSpeed(0);
     m_launcher.reset();
   }
 
