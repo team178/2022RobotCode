@@ -35,7 +35,6 @@ public class ShootBall extends CommandBase {
   public void execute() {
     m_launcher.setFlyWheelSpeed(1);
     m_launcher.setFeedWheelSpeed(1);
-    System.out.println("helo!");
   }
 
   // Called once the command ends or is interrupted.
