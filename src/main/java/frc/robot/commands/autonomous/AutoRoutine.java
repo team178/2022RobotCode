@@ -3,6 +3,7 @@ package frc.robot.commands.autonomous;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+
 import frc.robot.commands.launcher.ShootBall;
 import frc.robot.commands.limelight.AimRange;
 import frc.robot.commands.arduinolights.Climb;
@@ -16,6 +17,7 @@ import frc.robot.commands.climber.TomahawkUp;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.drivetrain.TurnDegrees;
 import frc.robot.commands.intake.PickUp;
+
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.turret.Intake;
@@ -25,10 +27,11 @@ import frc.robot.subsystems.Climber;
 
 public class AutoRoutine extends SequentialCommandGroup {
     // Paths
-    private final Drivetrain drivetrain = null;
-    public static SequentialCommandGroup BasicLeftAuto = new SequentialCommandGroup(new DriveForward(-.5, DriveTrain));
-    public static SequentialCommandGroup BasicMiddleAuto = new SequentialCommandGroup(new DriveForawrd(-.5, 9), new WaitCommand(0.2));
-    public static SequentialCommandGroup BasicRightAuto = new SequentialCommandGroup(new DriveForward(1, -3.116));
+    private final DriveTrain drivetrain = null;
+    //! Not sure what you were trying to do here, these contstructors aren't quite right
+    // public static SequentialCommandGroup BasicLeftAuto = new SequentialCommandGroup(new DriveStraight(-.5, DriveTrain));
+    // public static SequentialCommandGroup BasicMiddleAuto = new SequentialCommandGroup(new DriveStraight(-.5, 9), new WaitCommand(0.2));
+    // public static SequentialCommandGroup BasicRightAuto = new SequentialCommandGroup(new DriveStraight(1, -3.116));
     
     public AutoRoutine(DriveTrain drivetrain, Intake intake, Launcher launcher, Climber climber, ArduinoLights arduino, LimeLight limelight){
         addCommands(
