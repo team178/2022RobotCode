@@ -27,13 +27,15 @@ import frc.robot.subsystems.Climber;
 
 public class AutoRoutine extends SequentialCommandGroup {
     // Paths
-    private final DriveTrain drivetrain = null;
     //! Not sure what you were trying to do here, these contstructors aren't quite right
-    // public static SequentialCommandGroup BasicLeftAuto = new SequentialCommandGroup(new DriveStraight(-.5, DriveTrain));
-    // public static SequentialCommandGroup BasicMiddleAuto = new SequentialCommandGroup(new DriveStraight(-.5, 9), new WaitCommand(0.2));
-    // public static SequentialCommandGroup BasicRightAuto = new SequentialCommandGroup(new DriveStraight(1, -3.116));
+    public static SequentialCommandGroup BasicLeftAuto;
+    public static SequentialCommandGroup BasicMiddleAuto;
+    public static SequentialCommandGroup BasicRightAuto;
     
-    public AutoRoutine(DriveTrain drivetrain, Intake intake, Launcher launcher, Climber climber, ArduinoLights arduino, LimeLight limelight){
+    public AutoRoutine(DriveTrain drivetrain, Intake intake, Launcher launcher, Climber climber, ArduinoLights arduino, LimeLight limelight) {
+        BasicLeftAuto = new SequentialCommandGroup(new DriveStraight(-.5, drivetrain));
+        BasicMiddleAuto = new SequentialCommandGroup(new DriveStraight(-.5, 9), new WaitCommand(0.2));
+        BasicRightAuto = new SequentialCommandGroup(new DriveStraight(1, -3.116));
         addCommands(
             //add commands for the robot to drive (More commands to driveTrain will be added once PathFinder is coded)
             new DriveStraight(10, drivetrain),
