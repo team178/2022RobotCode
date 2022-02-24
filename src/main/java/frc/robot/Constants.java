@@ -60,7 +60,7 @@ public final class Constants {
     
     public static double kMaxRPM = 5000; // just a guess, will need to be tuned
     
-    public static double kP = 0;
+    public static double kP = 1;
     public static double kI = 0;
     public static double kD = 0;
     public static double kIz = 0;
