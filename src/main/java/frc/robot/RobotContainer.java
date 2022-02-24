@@ -31,11 +31,11 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain m_drivetrain = new DriveTrain();
-  private final Intake m_intake = new Intake();
-  private final Launcher m_launcher =  new Launcher();
-  private final Climber m_climber = new Climber();
-  private final LimeLight m_limelight = new LimeLight();
+  private final DriveTrain m_drivetrain;
+  // private final Intake m_intake = new Intake();
+  // private final Launcher m_launcher =  new Launcher();
+  // private final Climber m_climber = new Climber();
+  // private final LimeLight m_limelight = new LimeLight();
 
   //Creates joystick object for the Main (0) and Aux (1) controllers
   private final ConsoleController m_controller_main = new ConsoleController(0);
@@ -46,6 +46,8 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+    m_drivetrain = new DriveTrain();
 
     // Set drive controls
     m_drivetrain.setDefaultCommand(
@@ -70,26 +72,26 @@ public class RobotContainer {
     //What to include here: LowerMast, RaiseMast, ToggleHook,TomahawkDown, TomahawkUp, DriveStraight, TankDrive, TurnDegrees, PickUp, ShootBall
 
     //Console Controller Mapping 
-    m_controller_aux.y
-        .whileHeld(new ShootBall(m_launcher));
+    // m_controller_aux.y
+    //     .whileHeld(new ShootBall(m_launcher));
 
-    m_controller_aux.a
-      .whileHeld(new PickUp(m_intake));
+    // m_controller_aux.a
+    //   .whileHeld(new PickUp(m_intake));
 
-    m_controller_aux.topDPAD
-      .whileHeld(new RaiseMast(m_climber));
+    // m_controller_aux.topDPAD
+    //   .whileHeld(new RaiseMast(m_climber));
 
-    m_controller_aux.bottomDPAD
-      .whileHeld(new LowerMast(m_climber));
+    // m_controller_aux.bottomDPAD
+    //   .whileHeld(new LowerMast(m_climber));
     
-    m_controller_aux.leftDPAD
-      .whileHeld(new TomahawkDown(m_climber));
+    // m_controller_aux.leftDPAD
+    //   .whileHeld(new TomahawkDown(m_climber));
 
-    m_controller_aux.rightDPAD
-      .whileHeld(new TomahawkUp(m_climber));
+    // m_controller_aux.rightDPAD
+    //   .whileHeld(new TomahawkUp(m_climber));
 
-    m_controller_aux.x  
-      .whileHeld(new ToggleHook(m_climber));
+    // m_controller_aux.x  
+    //   .whileHeld(new ToggleHook(m_climber));
 
   }
 
