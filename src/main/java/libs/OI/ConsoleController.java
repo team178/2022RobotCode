@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.*;
  */
 public class ConsoleController {
 
-    public static Joystick controller;
+    public Joystick controller;
     public static double sensitivity = 1;
     public static double turnLimit = 1;
     public static double fowardLimit = 1; 
