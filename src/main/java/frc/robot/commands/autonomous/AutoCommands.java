@@ -22,9 +22,9 @@ public class AutoCommands {
     //public static SequentialCommandGroup AutoClimb;
 
     public static void init(DriveTrain drivetrain, Intake intake, Launcher launcher, ArduinoLights lights, LimeLight limelight) {
-        //TODO: need to add pathing commands in group
+        // TO-DO: need to add pathing commands in group
         RedLeftAuto = new SequentialCommandGroup(
-            //Pathing commands,
+            //Pathing commands
             new PickUp(intake),
             new AimRange(drivetrain, limelight),
             new ShootBall(launcher),
@@ -32,7 +32,7 @@ public class AutoCommands {
         );
         
         RedMiddleAuto = new SequentialCommandGroup(
-            //Pathing commands,
+            //Pathing commands
             new PickUp(intake),
             new AimRange(drivetrain, limelight),
             new ShootBall(launcher),
@@ -40,7 +40,7 @@ public class AutoCommands {
         );
         
         RedRightAuto = new SequentialCommandGroup(
-            //Pathing commands,
+            //Pathing commands
             new PickUp(intake),
             new AimRange(drivetrain, limelight),
             new ShootBall(launcher),
@@ -48,7 +48,7 @@ public class AutoCommands {
         );
 
         BlueLeftAuto = new SequentialCommandGroup(
-            //Pathing commands,
+            //Pathing commands
             new PickUp(intake),
             new AimRange(drivetrain, limelight),
             new ShootBall(launcher),
@@ -56,7 +56,7 @@ public class AutoCommands {
         );
         
         BlueMiddleAuto = new SequentialCommandGroup(
-            //Pathing commands,
+            //Pathing commands
             new PickUp(intake),
             new AimRange(drivetrain, limelight),
             new ShootBall(launcher),
@@ -64,7 +64,7 @@ public class AutoCommands {
         );
         
         BlueRightAuto = new SequentialCommandGroup(
-            //Pathing commands,
+            //Pathing commands
             new PickUp(intake),
             new AimRange(drivetrain, limelight),
             new ShootBall(launcher),
