@@ -16,9 +16,8 @@ import frc.robot.Constants.IntakeConstants;
 public class Intake extends SubsystemBase implements AutoCloseable {
   private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(IntakeConstants.MOTOR_PORT);
   
-  private final DoubleSolenoid PISTON1_FWD = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.PISTON_FWD, IntakeConstants.PISTON_REV); 
-  private final DoubleSolenoid PISTON2_FWD = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.PISTON_FWD, IntakeConstants.PISTON2_REV); 
-  
+  private final DoubleSolenoid intakePiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.PISTON_FWD, IntakeConstants.PISTON_REV);  
+ 
   public Intake() {
     intakeMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     intakeMotor.setSensorPhase(true);
@@ -28,16 +27,14 @@ public class Intake extends SubsystemBase implements AutoCloseable {
    * Deploys the pistons
   */ 
   public void deploy() {
-    PISTON1_FWD.set(DoubleSolenoid.Value.kForward);
-    PISTON2_FWD.set(DoubleSolenoid.Value.kForward);
+    intakePiston.set(DoubleSolenoid.Value.kForward);
   } 
   
   /**
     * Retracts/undeploys the pistons
   */
   public void retract() {
-    PISTON1_FWD.set(DoubleSolenoid.Value.kReverse);
-    PISTON2_FWD.set(DoubleSolenoid.Value.kReverse);
+    intakePiston.set(DoubleSolenoid.Value.kReverse);
     //intakeMotor.set(0);
   }
   
@@ -45,7 +42,7 @@ public class Intake extends SubsystemBase implements AutoCloseable {
     * Activates the motor and pistons
   */
   public boolean activate(double speed) {
-    if (PISTON1_FWD.get() == DoubleSolenoid.Value.kForward && PISTON2_FWD.get() == DoubleSolenoid.Value.kForward) {
+    if (intakePiston.get() == DoubleSolenoid.Value.kForward) {
       intakeMotor.set(speed);
       return true;
     }
@@ -55,8 +52,7 @@ public class Intake extends SubsystemBase implements AutoCloseable {
   
   @Override
   public void close() throws RuntimeException {
-    PISTON1_FWD.close();
-    PISTON2_FWD.close();
+    intakePiston.close();
     intakeMotor.close();
   }
   

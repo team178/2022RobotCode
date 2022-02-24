@@ -1,8 +1,6 @@
 package frc.robot.commands.autonomous;
 
-import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 import frc.robot.commands.launcher.ShootBall;
 import frc.robot.commands.limelight.AimRange;
@@ -25,6 +23,7 @@ import frc.robot.subsystems.turret.Launcher;
 import frc.robot.subsystems.ArduinoLights;
 import frc.robot.subsystems.Climber;
 
+//AUTO COMMANDS FOUND IN AutoCommands.java THIS FILE IS OLD
 public class AutoRoutine extends SequentialCommandGroup {
     // Paths
     //! Not sure what you were trying to do here, these contstructors aren't quite right
@@ -33,9 +32,9 @@ public class AutoRoutine extends SequentialCommandGroup {
     public static SequentialCommandGroup BasicRightAuto;
     
     public AutoRoutine(DriveTrain drivetrain, Intake intake, Launcher launcher, Climber climber, ArduinoLights arduino, LimeLight limelight) {
-        BasicLeftAuto = new SequentialCommandGroup(new DriveStraight(-.5, drivetrain));
-        BasicMiddleAuto = new SequentialCommandGroup(new DriveStraight(-.5, drivetrain), new WaitCommand(0.2));
-        BasicRightAuto = new SequentialCommandGroup(new DriveStraight(1, drivetrain));
+        BasicLeftAuto = new SequentialCommandGroup();
+        BasicMiddleAuto = new SequentialCommandGroup();
+        BasicRightAuto = new SequentialCommandGroup();
         addCommands(
             //add commands for the robot to drive (More commands to driveTrain will be added once PathFinder is coded)
             new DriveStraight(10, drivetrain),
