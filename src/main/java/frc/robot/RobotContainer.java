@@ -7,7 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.robot.commands.shootBall;
+import frc.robot.commands.ShootBall;
 import frc.robot.commands.climber.LowerMast;
 import frc.robot.commands.climber.RaiseMast;
 import frc.robot.commands.climber.ToggleHook;
@@ -77,7 +77,7 @@ private final ConsoleController m_controller = new ConsoleController(0);
 
     //Console Controller Mapping 
     m_controller.y
-        .whileHeld(new shootBall(m_launcher));
+        .whileHeld(new ShootBall(m_launcher));
 
     m_controller.a
       .whileHeld(new PickUp(m_intake));
