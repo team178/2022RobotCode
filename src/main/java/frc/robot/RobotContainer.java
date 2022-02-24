@@ -7,7 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.robot.commands.ShootBall;
+import frc.robot.commands.launcher.ShootBall;
 import frc.robot.commands.climber.LowerMast;
 import frc.robot.commands.climber.RaiseMast;
 import frc.robot.commands.climber.ToggleHook;
