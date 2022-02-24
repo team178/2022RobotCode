@@ -30,6 +30,8 @@ public class Launcher extends SubsystemBase {
     m_flywheel_follower = new CANSparkMax(LauncherConstants.kFlyWheelMotorPort2, MotorType.kBrushed);
     m_feedwheel = new WPI_VictorSPX(LauncherConstants.kFeedWheelMotorPort);
 
+    m_feedwheel.setInverted(true);
+
     m_flywheel.restoreFactoryDefaults();
 
     m_flywheel_follower.follow(m_flywheel);
@@ -50,6 +52,7 @@ public class Launcher extends SubsystemBase {
   public void setFlyWheelSpeed(double speed){
     double setPoint = speed * LauncherConstants.kMaxRPM;
     m_pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
+    System.out.println(setPoint);
   }
 
   public void setFeedWheelSpeed(double speed){
@@ -69,6 +72,7 @@ public class Launcher extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    // System.out.println(getSpeed());
   }
 
 }
