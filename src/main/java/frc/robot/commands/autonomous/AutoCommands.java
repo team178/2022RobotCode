@@ -6,7 +6,6 @@ import frc.robot.commands.intake.PickUp;
 import frc.robot.commands.launcher.ShootBall;
 import frc.robot.commands.limelight.AimRange;
 import frc.robot.subsystems.ArduinoLights;
-import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.turret.Intake;
