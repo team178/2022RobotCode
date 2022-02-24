@@ -25,6 +25,7 @@ import frc.robot.subsystems.turret.Launcher;
 import frc.robot.subsystems.ArduinoLights;
 import frc.robot.subsystems.Climber;
 
+//AUTO COMMANDS FOUND IN AutoCommands.java THIS FILE IS OLD
 public class AutoRoutine extends SequentialCommandGroup {
     // Paths
     //! Not sure what you were trying to do here, these contstructors aren't quite right
