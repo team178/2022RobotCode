@@ -23,9 +23,6 @@ import frc.robot.subsystems.turret.Launcher;
 import libs.OI.ConsoleController;
 import edu.wpi.first.wpilibj2.command.Command;
 
-
-
-
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -40,22 +37,19 @@ public class RobotContainer {
   private final Climber m_climber = new Climber();
   private final LimeLight m_limelight = new LimeLight();
 
-  //Creates joystick object for the Main and Aux controllers
-  private final ConsoleController m_joystick = new ConsoleController(0);
-// Assumes a gamepad plugged into channnel 0
-private final ConsoleController m_controller = new ConsoleController(0);
+  //Creates joystick object for the Main (0) and Aux (1) controllers
+  private final ConsoleController m_controller_main = new ConsoleController(0);
+  private final ConsoleController m_controller_aux = new ConsoleController(1);
+
   // Create SmartDashboard chooser for autonomous routines
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-     // Sets driving to either the main joystick or aux xbox controller (Note to self make method in Joysticks that adjust for thrust and twist)
-    
-     //m_drivetrain.setDefaultCommand(
-        //new TankDrive(m_joystick.getLeftY(), m_joystick.getRightY(), m_drivetrain));
+    // Set drive controls
     m_drivetrain.setDefaultCommand(
-        new TankDrive(m_joystick::getLeftStickY, m_joystick::getRightStickY, m_drivetrain));
+        new TankDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickY, m_drivetrain));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -76,25 +70,25 @@ private final ConsoleController m_controller = new ConsoleController(0);
     //What to include here: LowerMast, RaiseMast, ToggleHook,TomahawkDown, TomahawkUp, DriveStraight, TankDrive, TurnDegrees, PickUp, ShootBall
 
     //Console Controller Mapping 
-    m_controller.y
+    m_controller_aux.y
         .whileHeld(new ShootBall(m_launcher));
 
-    m_controller.a
+    m_controller_aux.a
       .whileHeld(new PickUp(m_intake));
 
-    m_controller.topDPAD
+    m_controller_aux.topDPAD
       .whileHeld(new RaiseMast(m_climber));
 
-    m_controller.bottomDPAD
+    m_controller_aux.bottomDPAD
       .whileHeld(new LowerMast(m_climber));
     
-    m_controller.leftDPAD
+    m_controller_aux.leftDPAD
       .whileHeld(new TomahawkDown(m_climber));
 
-    m_controller.rightDPAD
+    m_controller_aux.rightDPAD
       .whileHeld(new TomahawkUp(m_climber));
 
-    m_controller.x  
+    m_controller_aux.x  
       .whileHeld(new ToggleHook(m_climber));
 
   }
