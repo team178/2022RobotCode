@@ -33,9 +33,9 @@ public class AutoRoutine extends SequentialCommandGroup {
     public static SequentialCommandGroup BasicRightAuto;
     
     public AutoRoutine(DriveTrain drivetrain, Intake intake, Launcher launcher, Climber climber, ArduinoLights arduino, LimeLight limelight) {
-        BasicLeftAuto = new SequentialCommandGroup(new DriveStraight(-.5, drivetrain));
-        BasicMiddleAuto = new SequentialCommandGroup(new DriveStraight(-.5, 9), new WaitCommand(0.2));
-        BasicRightAuto = new SequentialCommandGroup(new DriveStraight(1, -3.116));
+        BasicLeftAuto = new SequentialCommandGroup();
+        BasicMiddleAuto = new SequentialCommandGroup();
+        BasicRightAuto = new SequentialCommandGroup();
         addCommands(
             //add commands for the robot to drive (More commands to driveTrain will be added once PathFinder is coded)
             new DriveStraight(10, drivetrain),
