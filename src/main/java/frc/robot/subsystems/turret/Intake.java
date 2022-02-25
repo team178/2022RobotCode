@@ -12,7 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import frc.robot.Constants.IntakeConstants;
 
-public class Intake extends SubsystemBase implements AutoCloseable {
+public class Intake extends SubsystemBase {
   private final WPI_VictorSPX intakeMotor;
   
   private final DoubleSolenoid intakePiston;  
@@ -52,11 +52,12 @@ public class Intake extends SubsystemBase implements AutoCloseable {
     return intakePiston.get() == DoubleSolenoid.Value.kForward;
   }
   
-  @Override
-  public void close() throws RuntimeException {
-    intakePiston.close();
-    intakeMotor.close();
-  }
+  // Not sure why we need this
+  // @Override
+  // public void close() throws RuntimeException {
+  //   intakePiston.close();
+  //   intakeMotor.close();
+  // }
   
   @Override
   public void periodic() {
