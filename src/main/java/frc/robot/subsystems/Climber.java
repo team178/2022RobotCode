@@ -16,13 +16,13 @@ import frc.robot.Constants.ClimberConstants;
 
 public class Climber extends SubsystemBase {
 
-  private final WPI_VictorSPX climberMotor = new WPI_VictorSPX(ClimberConstants.kClimberMotorPort);
-  private final WPI_VictorSPX extendingArmWinch = new WPI_VictorSPX(ClimberConstants.kExtendingArmWinchPort);
+  private final WPI_VictorSPX climberMotor;
+  private final WPI_VictorSPX extendingArmWinch;
 
-  private final Solenoid hookSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, ClimberConstants.kHookSolenoidPort);
+  private final Solenoid hookSolenoid;
 
-  private final DigitalInput highlimitSwitch = new DigitalInput(ClimberConstants.kHighLimitSwitchPort);
-  private final DigitalInput LowlimitSwitch = new DigitalInput(ClimberConstants.kLowLimitSwitchPort);
+  private final DigitalInput highlimitSwitch;
+  private final DigitalInput LowlimitSwitch;
 
   // Do we need to use rate for climber motor (with a double supplier)
   public Climber() {
@@ -31,6 +31,13 @@ public class Climber extends SubsystemBase {
 
     extendingArmWinch.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     extendingArmWinch.setSensorPhase(true);
+    climberMotor = new WPI_VictorSPX(ClimberConstants.kClimberMotorPort);
+    extendingArmWinch = new WPI_VictorSPX(ClimberConstants.kExtendingArmWinchPort);
+
+    hookSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, ClimberConstants.kHookSolenoidPort);
+
+    highlimitSwitch = new DigitalInput(ClimberConstants.kHighLimitSwitchPort);
+    LowlimitSwitch = new DigitalInput(ClimberConstants.kLowLimitSwitchPort);
   }
 
   /**
