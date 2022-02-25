@@ -26,11 +26,7 @@ public class Climber extends SubsystemBase {
 
   // Do we need to use rate for climber motor (with a double supplier)
   public Climber() {
-    climberMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
-    climberMotor.setSensorPhase(true);
 
-    extendingArmWinch.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
-    extendingArmWinch.setSensorPhase(true);
     climberMotor = new WPI_VictorSPX(ClimberConstants.kClimberMotorPort);
     extendingArmWinch = new WPI_VictorSPX(ClimberConstants.kExtendingArmWinchPort);
 
@@ -84,23 +80,6 @@ public class Climber extends SubsystemBase {
 
   public Solenoid getHookSolenoid() {
     return hookSolenoid;
-  }
-
-  /**
-    * Resets position of motor/winch
-  */
-  
-  public void climberReset() {
-    climberMotor.setSelectedSensorPosition(0);
-    extendingArmWinch.setSelectedSensorPosition(0);
-  }
-  
-  /**
-    * Encoder for motor
-  */
-  
-  public double getClimberMotorEncoder() {
-    return climberMotor.getSelectedSensorPosition(0);
   }
   
   @Override
