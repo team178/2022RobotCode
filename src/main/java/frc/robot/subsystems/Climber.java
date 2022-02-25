@@ -5,8 +5,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -19,7 +19,7 @@ public class Climber extends SubsystemBase {
   private final WPI_VictorSPX climberMotor;
   private final WPI_VictorSPX extendingArmWinch;
 
-  private final Solenoid hookSolenoid;
+  private final DoubleSolenoid hookSolenoid;
 
   private final DigitalInput highlimitSwitch;
   private final DigitalInput LowlimitSwitch;
@@ -30,7 +30,7 @@ public class Climber extends SubsystemBase {
     climberMotor = new WPI_VictorSPX(ClimberConstants.kClimberMotorPort);
     extendingArmWinch = new WPI_VictorSPX(ClimberConstants.kExtendingArmWinchPort);
 
-    hookSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, ClimberConstants.kHookSolenoidPort);
+    hookSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, ClimberConstants.kHookSolenoidPortFWD, ClimberConstants.kHookSolenoidPortREV);
 
     highlimitSwitch = new DigitalInput(ClimberConstants.kHighLimitSwitchPort);
     LowlimitSwitch = new DigitalInput(ClimberConstants.kLowLimitSwitchPort);
@@ -78,7 +78,7 @@ public class Climber extends SubsystemBase {
     * Toggles hook
   */
 
-  public Solenoid getHookSolenoid() {
+  public DoubleSolenoid getHookSolenoid() {
     return hookSolenoid;
   }
   
