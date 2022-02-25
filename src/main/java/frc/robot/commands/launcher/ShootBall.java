@@ -7,12 +7,12 @@ package frc.robot.commands.launcher;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.turret.Launcher;
 
-/** An example command that uses an example subsystem. */
+/** Run the Launcher */
 public class ShootBall extends CommandBase {
   private final Launcher m_launcher;
 
   /**
-   * Creates a new ExampleCommand.
+   * Creates a new ShootBall command
    *
    * @param subsystem The subsystem used by this command.
    */
@@ -20,7 +20,6 @@ public class ShootBall extends CommandBase {
     m_launcher = launcher;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(launcher);
-
   }
 
   // Called when the command is initially scheduled.
@@ -30,11 +29,8 @@ public class ShootBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
     m_launcher.setFlyWheelSpeed(1);
     m_launcher.setFeedWheelSpeed(1);
-
-
   }
 
   // Called once the command ends or is interrupted.
@@ -42,7 +38,6 @@ public class ShootBall extends CommandBase {
   public void end(boolean interrupted) {
     m_launcher.setFlyWheelSpeed(0);
     m_launcher.setFeedWheelSpeed(0);
-    
   }
 
   // Returns true when the command should end.
