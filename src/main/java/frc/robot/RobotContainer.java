@@ -32,10 +32,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_drivetrain;
-  // private final Intake m_intake = new Intake();
-  // private final Launcher m_launcher =  new Launcher();
-  // private final Climber m_climber = new Climber();
-  // private final LimeLight m_limelight = new LimeLight();
+  private final Intake m_intake;
+  private final Launcher m_launcher;
+  private final Climber m_climber;
+  private final LimeLight m_limelight;
 
   //Creates joystick object for the Main (0) and Aux (1) controllers
   private final ConsoleController m_controller_main = new ConsoleController(0);
@@ -48,6 +48,10 @@ public class RobotContainer {
   public RobotContainer() {
 
     m_drivetrain = new DriveTrain();
+    m_intake = new Intake();
+    m_launcher = new Launcher();
+    m_climber = new Climber();
+    m_limelight = new LimeLight();
 
     // Set drive controls
     m_drivetrain.setDefaultCommand(
