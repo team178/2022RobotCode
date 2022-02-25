@@ -13,11 +13,14 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import frc.robot.Constants.IntakeConstants;
 
 public class Intake extends SubsystemBase implements AutoCloseable {
-  private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(IntakeConstants.MOTOR_PORT);
+  private final WPI_VictorSPX intakeMotor;
   
-  private final DoubleSolenoid intakePiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.PISTON_FWD, IntakeConstants.PISTON_REV);  
+  private final DoubleSolenoid intakePiston;  
  
-  public Intake() {}
+  public Intake() {
+    intakeMotor = new WPI_VictorSPX(IntakeConstants.MOTOR_PORT);
+    intakePiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.PISTON_FWD, IntakeConstants.PISTON_REV);
+  }
   
   /**
    * Deploys the pistons
@@ -31,7 +34,6 @@ public class Intake extends SubsystemBase implements AutoCloseable {
   */
   public void retract() {
     intakePiston.set(DoubleSolenoid.Value.kReverse);
-    //intakeMotor.set(0);
   }
   
   /**
