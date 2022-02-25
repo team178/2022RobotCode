@@ -7,14 +7,15 @@ package frc.robot.commands.intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.turret.Intake;
 
-/** An example command that uses an example subsystem. */
+/** Pick up balls with the Intake */
 public class PickUp extends CommandBase {
+  
   private final Intake m_intake;
 
   /**
-   * Creates a new ExampleCommand.
+   * Creates a new PickUp command.
    *
-   * @param subsystem The subsystem used by this command.
+   * @param intake the Intake subsystem.
    */
   public PickUp(Intake intake) {
     m_intake = intake;
@@ -31,15 +32,18 @@ public class PickUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!m_intake.activate(1)) { //direction may need to be changed based on intake
+    if (!m_intake.isDeployed()) {
       m_intake.deploy();
-      m_intake.activate(1);
     }
+
+    m_intake.setSpeed(1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) throws RuntimeException {
+    m_intake.retract();
+    m_intake.setSpeed(0);
     m_intake.close();
   }
 

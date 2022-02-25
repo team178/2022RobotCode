@@ -35,17 +35,21 @@ public class Intake extends SubsystemBase implements AutoCloseable {
   public void retract() {
     intakePiston.set(DoubleSolenoid.Value.kReverse);
   }
-  
+
   /**
-    * Activates the motor and pistons
-  */
-  public boolean activate(double speed) {
-    if (intakePiston.get() == DoubleSolenoid.Value.kForward) {
-      intakeMotor.set(speed);
-      return true;
-    }
-    intakeMotor.set(0);
-    return false;
+   * Set the speed of the intake motors
+   * @param speed A percent speed value, between -1.0 and 1.0
+   */
+  public void setSpeed(double speed) {
+    intakeMotor.set(speed);
+  }
+
+  /**
+   * Get if the Intake is deployed
+   * @return is the Intake deployed?
+   */
+  public boolean isDeployed() {
+    return intakePiston.get() == DoubleSolenoid.Value.kForward;
   }
   
   @Override
