@@ -15,12 +15,15 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.commands.launcher.AutoShootBall;
 import frc.robot.commands.launcher.ShootBall;
 import frc.robot.commands.limelight.AimRange;
 import frc.robot.commands.limelight.modifiedAim;
 import frc.robot.commands.limelight.modifiedRange;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.autonomous.AutoCommands;
+import frc.robot.commands.autonomous.AutoRoutine;
 import frc.robot.commands.climber.LowerMast;
 import frc.robot.commands.climber.RaiseMast;
 import frc.robot.commands.climber.ToggleHook;
@@ -28,7 +31,9 @@ import frc.robot.commands.climber.TomahawkDown;
 import frc.robot.commands.climber.TomahawkUp;
 import frc.robot.commands.drivetrain.ArcadeDrive;
 import frc.robot.commands.drivetrain.TankDrive;
+import frc.robot.commands.intake.AutoPickUp;
 import frc.robot.commands.intake.PickUp;
+import frc.robot.subsystems.ArduinoLights;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimeLight;
@@ -50,6 +55,7 @@ public class RobotContainer {
   private final Launcher m_launcher;
   private final Climber m_climber;
   private final LimeLight m_limelight;
+  private final ArduinoLights m_arduino;
 
   //Creates joystick object for the Main (0) and Aux (1) controllers
   private final ConsoleController m_controller_main = new ConsoleController(0);
@@ -71,6 +77,9 @@ public class RobotContainer {
     m_launcher = new Launcher();
     m_climber = new Climber();
     m_limelight = new LimeLight();
+    m_arduino = new ArduinoLights(0, 1, 2);
+
+    AutoCommands.init(m_drivetrain, m_intake, m_launcher,m_arduino, m_limelight);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -84,10 +93,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
-    /*m_joystick.whenpressed() {
-      
-    }*/
 
     //What to include here: LowerMast, RaiseMast, ToggleHook,TomahawkDown, TomahawkUp, DriveStraight, TankDrive, TurnDegrees, PickUp, ShootBall
 
@@ -143,7 +148,8 @@ public class RobotContainer {
     m_driveChooser.addOption("Arcade Drive", new ArcadeDrive(m_driveAxis1, m_driveAxis2, m_drivetrain));
 
     //Autonomous Chooser Options (How our robot is going to tackle auto)
-    m_autoChooser.setDefaultOption("Modified Range", new modifiedRange(m_drivetrain, m_limelight));
+    m_autoChooser.setDefaultOption("Red Middle Auto", AutoCommands.RedMiddleAuto);
+    m_autoChooser.addOption("Modified Range", new modifiedRange(m_drivetrain, m_limelight));
     m_autoChooser.addOption("Modified Aim", new modifiedAim(m_drivetrain, m_limelight));
     m_autoChooser.addOption("Aim and Range", new AimRange(m_drivetrain, m_limelight));
 
@@ -214,10 +220,13 @@ public class RobotContainer {
     driveCommands.add("Arcade Drive", new ArcadeDrive(m_driveAxis1, m_driveAxis2, m_drivetrain));
 
     //Adds a Layout (basically a empty list) to the Drivebase tab for Limelight Commands 
-    ShuffleboardLayout driveConstants = driveBaseTab
-      .getLayout("Drive Constants", BuiltInLayouts.kList)
+    ShuffleboardLayout turretCommands = driveBaseTab
+      .getLayout("Turret Commands", BuiltInLayouts.kList)
         .withSize(2, 2)
           .withPosition(6, 4);
+
+    turretCommands.add(new AutoPickUp(m_intake));
+    turretCommands.add(new AutoShootBall(m_launcher, m_arduino));
   }
 
   /**

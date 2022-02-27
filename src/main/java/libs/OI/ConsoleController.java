@@ -88,7 +88,4 @@ public class ConsoleController {
     public double getRightTrigger() {
         return controller.getRawAxis(3);
     }
-
-    public void whenpressed() {
-    }
 }
