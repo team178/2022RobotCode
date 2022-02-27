@@ -12,7 +12,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class LimeLight extends SubsystemBase {
     
     private NetworkTable table;
+
     private boolean isConnected = false;
+    
+    private double lensHeight = 0; // Input height of the center of the limelight lens relative to the floor in meters
+    private double mountAngle = 0; // Input how many degrees back is limelight rotated from perfectly vertical
 
     public LimeLight() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -38,14 +42,14 @@ public class LimeLight extends SubsystemBase {
     }
 
     /**
-     * @return the horizontal offset from crosshair to target (-27 to +27 degrees)
+     * @return the horizontal offset from crosshair to target (-29.8 to +29.8 degrees)
      */
     public double getHorizontalDegToTarget() {
         return table.getEntry("tx").getDouble(0);
     }
 
     /**
-     * @return vertical offset from crosshair to target (-20.5 to +20.5 degrees)
+     * @return vertical offset from crosshair to target (-24.85 to +24.85 degrees)
      */
     public double getVerticalDegToTarget() {
         return table.getEntry("ty").getDouble(0);
@@ -97,6 +101,21 @@ public class LimeLight extends SubsystemBase {
         return table.getEntry("pipeline").getDouble(0.0);
     }
 
+
+    /**
+     * See diagram https://docs.limelightvision.io/en/latest/_images/DistanceEstimation.jpg
+     * @param targetHeight height of the target relative to the floor in meters
+     * @return distance from target in meters
+    */
+    public double estimateDistance(double targetHeight){
+        double angleToTargetDegree = mountAngle + getVerticalDegToTarget();
+        double angleToTargetRadians = angleToTargetDegree * (Math.PI / 180);
+
+        double distanceToTarget = (targetHeight - lensHeight) / Math.tan(angleToTargetRadians);
+
+        return distanceToTarget;
+    }
+
     /** The log method puts interesting information to the SmartDashboard. */
     public void log() {
         SmartDashboard.putNumber("LimelightX", getHorizontalDegToTarget());
@@ -107,6 +126,6 @@ public class LimeLight extends SubsystemBase {
     @Override
     public void periodic() {
         log();
+      
     }
-
 }

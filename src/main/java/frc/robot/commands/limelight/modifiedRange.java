@@ -9,20 +9,20 @@ import frc.robot.subsystems.LimeLight;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Based on the Getting in Range and Aim Case Studies 
+ * Based on the Getting in Range Case Study 
  */
-public class AimRange extends CommandBase {
+public class modifiedRange extends CommandBase {
 
   private final DriveTrain m_drivetrain;
   private final LimeLight m_limelight;
 
-  // Fields for range
   private boolean crosshairCalibrated = false;
   
   private double KpAngle;
   private double KpMeter;
 
-  private double rangeTolerance;
+  private double angleTolerance;
+  private double meterTolerance;
   
   private double desiredDistance;
 
@@ -31,16 +31,6 @@ public class AimRange extends CommandBase {
 
   private double minDriveSpeed;
 
-  // Fields for aim
-  private double KpAim;
-
-  private double aimTolerance;
-
-  private double turnAdjust;
-  private double headingError;
-  
-  private double minTurnSpeed;
-
   /**
    * Use this constructor cross-hair has been calibrated for the distance we want, 
    * thus we can use ty to command our distance error
@@ -48,7 +38,7 @@ public class AimRange extends CommandBase {
    * @param drivetrain
    * @param limelight
    */
-  public AimRange(DriveTrain drivetrain, LimeLight limelight) {
+  public modifiedRange(DriveTrain drivetrain, LimeLight limelight) {
     m_drivetrain = drivetrain;
     m_limelight = limelight;
 
@@ -66,7 +56,7 @@ public class AimRange extends CommandBase {
    * @param limelight
    * @param desiredDistance
    */
-  public AimRange(DriveTrain drivetrain, LimeLight limelight, double desiredDistance) {
+  public modifiedRange(DriveTrain drivetrain, LimeLight limelight, double desiredDistance) {
     m_drivetrain = drivetrain;
     m_limelight = limelight;
 
@@ -79,48 +69,36 @@ public class AimRange extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // Initialize Range Fields
     KpAngle = 0.005;
-    KpMeter = 0.005;
-    
-    minDriveSpeed = 0.345;
+    KpMeter = .005;
 
-    // Initialize Aim Fields
-    KpAim = 0.03;
-    minTurnSpeed = 0.05;
-    aimTolerance = 0.8;
+    angleTolerance = 0.1;
+    meterTolerance = 0.1;
+    
+    minDriveSpeed = .345;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double horizontalDegTarget = m_limelight.getHorizontalDegToTarget(); 
-
-    headingError = ((horizontalDegTarget != 0) ? -horizontalDegTarget : headingError);
 
     if(!crosshairCalibrated){
         double currentDistance = m_limelight.estimateDistance(0); // Input actually height from target later
-        rangeTolerance = 0.1;
         
         distanceError = desiredDistance - currentDistance;
         driveAdjust = KpMeter * distanceError;
     }
     else{
         double verticalDegTarget = m_limelight.getVerticalDegToTarget();
-        rangeTolerance = 0.1;
 
         distanceError = ((verticalDegTarget != 0) ? -verticalDegTarget : distanceError);
         driveAdjust = KpAngle * distanceError;
     }
 
-    driveAdjust = ((Math.abs(driveAdjust) < minDriveSpeed && Math.abs(distanceError) > rangeTolerance) ? minDriveSpeed + driveAdjust : driveAdjust); // Added the latter condition to ensure that if the drive adjust ends earlier than the turn adjust, the robot stops moving along the x axis
+    driveAdjust = ((Math.abs(driveAdjust) < minDriveSpeed) ? minDriveSpeed + driveAdjust : driveAdjust);
     driveAdjust = ((distanceError > 0) ? -driveAdjust: driveAdjust);
 
-    turnAdjust = KpAim * headingError; // Multiplies our error by our speed constant, that way we have a useable speed
-    turnAdjust = ((Math.abs(turnAdjust) < minTurnSpeed && Math.abs(distanceError) > aimTolerance) ? minTurnSpeed + turnAdjust : turnAdjust); // Ensures we do go under min speed needed to turn
-    turnAdjust = ((headingError > 0) ? -turnAdjust : turnAdjust); // Ensures correct directional change
-
-    m_drivetrain.arcadeDrive(driveAdjust, turnAdjust);
+    m_drivetrain.arcadeDrive(driveAdjust, 0);
   }
 
   // Called once the command ends or is interrupted.
@@ -132,7 +110,11 @@ public class AimRange extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (((Math.abs(headingError) <= aimTolerance && Math.abs(distanceError) <= rangeTolerance) ? true : false));
+    if(!crosshairCalibrated){
+      return Math.abs(distanceError) <= meterTolerance; 
+    }
+    else{
+      return Math.abs(distanceError) <= angleTolerance;
+    }
   }
-
 }

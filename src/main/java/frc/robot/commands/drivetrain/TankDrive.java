@@ -6,6 +6,7 @@ package frc.robot.commands.drivetrain;
 
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.function.DoubleSupplier;
@@ -14,8 +15,8 @@ import java.util.function.DoubleSupplier;
 public class TankDrive extends CommandBase {
   private final DriveTrain m_drivetrain;
 
-  private DoubleSupplier m_left;
-  private DoubleSupplier m_right;
+  private SendableChooser<DoubleSupplier> m_left;
+  private SendableChooser<DoubleSupplier> m_right;
 
   /**
    * Creates a new TankDrive command.
@@ -24,18 +25,18 @@ public class TankDrive extends CommandBase {
    * @param right The control input for the right sight of the drive
    * @param drivetrain The drivetrain subsystem to drive
    */
-  public TankDrive(DoubleSupplier left, DoubleSupplier right, DriveTrain drivetrain) {
+  public TankDrive(SendableChooser<DoubleSupplier> left, SendableChooser<DoubleSupplier> right, DriveTrain drivetrain) {
     m_drivetrain = drivetrain;
     m_left = left;
     m_right = right;
     addRequirements(drivetrain);
-  }
+  } 
 
-  // Called repeatedly when this Command is scheduled to run
+// Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    double leftSpeed = m_left.getAsDouble() * OIConstants.kThrustSpeedMult;
-    double rightSpeed = m_right.getAsDouble() * OIConstants.kThrustSpeedMult;
+    double leftSpeed = m_left.getSelected().getAsDouble() * OIConstants.kDriveSpeedMult1.getDouble(1.0);
+    double rightSpeed = m_right.getSelected().getAsDouble() * OIConstants.kDriveSpeedMult2.getDouble(1.0);
 
     if(Math.abs(leftSpeed) < 0.2) {
       leftSpeed = 0;

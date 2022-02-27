@@ -1,5 +1,7 @@
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -41,7 +43,8 @@ public final class Constants {
     public static final int kJoystickPort = 0;
     public static final int kControllerPort = 1;
 
-    public static double kThrustSpeedMult = 1;
+    public static NetworkTableEntry kDriveSpeedMult1;
+    public static NetworkTableEntry kDriveSpeedMult2;
   }
   
   public static final class IntakeConstants{
