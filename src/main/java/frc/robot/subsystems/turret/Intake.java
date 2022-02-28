@@ -28,7 +28,7 @@ public class Intake extends SubsystemBase {
     intakePiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.kForwardPort, IntakeConstants.kRevPort);
     bouncer = new Solenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.kBouncerPort);
 
-    limitSwitch = new DigitalInput(IntakeConstants.kMotorPort);
+    limitSwitch = new DigitalInput(IntakeConstants.kLimitSwitchPort);
   }
   
   /**
