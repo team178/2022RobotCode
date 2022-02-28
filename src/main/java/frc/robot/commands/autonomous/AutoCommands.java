@@ -45,7 +45,7 @@ public class AutoCommands {
         RedRightAuto = new SequentialCommandGroup(
             new AutoDrive(1, 85.67 /* inches?? */, drivetrain),
             new TurnDegrees(1, 270, drivetrain),
-            new AutoDrive(1, 34.39 /* inches?? */, drivetrain),
+            new AutoDrive(1, 28.89 /* inches?? */, drivetrain),
             new AutoPickUp(intake),
             new AimRange(drivetrain, limelight),
             new AutoShootBall(feeder, lights)
@@ -68,7 +68,7 @@ public class AutoCommands {
         BlueRightAuto = new SequentialCommandGroup(
             new AutoDrive(1, 85.67 /* inches?? */, drivetrain),
             new TurnDegrees(1, 270, drivetrain),
-            new AutoDrive(1, 34.39 /* inches?? */, drivetrain),
+            new AutoDrive(1, 28.89 /* inches?? */, drivetrain),
             new AutoPickUp(intake),
             new AimRange(drivetrain, limelight),
             new AutoShootBall(feeder, lights)
