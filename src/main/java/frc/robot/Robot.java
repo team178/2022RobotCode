@@ -79,9 +79,6 @@ public class Robot extends TimedRobot {
   */
   @Override
   public void teleopInit() {
-    // Get selected drive routine from the SmartDashboard
-    m_robotContainer.setDriveCommand();
-
     // This makes sure that the autonomous stops running which will
     // use the default command which is ArcadeDrive. If you want the autonomous
     // to continue until interrupted by another command, remove
