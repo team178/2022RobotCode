@@ -74,8 +74,8 @@ public final class Constants {
     public static final int kClimberMotorPort = 5;
     public static final int kExtendingArmWinchPort = 6; 
 
-    public static final int kHookSolenoidPortFWD = 2;
-    public static final int kHookSolenoidPortREV = 3;
+    public static final int kHookSolenoidPortFWD = 3;
+    public static final int kHookSolenoidPortREV = 4;
 
     public static final int kHighLimitSwitchPort = 0;
     public static final int kLowLimitSwitchPort = 1;
