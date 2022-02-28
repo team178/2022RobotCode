@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.arduinolights.Shoot;
 import frc.robot.subsystems.ArduinoLights;
-import frc.robot.subsystems.turret.Launcher;
+import frc.robot.subsystems.turret.Feeder;
 
 /** Run the Launcher */
 public class AutoShootBall extends ParallelCommandGroup {
   
-    private final Launcher m_launcher;
+  private final Feeder m_feeder;
   private double startTime;
 
   /**
@@ -21,31 +21,27 @@ public class AutoShootBall extends ParallelCommandGroup {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public AutoShootBall(Launcher launcher, ArduinoLights lights) {
-    m_launcher = launcher;
+  public AutoShootBall(Feeder feeder, ArduinoLights lights) {
+    m_feeder = feeder;;
     alongWith(new Shoot(lights));
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(launcher);
+    addRequirements(feeder);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    startTime = Timer.getFPGATimestamp();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_launcher.setFlyWheelSpeed(1);
-    m_launcher.setFeedWheelSpeed(1);
+    m_feeder.setSpeed(1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_launcher.setFlyWheelSpeed(0);
-    m_launcher.setFeedWheelSpeed(0);
+    m_feeder.setSpeed(0);
   }
 
   // Returns true when the command should end.

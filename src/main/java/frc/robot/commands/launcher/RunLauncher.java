@@ -5,21 +5,21 @@
 package frc.robot.commands.launcher;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.turret.Feeder;
+import frc.robot.subsystems.turret.Launcher;
 
-/** Run the feeder to push a ball into the running launcher */
-public class ShootBall extends CommandBase {
-  private final Feeder m_feeder;
+/** Run the Launcher at it's set speed */
+public class RunLauncher extends CommandBase {
+  private final Launcher m_launcher;
 
   /**
-   * Creates a new ShootBall command
+   * Creates a new RunLauncher command
    *
-   * @param subsystem The subsystem used by this command.
+   * @param launcher The Launcher subsystem.
    */
-  public ShootBall(Feeder feeder) {
-    m_feeder = feeder;
+  public RunLauncher(Launcher launcher) {
+    m_launcher = launcher;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(feeder);
+    addRequirements(launcher);
   }
 
   // Called when the command is initially scheduled.
@@ -29,13 +29,13 @@ public class ShootBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_feeder.setSpeed(1);
+    m_launcher.setSpeed(0.6);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_feeder.setSpeed(0);
+    m_launcher.setSpeed(0);
   }
 
   // Returns true when the command should end.

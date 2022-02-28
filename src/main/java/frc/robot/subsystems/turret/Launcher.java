@@ -40,7 +40,6 @@ public class Launcher extends SubsystemBase {
     m_pidController.setIZone(LauncherConstants.kIz);
     m_pidController.setFF(LauncherConstants.kFF);
     m_pidController.setOutputRange(0, 1);
-
   }
 
   public void setSpeed(double speed){

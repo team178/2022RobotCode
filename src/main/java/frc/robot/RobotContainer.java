@@ -33,8 +33,10 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.turret.Intake;
 import frc.robot.subsystems.turret.Launcher;
+import frc.robot.subsystems.turret.Feeder;
 import libs.OI.ConsoleController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -45,8 +47,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_drivetrain;
+
   private final Intake m_intake;
   private final Launcher m_launcher;
+  private final Feeder m_feeder;
+
   private final Climber m_climber;
   private final LimeLight m_limelight;
   private final ArduinoLights m_arduino;
@@ -62,11 +67,16 @@ public class RobotContainer {
   public RobotContainer() {
 
     m_drivetrain = new DriveTrain();
+
     m_intake = new Intake();
     m_launcher = new Launcher();
+    m_feeder = new Feeder();
+
     m_climber = new Climber();
     m_limelight = new LimeLight();
     m_arduino = new ArduinoLights(7, 8, 9);
+
+    m_launcher.setDefaultCommand(new RunLauncher(m_launcher));
     m_drivetrain.setDefaultCommand(
       new TankDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickY, m_drivetrain));
 
@@ -87,10 +97,14 @@ public class RobotContainer {
 
     //Console Controller Mapping 
     m_controller_aux.y
-      .whileHeld(new ShootBall(m_launcher));
+      .whileHeld(new ShootBall(m_feeder));
 
     m_controller_aux.a
-      .whileHeld(new PickUp(m_intake));
+      .whileHeld(
+        new ParallelCommandGroup(
+          new PickUp(m_intake),
+          new StopLauncher(m_launcher)
+        ));
 
     m_controller_aux.topDPAD
       .whileHeld(new RaiseMast(m_climber));
@@ -143,7 +157,7 @@ public class RobotContainer {
           .withPosition(6, 4);
 
     turretCommands.add(new AutoPickUp(m_intake));
-    turretCommands.add(new AutoShootBall(m_launcher, m_arduino));
+    turretCommands.add(new AutoShootBall(m_feeder, m_arduino));
   }
 
   /**

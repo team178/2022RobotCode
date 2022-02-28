@@ -18,6 +18,7 @@ import frc.robot.commands.intake.PickUp;
 
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimeLight;
+import frc.robot.subsystems.turret.Feeder;
 import frc.robot.subsystems.turret.Intake;
 import frc.robot.subsystems.turret.Launcher;
 import frc.robot.subsystems.ArduinoLights;
@@ -31,7 +32,7 @@ public class AutoRoutine extends SequentialCommandGroup {
     public static SequentialCommandGroup BasicMiddleAuto;
     public static SequentialCommandGroup BasicRightAuto;
     
-    public AutoRoutine(DriveTrain drivetrain, Intake intake, Launcher launcher, Climber climber, ArduinoLights arduino, LimeLight limelight) {
+    public AutoRoutine(DriveTrain drivetrain, Intake intake, Launcher launcher, Feeder feeder, Climber climber, ArduinoLights arduino, LimeLight limelight) {
         BasicLeftAuto = new SequentialCommandGroup();
         BasicMiddleAuto = new SequentialCommandGroup();
         BasicRightAuto = new SequentialCommandGroup();
@@ -54,7 +55,7 @@ public class AutoRoutine extends SequentialCommandGroup {
             new AimRange(drivetrain, limelight),
 
             //add launcher command to shoot ball
-            new ShootBall(launcher),
+            new ShootBall(feeder),
             
             //add arduino commands
             new Climb(arduino),
