@@ -42,7 +42,9 @@ public class AutoCommands {
         );
         
         RedRightAuto = new SequentialCommandGroup(
-            //Pathing commands
+            new AutoDrive(1, 85.67 /* inches?? */, drivetrain),
+            new TurnDegrees(1, 270, drivetrain),
+            new AutoDrive(1, 34.39 /* inches?? */, drivetrain),
             new AutoPickUp(intake),
             new AimRange(drivetrain, limelight),
             new AutoShootBall(launcher, lights)
