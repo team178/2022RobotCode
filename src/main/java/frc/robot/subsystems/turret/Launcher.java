@@ -6,8 +6,6 @@ package frc.robot.subsystems.turret;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
@@ -20,7 +18,6 @@ public class Launcher extends SubsystemBase {
   
   private CANSparkMax m_flywheel;
   private CANSparkMax m_flywheel_follower;
-  private WPI_VictorSPX m_feedwheel;
 
   private SparkMaxPIDController m_pidController;
   private RelativeEncoder m_encoder;
@@ -28,9 +25,6 @@ public class Launcher extends SubsystemBase {
   public Launcher() {
     m_flywheel = new CANSparkMax(LauncherConstants.kFlyWheelMotorPort1, MotorType.kBrushed);
     m_flywheel_follower = new CANSparkMax(LauncherConstants.kFlyWheelMotorPort2, MotorType.kBrushed);
-    m_feedwheel = new WPI_VictorSPX(LauncherConstants.kFeedWheelMotorPort);
-
-    m_feedwheel.setInverted(true);
 
     m_flywheel.restoreFactoryDefaults();
 
@@ -49,16 +43,10 @@ public class Launcher extends SubsystemBase {
 
   }
 
-  public void setFlyWheelSpeed(double speed){
+  public void setSpeed(double speed){
     double setPoint = speed * LauncherConstants.kMaxRPM;
     m_pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
     System.out.println(setPoint);
-  }
-
-  public void setFeedWheelSpeed(double speed){
-
-    m_feedwheel.set(speed);
-
   }
 
   public void reset() {
