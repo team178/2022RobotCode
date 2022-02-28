@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * Based on the Getting in Range Case Study 
  */
-public class modifiedRange extends CommandBase {
+public class ModifiedRange extends CommandBase {
 
   private final DriveTrain m_drivetrain;
   private final LimeLight m_limelight;
@@ -38,7 +38,7 @@ public class modifiedRange extends CommandBase {
    * @param drivetrain
    * @param limelight
    */
-  public modifiedRange(DriveTrain drivetrain, LimeLight limelight) {
+  public ModifiedRange(DriveTrain drivetrain, LimeLight limelight) {
     m_drivetrain = drivetrain;
     m_limelight = limelight;
 
@@ -56,7 +56,7 @@ public class modifiedRange extends CommandBase {
    * @param limelight
    * @param desiredDistance
    */
-  public modifiedRange(DriveTrain drivetrain, LimeLight limelight, double desiredDistance) {
+  public ModifiedRange(DriveTrain drivetrain, LimeLight limelight, double desiredDistance) {
     m_drivetrain = drivetrain;
     m_limelight = limelight;
 

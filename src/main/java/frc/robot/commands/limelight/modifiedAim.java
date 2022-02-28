@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
     
 */
 
-public class modifiedAim extends CommandBase {
+public class ModifiedAim extends CommandBase {
 
   private final DriveTrain m_drivetrain;
   private final LimeLight m_limelight;
@@ -35,7 +35,7 @@ public class modifiedAim extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public modifiedAim(DriveTrain drivetrain, LimeLight limelight) {
+  public ModifiedAim(DriveTrain drivetrain, LimeLight limelight) {
     m_drivetrain = drivetrain;
     m_limelight = limelight;
     
