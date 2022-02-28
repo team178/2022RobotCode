@@ -36,15 +36,19 @@ public class PickUp extends CommandBase {
       m_intake.deploy();
     }
 
+    if (!m_intake.getSwitchState()) {
+      m_intake.enableBouncer();
+    }
+
     m_intake.setSpeed(1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) throws RuntimeException {
+    m_intake.disableBouncer();
     m_intake.retract();
     m_intake.setSpeed(0);
-    // m_intake.close();
   }
 
   // Returns true when the command should end.

@@ -47,10 +47,13 @@ public final class Constants {
   }
   
   public static final class IntakeConstants{
-    public static final int MOTOR_PORT = 7;
+    public static final int kMotorPort = 7;
     
-    public static final int PISTON_FWD = 0; //Put in random integer
-    public static final int PISTON_REV = 1; //Put in random integer    
+    public static final int kForwardPort = 0;
+    public static final int kRevPort = 1;
+    public static final int kBouncerPort = 2;
+
+    public static final int kLimitSwitchPort = 3;
   }
   
   public static final class LauncherConstants{
