@@ -32,20 +32,21 @@ public class Launcher extends SubsystemBase {
 
     m_encoder = m_flywheel.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 4096);
 
-    m_pidController = m_flywheel.getPIDController();
+    // m_pidController = m_flywheel.getPIDController();
 
-    m_pidController.setP(LauncherConstants.kP);
-    m_pidController.setI(LauncherConstants.kI);
-    m_pidController.setD(LauncherConstants.kD);
-    m_pidController.setIZone(LauncherConstants.kIz);
-    m_pidController.setFF(LauncherConstants.kFF);
-    m_pidController.setOutputRange(0, 1);
+    // m_pidController.setP(LauncherConstants.kP);
+    // m_pidController.setI(LauncherConstants.kI);
+    // m_pidController.setD(LauncherConstants.kD);
+    // m_pidController.setIZone(LauncherConstants.kIz);
+    // m_pidController.setFF(LauncherConstants.kFF);
+    // m_pidController.setOutputRange(0, 1);
   }
 
   public void setSpeed(double speed){
-    double setPoint = speed * LauncherConstants.kMaxRPM;
-    m_pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
-    System.out.println(setPoint);
+    // double setPoint = speed * LauncherConstants.kMaxRPM;
+    // m_pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
+    // System.out.println(setPoint);
+    m_flywheel.set(speed);
   }
 
   public void reset() {
