@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems.turret;
 
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -18,7 +17,7 @@ public class Intake extends SubsystemBase {
   private final WPI_VictorSPX intakeMotor;
   
   private final DoubleSolenoid intakePiston;
-  private final Solenoid bouncer;  
+  private final DoubleSolenoid bouncer;  
 
   private final DigitalInput limitSwitch;
  
@@ -26,7 +25,7 @@ public class Intake extends SubsystemBase {
     intakeMotor = new WPI_VictorSPX(IntakeConstants.kMotorPort);
 
     intakePiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.kForwardPort, IntakeConstants.kRevPort);
-    bouncer = new Solenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.kBouncerPort);
+    bouncer = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.kBouncerPortFOR, IntakeConstants.kBouncerPortREV);
 
     limitSwitch = new DigitalInput(IntakeConstants.kLimitSwitchPort);
   }
@@ -46,11 +45,11 @@ public class Intake extends SubsystemBase {
   }
 
   public void enableBouncer() {
-    bouncer.set(true);
+    bouncer.set(DoubleSolenoid.Value.kForward);
   }
 
   public void disableBouncer() {
-    bouncer.set(false);
+    bouncer.set(DoubleSolenoid.Value.kReverse);
   }
 
   /**

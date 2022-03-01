@@ -51,7 +51,8 @@ public final class Constants {
     
     public static final int kForwardPort = 0;
     public static final int kRevPort = 1;
-    public static final int kBouncerPort = 2;
+    public static final int kBouncerPortFOR = 2;
+    public static final int kBouncerPortREV = 3;
 
     public static final int kLimitSwitchPort = 3;
   }
@@ -74,8 +75,8 @@ public final class Constants {
     public static final int kClimberMotorPort = 5;
     public static final int kExtendingArmWinchPort = 6; 
 
-    public static final int kHookSolenoidPortFWD = 3;
-    public static final int kHookSolenoidPortREV = 4;
+    public static final int kHookSolenoidPortFWD = 4;
+    public static final int kHookSolenoidPortREV = 5;
 
     public static final int kHighLimitSwitchPort = 0;
     public static final int kLowLimitSwitchPort = 1;

@@ -36,7 +36,7 @@ public class PickUp extends CommandBase {
       m_intake.deploy();
     }
 
-    if (!m_intake.getSwitchState()) {
+    if (m_intake.getSwitchState()) {
       m_intake.enableBouncer();
     }
 
