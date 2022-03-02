@@ -69,7 +69,7 @@ public class Intake extends SubsystemBase {
   }
 
   public boolean getSwitchState() {
-    return limitSwitch.get();
+    return !limitSwitch.get();
   }
   
   // Not sure why we need this
