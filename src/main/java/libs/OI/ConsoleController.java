@@ -39,10 +39,15 @@ public class ConsoleController {
     public POVButton rightBottomDPAD; 
     public POVButton leftBottomDPAD; 
     public POVButton rightTopDPAD;
-    public POVButton leftTopDPAD;     
+    public POVButton leftTopDPAD;
+
+    public AxisButton leftTrigger; 
+    public AxisButton rightTrigger;    
 
     public ConsoleController(int port) {
         controller = new Joystick(port);
+        a = new JoystickButton(controller, 1);
+        a = new JoystickButton(controller, 1);
         a = new JoystickButton(controller, 1);
         b = new JoystickButton(controller, 2);
         x = new JoystickButton(controller, 3);
@@ -63,6 +68,9 @@ public class ConsoleController {
         leftBottomDPAD = new POVButton(controller, 225);
         rightTopDPAD = new POVButton(controller, 45);
         leftTopDPAD = new POVButton(controller, 315);
+
+        leftTrigger = new AxisButton(controller, 2);
+        rightTrigger = new AxisButton(controller, 3);
     }
 
     public double getLeftStickX() {
