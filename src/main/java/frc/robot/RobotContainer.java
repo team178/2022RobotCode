@@ -103,16 +103,16 @@ public class RobotContainer {
     m_controller_aux.a
       .whileHeld(new PickUp(m_intake));
 
-    m_controller_aux.topDPAD
+    m_controller_main.leftBumper
       .whileHeld(new RaiseMast(m_climber));
 
-    m_controller_aux.bottomDPAD
+    m_controller_main.rightBumper
       .whileHeld(new LowerMast(m_climber));
     
-    m_controller_aux.leftDPAD
+    m_controller_main.leftTrigger
       .whileHeld(new TomahawkDown(m_climber));
 
-    m_controller_aux.rightDPAD
+    m_controller_main.rightTrigger
       .whileHeld(new TomahawkUp(m_climber));
 
     m_controller_aux.x  
