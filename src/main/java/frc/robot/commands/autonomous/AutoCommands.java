@@ -30,9 +30,12 @@ public class AutoCommands {
     public static void init(DriveTrain drivetrain, Intake intake, Launcher launcher, Feeder feeder, ArduinoLights lights, LimeLight limelight) {
         // TO-DO: need to add pathing commands in group
         RedLeftAuto = new SequentialCommandGroup(
+            new TurnDegrees(1, -15, drivetrain),
+            new AutoDrive(1, -86.75 /* inches?? */, drivetrain),
             new AutoPickUp(intake),
             new AimRange(drivetrain, limelight),
             new AutoShootBall(feeder, lights)
+
         );
         
         RedMiddleAuto = new SequentialCommandGroup(
@@ -53,6 +56,8 @@ public class AutoCommands {
 
         BlueLeftAuto = new SequentialCommandGroup(
             //Pathing commands
+            new TurnDegrees(1, -15, drivetrain),
+            new AutoDrive(1, -86.75 /* inches?? */, drivetrain),
             new AutoPickUp(intake),
             new AimRange(drivetrain, limelight),
             new AutoShootBall(feeder, lights)
