@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.launcher.AutoShootBall;
 import frc.robot.commands.launcher.RunLauncher;
 import frc.robot.commands.launcher.ShootBall;
-import frc.robot.commands.launcher.StopLauncher;
 import frc.robot.commands.limelight.AimRange;
 import frc.robot.commands.autonomous.AutoCommands;
 import frc.robot.commands.limelight.ModifiedAim;
@@ -36,7 +35,6 @@ import frc.robot.subsystems.turret.Launcher;
 import frc.robot.subsystems.turret.Feeder;
 import libs.OI.ConsoleController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -76,10 +74,6 @@ public class RobotContainer {
     m_limelight = new LimeLight();
     m_arduino = new ArduinoLights(7, 8, 9);
 
-    m_launcher.setDefaultCommand(new RunLauncher(m_launcher));
-    m_drivetrain.setDefaultCommand(
-      new TankDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickY, m_drivetrain));
-
     // AutoCommands.init(m_drivetrain, m_intake, m_launcher, m_feeder, m_arduino, m_limelight);
 
     // Configure the button bindings
@@ -95,16 +89,19 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
+    m_drivetrain.setDefaultCommand(
+      new TankDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickY, m_drivetrain));
+
+    // Control the launcher via right trigger
+    m_controller_aux.rightTrigger
+      .whileHeld(new RunLauncher(m_launcher));
+
     //Console Controller Mapping 
     m_controller_aux.y
       .whileHeld(new ShootBall(m_feeder));
 
     m_controller_aux.a
-      .whileHeld(
-        new ParallelCommandGroup(
-          new PickUp(m_intake),
-          new StopLauncher(m_launcher)
-        ));
+      .whileHeld(new PickUp(m_intake));
 
     m_controller_aux.topDPAD
       .whileHeld(new RaiseMast(m_climber));
