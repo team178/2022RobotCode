@@ -40,6 +40,7 @@ public class AutoCommands {
         
         RedMiddleAuto = new SequentialCommandGroup(
             //Pathing commands
+            new AutoDrive(1, 84.53 /* inches */, drivetrain), 
             new AutoPickUp(intake),
             new AimRange(drivetrain, limelight),
             new AutoShootBall(feeder, lights)
@@ -65,6 +66,7 @@ public class AutoCommands {
         
         BlueMiddleAuto = new SequentialCommandGroup(
             //Pathing commands
+            new AutoDrive(1, 84.53 /* inches */, drivetrain), 
             new AutoPickUp(intake),
             new AimRange(drivetrain, limelight),
             new AutoShootBall(feeder, lights)
