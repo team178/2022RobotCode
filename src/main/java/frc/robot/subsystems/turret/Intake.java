@@ -45,11 +45,11 @@ public class Intake extends SubsystemBase {
   }
 
   public void enableBouncer() {
-    bouncer.set(DoubleSolenoid.Value.kForward);
+    bouncer.set(DoubleSolenoid.Value.kReverse);
   }
 
   public void disableBouncer() {
-    bouncer.set(DoubleSolenoid.Value.kReverse);
+    bouncer.set(DoubleSolenoid.Value.kForward);
   }
 
   /**
