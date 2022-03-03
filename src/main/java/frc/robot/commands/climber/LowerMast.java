@@ -34,6 +34,6 @@ public class LowerMast extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-      return !m_climber.getLowLimitSwitch().get();
+      return m_climber.getLowLimitSwitch().get();
     }
 }
