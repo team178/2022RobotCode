@@ -23,6 +23,7 @@ import frc.robot.commands.climber.RaiseMast;
 import frc.robot.commands.climber.ToggleHook;
 import frc.robot.commands.climber.TomahawkDown;
 import frc.robot.commands.climber.TomahawkUp;
+import frc.robot.commands.drivetrain.ArcadeDrive;
 import frc.robot.commands.drivetrain.TankDrive;
 import frc.robot.commands.intake.AutoPickUp;
 import frc.robot.commands.intake.PickUp;
@@ -89,8 +90,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
+    // m_drivetrain.setDefaultCommand(
+    //   new TankDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickY, m_drivetrain));
+
     m_drivetrain.setDefaultCommand(
-      new TankDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickY, m_drivetrain));
+      new ArcadeDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickY, m_drivetrain));
 
     // Control the launcher via right trigger
     m_controller_aux.rightTrigger
@@ -101,7 +105,7 @@ public class RobotContainer {
       .whileHeld(new ShootBall(m_feeder));
 
     m_controller_aux.a
-      .whileHeld(new PickUp(m_intake));
+      .toggleWhenPressed(new PickUp(m_intake));
 
     m_controller_aux.topDPAD
       .whileHeld(new RaiseMast(m_climber));
@@ -116,7 +120,7 @@ public class RobotContainer {
       .whileHeld(new TomahawkUp(m_climber));
 
     m_controller_aux.x  
-      .whileHeld(new ToggleHook(m_climber));
+      .whenPressed(new ToggleHook(m_climber));
 
   }
 
