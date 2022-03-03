@@ -1,13 +1,10 @@
 package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.arduinolights.Shoot;
 import frc.robot.commands.drivetrain.TurnDegrees;
 import frc.robot.commands.drivetrain.AutoDrive;
 import frc.robot.commands.intake.AutoPickUp;
-import frc.robot.commands.intake.PickUp;
 import frc.robot.commands.launcher.AutoShootBall;
-import frc.robot.commands.launcher.ShootBall;
 import frc.robot.commands.limelight.AimRange;
 import frc.robot.subsystems.ArduinoLights;
 import frc.robot.subsystems.DriveTrain;
