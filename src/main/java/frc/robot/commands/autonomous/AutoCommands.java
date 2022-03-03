@@ -7,7 +7,6 @@ import frc.robot.commands.drivetrain.AutoDrive;
 import frc.robot.commands.intake.AutoPickUp;
 import frc.robot.commands.intake.PickUp;
 import frc.robot.commands.launcher.AutoShootBall;
-import frc.robot.commands.launcher.ShootBall;
 import frc.robot.commands.limelight.AimRange;
 import frc.robot.subsystems.ArduinoLights;
 import frc.robot.subsystems.DriveTrain;
@@ -30,8 +29,14 @@ public class AutoCommands {
     public static void init(DriveTrain drivetrain, Intake intake, Launcher launcher, Feeder feeder, ArduinoLights lights, LimeLight limelight) {
         // TO-DO: need to add pathing commands in group
         RedLeftAuto = new SequentialCommandGroup(
-            new TurnDegrees(1, -15, drivetrain),
-            new AutoDrive(1, -86.75 /* inches?? */, drivetrain),
+            //this routine is Done
+            new AimRange(drivetrain, limelight),
+            new AutoShootBall(feeder, lights),
+            new AutoDrive(1, 48.75 /* inches?? */, drivetrain),
+            new TurnDegrees(1, -67.5, drivetrain),
+            new AutoDrive(1, 18 /* inches?? */, drivetrain),
+            new TurnDegrees(1, 111.05, drivetrain),
+            new AutoDrive(1, 25.33 /* inches?? */, drivetrain),
             new AutoPickUp(intake),
             new AimRange(drivetrain, limelight),
             new AutoShootBall(feeder, lights)
@@ -56,9 +61,14 @@ public class AutoCommands {
         );
 
         BlueLeftAuto = new SequentialCommandGroup(
-            //Pathing commands
-            new TurnDegrees(1, -15, drivetrain),
-            new AutoDrive(1, -86.75 /* inches?? */, drivetrain),
+            //Pathing commands  //this is done now
+            new AimRange(drivetrain, limelight),
+            new AutoShootBall(feeder, lights),
+            new AutoDrive(1, 48.75 /* inches?? */, drivetrain),
+            new TurnDegrees(1, -67.5, drivetrain),
+            new AutoDrive(1, 18 /* inches?? */, drivetrain),
+            new TurnDegrees(1, 111.05, drivetrain),
+            new AutoDrive(1, 25.33 /* inches?? */, drivetrain),
             new AutoPickUp(intake),
             new AimRange(drivetrain, limelight),
             new AutoShootBall(feeder, lights)
