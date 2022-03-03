@@ -15,6 +15,7 @@ import frc.robot.commands.launcher.AutoShootBall;
 import frc.robot.commands.launcher.RunLauncher;
 import frc.robot.commands.launcher.ShootBall;
 import frc.robot.commands.limelight.AimRange;
+import frc.robot.Constants.OIConstants;
 import frc.robot.commands.autonomous.AutoCommands;
 import frc.robot.commands.limelight.ModifiedAim;
 import frc.robot.commands.limelight.ModifiedRange;
@@ -95,6 +96,15 @@ public class RobotContainer {
 
     m_drivetrain.setDefaultCommand(
       new ArcadeDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickY, m_drivetrain));
+
+    // Slowness II
+    m_controller_main.leftTrigger
+      .whenPressed(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult/2))
+      .whenReleased(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult));
+    
+    // Limelight trigger
+    // m_controller_main.rightTrigger
+    //   .whileHeld();
 
     // Control the launcher via right trigger
     m_controller_aux.rightTrigger

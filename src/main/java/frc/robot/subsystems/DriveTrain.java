@@ -20,6 +20,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.OIConstants;
 
 
 /**
@@ -39,6 +40,8 @@ public class DriveTrain extends SubsystemBase {
   public DoubleSupplier leftRate;
   public DoubleSupplier rightRate;
 
+  private double speedMult;
+
   private final MotorController m_leftMotor =
     new MotorControllerGroup(leftMaster, leftSlave);
   
@@ -54,6 +57,8 @@ public class DriveTrain extends SubsystemBase {
     // gearbox is constructed, you might have to invert the left side instead.
     m_rightMotor.setInverted(false);
     m_leftMotor.setInverted(true);
+
+    speedMult = OIConstants.kBaseDriveSpeedMult;
 
     // Sets the distance per pulse for the encoders
 
@@ -79,7 +84,7 @@ public class DriveTrain extends SubsystemBase {
    * @param right Speed in range [-1,1]
    */
   public void tankDrive(double leftSpeed, double rightSpeed) {
-    m_drive.tankDrive(leftSpeed, rightSpeed);
+    m_drive.tankDrive(leftSpeed * speedMult, rightSpeed * speedMult);
   }
 
   /**
@@ -89,13 +94,17 @@ public class DriveTrain extends SubsystemBase {
    * @param rot the commanded rotation
    */
   public void arcadeDrive(double fwd, double rot) {
-    m_drive.arcadeDrive(fwd, rot);
+    m_drive.arcadeDrive(fwd * speedMult, rot * speedMult);
   }
 
   /** Reset the robots sensors to the zero states. */
   public void reset() {
     leftMaster.setSelectedSensorPosition(0);
     rightMaster.setSelectedSensorPosition(0);
+  }
+
+  public void setSpeedMultiplier(double mult) {
+    speedMult = mult;
   }
 
   /**
