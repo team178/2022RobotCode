@@ -122,7 +122,7 @@ public class RobotContainer {
 
   private void configureShuffleBoard() {
     //Autonomous Chooser Options (How our robot is going to tackle auto)
-    m_autoChooser.setDefaultOption("Red Middle Auto", AutoCommands.RedMiddleAuto);
+    m_autoChooser.setDefaultOption("Red Middle Auto", AutoCommands.MiddleAuto);
     m_autoChooser.addOption("Modified Range", new ModifiedRange(m_drivetrain, m_limelight));
     m_autoChooser.addOption("Modified Aim", new ModifiedAim(m_drivetrain, m_limelight));
     m_autoChooser.addOption("Aim and Range", new AimRange(m_drivetrain, m_limelight));
