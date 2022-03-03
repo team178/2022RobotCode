@@ -47,8 +47,8 @@ public class AutoCommands {
         );
         
         RightAuto = new SequentialCommandGroup(
-            new AutoDrive(1, 85.67 /* inches?? */, drivetrain),
-            new TurnDegrees(1, 270, drivetrain),
+            new AutoDrive(1, 98.17 /* inches?? */, drivetrain),
+            new TurnDegrees(1, 90, drivetrain),
             new AutoDrive(1, 28.89 /* inches?? */, drivetrain),
             new AutoPickUp(intake),
             new AimRange(drivetrain, limelight),
