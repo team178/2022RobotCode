@@ -82,4 +82,33 @@ public final class Constants {
     public static final int kLowLimitSwitchPort = 1;
 
   }
+
+  public static final class Characterization{
+    /*note to self(Rithvik): change the B and zeta values to arbitrary dummy values for now, 
+    and make sure to put in the real and reasonable values later*/
+
+    public static final double ksVolts = 0.895;
+    public static final double kvVoltSecondsPerMeter = 6.73;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.0136;
+
+    public static final double kPDriveVel = 0.005;
+
+    public static final DifferentialDriveKinematics kDriveKinematics =
+        new DifferentialDriveKinematics(kTrackwidthMeters);
+
+    public static final SimpleMotorFeedforward m_feedforward = new SimpleMotorFeedforward(ksVolts, kvVoltSecondsPerMeter, kaVoltSecondsSquaredPerMeter);
+    public static final PIDController m_leftPIDController = new PIDController(DriveConstants.kPDriveVel, 0, 0);
+    public static final PIDController m_rightPIDController = new PIDController(DriveConstants.kPDriveVel, 0, 0);
+
+    public static final double kMaxSpeedMetersPerSecond = 0.8;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 0.8;
+
+    // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
+    public static final double kRamseteB = 2;
+    public static final double kRamseteZeta = 0.7;
+
+  
+
+  }
+
 }
