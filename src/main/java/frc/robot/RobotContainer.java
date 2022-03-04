@@ -108,7 +108,13 @@ public class RobotContainer {
 
     // Control the launcher via right trigger
     m_controller_aux.rightTrigger
-      .whileHeld(new RunLauncher(m_launcher));
+      .whileHeld(new RunLauncher(m_launcher,-0.55));
+//low port shot
+    m_controller_aux.b
+      .whileHeld(new RunLauncher(m_launcher,-0.1));
+
+    m_controller_aux.leftTrigger
+      .whileHeld(new SlowIntakeUp(m_intake));
 
     //Console Controller Mapping 
     m_controller_aux.y

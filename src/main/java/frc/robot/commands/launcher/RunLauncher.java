@@ -10,26 +10,32 @@ import frc.robot.subsystems.turret.Launcher;
 /** Run the Launcher at it's set speed */
 public class RunLauncher extends CommandBase {
   private final Launcher m_launcher;
+  private double speed; 
 
   /**
    * Creates a new RunLauncher command
    *
    * @param launcher The Launcher subsystem.
    */
-  public RunLauncher(Launcher launcher) {
+  public RunLauncher(Launcher launcher, double speed) {
     m_launcher = launcher;
+    this.speed = speed;
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(launcher);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_launcher.setSpeed(-0.55);
+    m_launcher.setSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
