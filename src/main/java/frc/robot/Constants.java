@@ -93,12 +93,12 @@ public final class Constants {
 
     public static final double kPDriveVel = 0.005;
 
-    public static final DifferentialDriveKinematics kDriveKinematics =
-        new DifferentialDriveKinematics(kTrackwidthMeters);
+    //public static final DifferentialDriveKinematics kDriveKinematics =
+        //new DifferentialDriveKinematics(kTrackwidthMeters);
 
-    public static final SimpleMotorFeedforward m_feedforward = new SimpleMotorFeedforward(ksVolts, kvVoltSecondsPerMeter, kaVoltSecondsSquaredPerMeter);
-    public static final PIDController m_leftPIDController = new PIDController(DriveConstants.kPDriveVel, 0, 0);
-    public static final PIDController m_rightPIDController = new PIDController(DriveConstants.kPDriveVel, 0, 0);
+    //public static final SimpleMotorFeedforward m_feedforward = new SimpleMotorFeedforward(ksVolts, kvVoltSecondsPerMeter, kaVoltSecondsSquaredPerMeter);
+    //public static final PIDController m_leftPIDController = new PIDController(DriveConstants.kPDriveVel, 0, 0);
+    //public static final PIDController m_rightPIDController = new PIDController(DriveConstants.kPDriveVel, 0, 0);
 
     public static final double kMaxSpeedMetersPerSecond = 0.8;
     public static final double kMaxAccelerationMetersPerSecondSquared = 0.8;

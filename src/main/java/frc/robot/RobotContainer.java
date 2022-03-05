@@ -4,7 +4,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -56,6 +60,11 @@ public class RobotContainer {
   private final LimeLight m_limelight;
   private final ArduinoLights m_arduino;
 
+  //USB Camera declarations
+  private final UsbCamera camera1;
+  private final UsbCamera camera2;
+  private final UsbCamera camera3;
+
   //Creates joystick object for the Main (0) and Aux (1) controllers
   private final ConsoleController m_controller_main = new ConsoleController(0);
   private final ConsoleController m_controller_aux = new ConsoleController(1);
@@ -78,6 +87,31 @@ public class RobotContainer {
 
     // AutoCommands.init(m_drivetrain, m_intake, m_launcher, m_feeder, m_arduino, m_limelight);
 
+    if(RobotBase.isReal()){
+      //Camera 1
+      camera1 = CameraServer.startAutomaticCapture("cam0", 0);
+      //camera1.setResolution(160, 90);
+      camera1.setFPS(14);
+      camera1.setPixelFormat(PixelFormat.kYUYV); //formats video specifications for cameras
+
+      //Camera 2
+      camera2 = CameraServer.startAutomaticCapture("cam1", 1);
+      //camera2.setResolution(160, 120);
+      camera2.setFPS(14);
+      camera2.setPixelFormat(PixelFormat.kYUYV); //formats video specifications for cameras
+
+      //Camera 3
+      camera3 = CameraServer.startAutomaticCapture("cam2", 2);
+      //camera3.setResolution(160, 120);
+      camera3.setFPS(14);
+      camera3.setPixelFormat(PixelFormat.kYUYV); //formats video specifications for cameras
+    }
+    else{
+      camera1 = null;
+      camera2 = null;
+      camera3 = null;
+    }
+
     // Configure the button bindings
     configureButtonBindings();
     configureShuffleBoard();
@@ -95,7 +129,7 @@ public class RobotContainer {
     //   new TankDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickY, m_drivetrain));
 
     m_drivetrain.setDefaultCommand(
-      new ArcadeDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickY, m_drivetrain));
+      new ArcadeDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickX, m_drivetrain));
 
     // Slowness II
     m_controller_main.leftTrigger
@@ -113,8 +147,8 @@ public class RobotContainer {
     m_controller_aux.b
       .whileHeld(new RunLauncher(m_launcher,-0.1));
 
-    m_controller_aux.leftTrigger
-      .whileHeld(new SlowIntakeUp(m_intake));
+    //m_controller_aux.leftTrigger
+      //.whileHeld(new SlowIntakeUp(m_intake));
 
     //Console Controller Mapping 
     m_controller_aux.y
