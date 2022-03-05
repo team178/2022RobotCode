@@ -57,25 +57,22 @@ public class DriveTrain extends SubsystemBase {
     // gearbox is constructed, you might have to invert the left side instead.
     m_rightMotor.setInverted(false);
     m_leftMotor.setInverted(true);
-    
-    // Configs encoders to their factory defaults
-    leftMaster.configFactoryDefault();
-    rightMaster.configFactoryDefault();
-    
-    // Sets the distance per pulse for the encoders
-    leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
-    rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
-    
-    leftMaster.setSensorPhase(true); // Technically these two setSensorPhase calls are redundant because setInverted should flip them for us 
-    rightMaster.setSensorPhase(false); // Keeping it for now though as it ensures we have the right Sensor Phase
-    
-    leftPosition = () -> leftMaster.getSelectedSensorPosition(0) * DriveConstants.kEncoderDistancePerPulse; 
-    leftRate = () -> leftMaster.getSelectedSensorVelocity(0) * DriveConstants.kEncoderDistancePerPulse * 10; // Gives Velocity in Rotations per Second
-    rightPosition = () -> rightMaster.getSelectedSensorPosition(0) * DriveConstants.kEncoderDistancePerPulse; 
-    rightRate = () -> rightMaster.getSelectedSensorVelocity(0) * DriveConstants.kEncoderDistancePerPulse * 10; // Gives Velocity in Rotations per Second
 
-    m_drive.setSafetyEnabled(false);
-    reset();
+    speedMult = OIConstants.kBaseDriveSpeedMult;
+
+    // Sets the distance per pulse for the encoders
+
+    //! Encoders are not attached, disabling for now
+    // leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
+    // rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
+    
+    // leftMaster.setSensorPhase(true);
+    // rightMaster.setSensorPhase(false);
+    
+    // leftPosition = () -> leftMaster.getSelectedSensorPosition(0) * DriveConstants.kEncoderDistancePerPulse; //r
+    // leftRate = () -> leftMaster.getSelectedSensorVelocity(0) * DriveConstants.kEncoderDistancePerPulse * 10; //r
+    // rightPosition = () -> rightMaster.getSelectedSensorPosition(0) * DriveConstants.kEncoderDistancePerPulse; //l
+    // rightRate = () -> rightMaster.getSelectedSensorVelocity(0) * DriveConstants.kEncoderDistancePerPulse * 10; //l
 
     addChild("Drive", m_drive);
   }
@@ -166,7 +163,7 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    log();
+    // log();
   }
 
 }
