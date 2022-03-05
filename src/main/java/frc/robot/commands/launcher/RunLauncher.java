@@ -5,6 +5,7 @@
 package frc.robot.commands.launcher;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.turret.Launcher;
 
 /** Run the Launcher at it's set speed */
@@ -17,11 +18,18 @@ public class RunLauncher extends CommandBase {
    *
    * @param launcher The Launcher subsystem.
    */
-  public RunLauncher(Launcher launcher, double speed) {
+  public RunLauncher(Launcher launcher, double inputSpeed) {
     m_launcher = launcher;
-    this.speed = speed;
+    this.speed = inputSpeed;
 
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(launcher);
+  }
+
+  public RunLauncher(Launcher launcher) {
+    m_launcher = launcher;
+    this.speed = LauncherConstants.kLauncherSpeed.getDouble(0);
+
     addRequirements(launcher);
   }
 

@@ -48,7 +48,7 @@ public class PickUp extends CommandBase {
   public void end(boolean interrupted) throws RuntimeException {
     m_intake.disableBouncer();
     m_intake.retract();
-    m_intake.setSpeed(-0.2);
+    m_intake.setSpeed(-0.45);
   }
 
   // Returns true when the command should end.

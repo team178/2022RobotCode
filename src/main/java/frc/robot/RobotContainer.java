@@ -117,8 +117,8 @@ public class RobotContainer {
     }
 
     // Configure the button bindings
-    configureButtonBindings();
     configureShuffleBoard();
+    configureButtonBindings();
   }
 
   /**
@@ -146,7 +146,7 @@ public class RobotContainer {
 
     // Control the launcher via right trigger
     m_controller_aux.rightTrigger
-      .whileHeld(new RunLauncher(m_launcher, LauncherConstants.kLauncherSpeed.getDouble(0)));
+      .whileHeld(new RunLauncher(m_launcher, -0.60));
 //low port shot
     m_controller_aux.b
       .whileHeld(new RunLauncher(m_launcher,-0.1));
@@ -155,7 +155,7 @@ public class RobotContainer {
       //.whileHeld(new SlowIntakeUp(m_intake));
 
     //Console Controller Mapping 
-    m_controller_aux.y
+    m_controller_aux.rightBumper
       .whileHeld(new ShootBall(m_feeder));
 
     m_controller_aux.a
