@@ -69,6 +69,8 @@ public final class Constants {
     public static double kD = 0;
     public static double kIz = 0;
     public static double kFF = 0;
+
+    public static NetworkTableEntry kLauncherSpeed; // Used for testing purposes
   }
   
   public static final class ClimberConstants{

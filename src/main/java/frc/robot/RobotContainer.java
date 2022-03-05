@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.Map;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoMode.PixelFormat;
@@ -11,6 +13,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -19,6 +22,7 @@ import frc.robot.commands.launcher.AutoShootBall;
 import frc.robot.commands.launcher.RunLauncher;
 import frc.robot.commands.launcher.ShootBall;
 import frc.robot.commands.limelight.AimRange;
+import frc.robot.Constants.LauncherConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.autonomous.AutoCommands;
 import frc.robot.commands.limelight.ModifiedAim;
@@ -142,7 +146,7 @@ public class RobotContainer {
 
     // Control the launcher via right trigger
     m_controller_aux.rightTrigger
-      .whileHeld(new RunLauncher(m_launcher,-0.55));
+      .whileHeld(new RunLauncher(m_launcher, LauncherConstants.kLauncherSpeed.getDouble(0)));
 //low port shot
     m_controller_aux.b
       .whileHeld(new RunLauncher(m_launcher,-0.1));
@@ -182,16 +186,16 @@ public class RobotContainer {
     m_autoChooser.addOption("Aim and Range", new AimRange(m_drivetrain, m_limelight));
 
     //Creates new Shuffleboard tab called Drivebase
-    ShuffleboardTab driveBaseTab = Shuffleboard.getTab("Drivebase");
+    ShuffleboardTab testTab = Shuffleboard.getTab("Drivebase");
 
     //Adds a chooser to the Drivebase tab to select autonomous routine (before anything is ran)
-    driveBaseTab
+    testTab
       .add("Autonomous Routine", m_autoChooser)
         .withSize(2, 1)
           .withPosition(0, 3);
     
     // //Adds a Layout (basically a empty list) to the Drivebase tab for Limelight Commands 
-    // ShuffleboardLayout limelightCommands = driveBaseTab
+    // ShuffleboardLayout limelightCommands = testTab
     //   .getLayout("Limelight Commands", BuiltInLayouts.kList)
     //     .withSize(2, 2)
     //       .withPosition(2, 4)
@@ -202,13 +206,21 @@ public class RobotContainer {
     // limelightCommands.add(new modifiedRange(m_drivetrain, m_limelight));
 
     //Adds a Layout (basically a empty list) to the Drivebase tab for Limelight Commands 
-    ShuffleboardLayout turretCommands = driveBaseTab
+    ShuffleboardLayout turretCommands = testTab
       .getLayout("Turret Commands", BuiltInLayouts.kList)
         .withSize(2, 2)
           .withPosition(6, 4);
 
     turretCommands.add(new AutoPickUp(m_intake));
     turretCommands.add(new AutoShootBall(m_feeder, m_arduino));
+
+    LauncherConstants.kLauncherSpeed = testTab
+      .add("Speed for Launcher", 0)
+        .withWidget(BuiltInWidgets.kNumberSlider)
+          .withProperties(Map.of("min", -1, "max", 1))
+            .withPosition(0, 2)
+              .getEntry();
+    
   }
 
   /**
