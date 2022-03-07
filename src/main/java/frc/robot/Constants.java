@@ -71,6 +71,20 @@ public final class Constants {
     public static double kFF = 0;
 
     public static NetworkTableEntry kLauncherSpeed; // Used for testing purposes
+    
+    public static double kLaunchAngleDegrees;
+      public static double kLaunchAngleRadians = Math.toRadians(kLaunchAngleDegrees);
+
+    public static double kLaunchHeight; 
+    
+    public static double kMaxVelocity;
+  }
+
+  public static final class LimeLightConstants{
+    public static final double kTargetHeight = 2.4384;
+    
+    public static final double kMountAngle = 27.5;
+    public static final double kLensHeight = .2032; 
   }
   
   public static final class ClimberConstants{

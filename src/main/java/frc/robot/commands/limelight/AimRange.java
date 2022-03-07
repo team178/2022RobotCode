@@ -99,7 +99,7 @@ public class AimRange extends CommandBase {
     headingError = ((horizontalDegTarget != 0) ? -horizontalDegTarget : headingError);
 
     if(!crosshairCalibrated){
-        double currentDistance = m_limelight.estimateDistance(0); // Input actually height from target later
+        double currentDistance = m_limelight.estimateDistance(); // Input actually height from target later
         rangeTolerance = 0.1;
         
         distanceError = desiredDistance - currentDistance;

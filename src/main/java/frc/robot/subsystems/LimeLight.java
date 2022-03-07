@@ -8,15 +8,14 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.LauncherConstants;
+import frc.robot.Constants.LimeLightConstants;
 
 public class LimeLight extends SubsystemBase {
     
     private NetworkTable table;
 
     private boolean isConnected = false;
-    
-    private double lensHeight = 0; // Input height of the center of the limelight lens relative to the floor in meters
-    private double mountAngle = 0; // Input how many degrees back is limelight rotated from perfectly vertical
 
     public LimeLight() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -104,16 +103,46 @@ public class LimeLight extends SubsystemBase {
 
     /**
      * See diagram https://docs.limelightvision.io/en/latest/_images/DistanceEstimation.jpg
-     * @param targetHeight height of the target relative to the floor in meters
      * @return distance from target in meters
     */
-    public double estimateDistance(double targetHeight){
-        double angleToTargetDegree = mountAngle + getVerticalDegToTarget();
+    public double estimateDistance(){
+        double angleToTargetDegree = LimeLightConstants.kMountAngle + getVerticalDegToTarget();
         double angleToTargetRadians = angleToTargetDegree * (Math.PI / 180);
 
-        double distanceToTarget = (targetHeight - lensHeight) / Math.tan(angleToTargetRadians);
+        double distanceToTarget = (LimeLightConstants.kTargetHeight - LimeLightConstants.kLensHeight) / Math.tan(angleToTargetRadians);
 
         return distanceToTarget;
+    }
+
+    /**
+     * Credit to Vanden for Algorithm
+     * @return velocity we would need at a given distance
+     */
+    public double calculateLauncherVelocity(){
+        double verticalDistance = LauncherConstants.kLaunchHeight - LimeLightConstants.kTargetHeight;
+
+        double numCalc = Math.pow(estimateDistance(), 2) * 9.81;
+        double denCalc = (2*Math.cos(LauncherConstants.kLaunchAngleRadians) * 
+            ((estimateDistance() * Math.sin(LauncherConstants.kLaunchAngleRadians)) + 
+                (verticalDistance * Math.cos(LauncherConstants.kLaunchAngleRadians))));
+
+        return Math.sqrt(numCalc / denCalc);
+    }
+
+    /**
+     * 
+     * @return whether or not velocity needed is possible
+     */
+    public boolean isVelocityPossible(){
+        return ((calculateLauncherVelocity() > LauncherConstants.kMaxVelocity) ? false : true);
+    }
+
+    /**
+     * 
+     * @return whether or not shooting angle is possible
+     */
+    public boolean isAnglePossible(){
+        return ((getHorizontalDegToTarget() > 5) ? false : true); // 5 Represents a degree tolerance for shooting
     }
 
     /** The log method puts interesting information to the SmartDashboard. */
@@ -121,11 +150,12 @@ public class LimeLight extends SubsystemBase {
         SmartDashboard.putNumber("LimelightX", getHorizontalDegToTarget());
         SmartDashboard.putNumber("LimelightY", getVerticalDegToTarget());
         SmartDashboard.putNumber("LimelightArea", getTargetArea());
+        SmartDashboard.putNumber("Limelight Distance", estimateDistance());
+        SmartDashboard.putBoolean("Is Scorable", isVelocityPossible() && isAnglePossible());
     } 
 
     @Override
     public void periodic() {
         log();
-      
     }
 }

@@ -70,7 +70,7 @@ public class ModifiedRange extends CommandBase {
   @Override
   public void initialize() {
     KpAngle = 0.005;
-    KpMeter = .005;
+    KpMeter = .065; // try .125 next time
 
     angleTolerance = 0.1;
     meterTolerance = 0.1;
@@ -83,15 +83,15 @@ public class ModifiedRange extends CommandBase {
   public void execute() {
 
     if(!crosshairCalibrated){
-        double currentDistance = m_limelight.estimateDistance(0); // Input actually height from target later
+        double currentDistance = m_limelight.estimateDistance(); // Input actually height from target later
         
         distanceError = desiredDistance - currentDistance;
-        driveAdjust = KpMeter * distanceError;
+        driveAdjust = KpMeter * Math.abs(distanceError);
     }
     else{
         double verticalDegTarget = m_limelight.getVerticalDegToTarget();
 
-        distanceError = ((verticalDegTarget != 0) ? -verticalDegTarget : distanceError);
+        distanceError = ((verticalDegTarget != 0) ? verticalDegTarget : distanceError);
         driveAdjust = KpAngle * distanceError;
     }
 

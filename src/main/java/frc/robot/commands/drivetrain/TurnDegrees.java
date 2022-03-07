@@ -4,63 +4,90 @@
 
 package frc.robot.commands.drivetrain;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class TurnDegrees extends CommandBase {
-  private final DriveTrain m_drivetrain;
-  private final double m_degrees;
-  private final double m_speed;
+  private final DriveTrain m_drive;
+
+  private static double endingAngle; 
+
+  private double slowDownVariable; 
+  private double m_degrees;
+  private double currentDegrees;
+  private double finalSpeed;
+
+  private double m_speed = .35; 
+
 
   /**
    * Creates a new TurnDegrees. This command will turn your robot for a desired rotation (in
    * degrees) and rotational speed.
    *
-   * @param speed The speed which the robot will drive. Negative is in reverse.
    * @param degrees Degrees to turn. Leverages encoders to compare distance.
    * @param drive The drive subsystem on which this command will run
    */
-  public TurnDegrees(double speed, double degrees, DriveTrain drivetrain) {
+  public TurnDegrees(double degrees, DriveTrain drive) {
     m_degrees = degrees;
-    m_speed = speed;
-    m_drivetrain = drivetrain;
-    addRequirements(drivetrain);
+    m_drive = drive;
+    addRequirements(drive);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     // Set motors to stop, read encoder values for starting point
-    m_drivetrain.arcadeDrive(0, 0);
-    m_drivetrain.reset();
+    m_drive.arcadeDrive(0, 0);
+    m_drive.reset();
+
+    //m_degrees -= ((endingAngle == 0) ? 0 : (endingAngle - m_degrees));
+    //System.out.println("Degrees " + m_degrees);
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.arcadeDrive(0, m_speed);
+    currentDegrees = getHeading();
+
+    slowDownVariable = (m_degrees - currentDegrees) / m_degrees;
+    slowDownVariable = ((slowDownVariable < .1) ? .1 : slowDownVariable);
+
+    finalSpeed = m_speed * slowDownVariable;
+    finalSpeed = ((finalSpeed < .375) ? .375 : finalSpeed);
+    finalSpeed = ((m_degrees > 0) ? finalSpeed : -finalSpeed);
+  
+    m_drive.arcadeDrive(0, finalSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drivetrain.arcadeDrive(0, 0);
+    m_drive.arcadeDrive(0, 0);
+    endingAngle = getHeading();
+
+    System.out.println("Ending Angle (at end): " + endingAngle);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // Need to convert distance travelled to degrees. 
-    double inchPerDegree = Math.PI * DriveConstants.kWheelDiameterInches / 360;
-    
+    /* Need to convert distance travelled to degrees. The Standard
+       Romi Chassis found here, https://www.pololu.com/category/203/romi-chassis-kits,
+       has a wheel placement diameter (149 mm) - width of the wheel (8 mm) = 141 mm
+       or 5.551 inches. We then take into consideration the width of the tires.
+    */
     // Compare distance travelled from start to distance based on degree turn
-    return getAverageTurningDistance() >= (inchPerDegree * m_degrees);
+    if (m_degrees > 0){
+      return (getHeading() >= m_degrees);
+    }
+    else{
+      return (getHeading() <= m_degrees);
+    }
   }
 
-  private double getAverageTurningDistance() {
-    double leftDistance = Math.abs(m_drivetrain.getLeftDistance());
-    double rightDistance = Math.abs(m_drivetrain.getRightDistance());
-    return (leftDistance + rightDistance) / 2.0;
+  private double getHeading() {
+    return 0;
+    //return m_drive.getHeading();
   }
 }

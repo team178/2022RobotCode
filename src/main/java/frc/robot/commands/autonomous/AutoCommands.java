@@ -1,10 +1,10 @@
 package frc.robot.commands.autonomous;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.TurnDegrees;
 import frc.robot.commands.drivetrain.AutoDrive;
-import frc.robot.commands.intake.AutoPickUp;
-import frc.robot.commands.launcher.AutoShootBall;
+import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.limelight.AimRange;
 import frc.robot.subsystems.ArduinoLights;
 import frc.robot.subsystems.DriveTrain;
@@ -26,33 +26,29 @@ public class AutoCommands {
         LeftAuto = new SequentialCommandGroup(
             //this routine is Done
             new AimRange(drivetrain, limelight),
-            new AutoShootBall(feeder, lights),
-            new AutoDrive(1, 66.75 /* inches?? */, drivetrain),
-            new TurnDegrees(1, 90, drivetrain),
-            new AutoDrive(1, 10.95 /* inches?? */, drivetrain),
-            new TurnDegrees(1, -52, drivetrain),
-            new AutoDrive(1, 23 /* inches?? */, drivetrain),
-            new AutoPickUp(intake),
+            new AutoShootBall(launcher, feeder, limelight),
+            new DriveStraight(1.69545, drivetrain),
+            new TurnDegrees(90, drivetrain),
+            new DriveStraight(0.27813, drivetrain),
+            new TurnDegrees(-52, drivetrain),
+            new AutoPickUp(intake, drivetrain, 0.5842),
             new AimRange(drivetrain, limelight),
-            new AutoShootBall(feeder, lights)
-
+            new AutoShootBall(launcher, feeder, limelight)
         );
         
         MiddleAuto = new SequentialCommandGroup(
             //Pathing commands
-            new AutoDrive(1, 84.53 /* inches */, drivetrain), 
-            new AutoPickUp(intake),
+            new AutoPickUp(intake, drivetrain, 2.147062),
             new AimRange(drivetrain, limelight),
-            new AutoShootBall(feeder, lights)
+            new AutoShootBall(launcher, feeder, limelight)
         );
         
         RightAuto = new SequentialCommandGroup(
-            new AutoDrive(1, 98.17 /* inches?? */, drivetrain),
-            new TurnDegrees(1, 90, drivetrain),
-            new AutoDrive(1, 28.89 /* inches?? */, drivetrain),
-            new AutoPickUp(intake),
+            new DriveStraight(2.493518, drivetrain),
+            new TurnDegrees(90, drivetrain),
+            new AutoPickUp(intake, drivetrain, 0.733806),
             new AimRange(drivetrain, limelight),
-            new AutoShootBall(feeder, lights)
+            new AutoShootBall(launcher, feeder, limelight)
         );
     }
 }

@@ -26,6 +26,7 @@ public class DriveStraight extends PIDCommand {
         new PIDController(4, 0, 0), drivetrain::getDistance, distance, d -> drivetrain.tankDrive(d, d));
 
     m_drivetrain = drivetrain;
+    m_drivetrain.reset();
     addRequirements(m_drivetrain);
 
     getController().setTolerance(0.01);

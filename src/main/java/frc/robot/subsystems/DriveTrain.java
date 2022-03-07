@@ -34,6 +34,8 @@ public class DriveTrain extends SubsystemBase {
   private final WPI_TalonSRX rightMaster = new WPI_TalonSRX(DriveConstants.kRightMotor1Port);
   private final WPI_VictorSPX rightSlave = new WPI_VictorSPX(DriveConstants.kRightMotor2Port);
 
+  //private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro(sPort);
+
   //Encoder methods
   public DoubleSupplier leftPosition;
   public DoubleSupplier rightPosition;
@@ -62,19 +64,22 @@ public class DriveTrain extends SubsystemBase {
 
     // Sets the distance per pulse for the encoders
 
-    //! Encoders are not attached, disabling for now
-    // leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
-    // rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
+    leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
+    rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     
-    // leftMaster.setSensorPhase(true);
-    // rightMaster.setSensorPhase(false);
+    leftMaster.setSensorPhase(true);
+    rightMaster.setSensorPhase(false);
     
-    // leftPosition = () -> leftMaster.getSelectedSensorPosition(0) * DriveConstants.kEncoderDistancePerPulse; //r
-    // leftRate = () -> leftMaster.getSelectedSensorVelocity(0) * DriveConstants.kEncoderDistancePerPulse * 10; //r
-    // rightPosition = () -> rightMaster.getSelectedSensorPosition(0) * DriveConstants.kEncoderDistancePerPulse; //l
-    // rightRate = () -> rightMaster.getSelectedSensorVelocity(0) * DriveConstants.kEncoderDistancePerPulse * 10; //l
+    leftPosition = () -> leftMaster.getSelectedSensorPosition(0) * DriveConstants.kEncoderDistancePerPulse; //r
+    leftRate = () -> leftMaster.getSelectedSensorVelocity(0) * DriveConstants.kEncoderDistancePerPulse * 10; //r
+    rightPosition = () -> rightMaster.getSelectedSensorPosition(0) * DriveConstants.kEncoderDistancePerPulse; //l
+    rightRate = () -> rightMaster.getSelectedSensorVelocity(0) * DriveConstants.kEncoderDistancePerPulse * 10; //l
+
+    m_drive.setSafetyEnabled(false);
+    reset();
 
     addChild("Drive", m_drive);
+    //addChild("Gyro", m_gyro);
   }
   
   /**
@@ -101,6 +106,7 @@ public class DriveTrain extends SubsystemBase {
   public void reset() {
     leftMaster.setSelectedSensorPosition(0);
     rightMaster.setSelectedSensorPosition(0);
+    //m_gyro.reset();
   }
 
   public void setSpeedMultiplier(double mult) {
@@ -159,11 +165,12 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumber("Right Distance", rightPosition.getAsDouble());
     SmartDashboard.putNumber("Left Speed", leftRate.getAsDouble());
     SmartDashboard.putNumber("Right Speed", rightRate.getAsDouble());
+    //SmartDashboard.putNumber("Gyro", m_gyro.getAngle());
   }
 
   @Override
   public void periodic() {
-    // log();
+    log();
   }
 
 }
