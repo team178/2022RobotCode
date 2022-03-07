@@ -10,11 +10,13 @@ import frc.robot.subsystems.ArduinoLights;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.turret.Feeder;
 import frc.robot.subsystems.turret.Launcher;
+import frc.robot.Constants.LauncherConstants;;
 
 /** Run the Launcher */
 public class AutoShootBall extends ParallelCommandGroup {
   private double neededVelocity; 
   private double startTime;
+  private double motorSpeed;
   
   private final Feeder m_feeder;
   private final Launcher m_launcher;
