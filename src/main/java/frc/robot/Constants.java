@@ -77,6 +77,8 @@ public final class Constants {
 
     public static double kLaunchHeight; 
     
+    public static double kFlyWheelRadius; 
+    
     public static double kMaxVelocity;
   }
 
