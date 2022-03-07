@@ -37,14 +37,17 @@ public class AutoShootBall extends ParallelCommandGroup {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    startTime = Timer.getFPGATimestamp(); 
+    
     neededVelocity = m_limelight.calculateLauncherVelocity();
+    motorSpeed = neededVelocity / LauncherConstants.kFlyWheelRadius; 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   // Note, would be better if launcher speed can be inputed with neededVelocity
   @Override
   public void execute() {
-    m_launcher.setSpeed(1);
+    m_launcher.setSpeed(motorSpeed);
     
     if(m_launcher.getSpeed() > neededVelocity){
       m_feeder.setSpeed(1);
@@ -62,6 +65,6 @@ public class AutoShootBall extends ParallelCommandGroup {
   // Scuffed is finished, need to rethink
   @Override
   public boolean isFinished() {
-    return (m_launcher.getSpeed() > neededVelocity + 1);
+    return (Timer.getFPGATimestamp() - startTime >= 1);
   }
 }
