@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.commands.launcher.ReverseFeedLauncherWheel;
 import frc.robot.commands.launcher.RunLauncher;
 import frc.robot.commands.launcher.ShootBall;
 import frc.robot.commands.limelight.AimRange;
@@ -175,6 +176,9 @@ public class RobotContainer {
 
     m_controller_aux.x  
       .whenPressed(new ToggleHook(m_climber));
+
+    m_controller_aux.y  
+      .whenPressed(new ReverseFeedLauncherWheel(m_launcher,m_feeder));
 
   }
 
