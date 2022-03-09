@@ -37,8 +37,14 @@ public class AutoCommands {
         );
         
         MiddleAuto = new SequentialCommandGroup(
-            //Pathing commands
-            new AutoPickUp(intake, drivetrain, 2.147062),
+            //code using new idea format(is it correct?)
+            new AimRange(drivetrain, limelight),
+            new AutoShootBall(launcher, feeder, limelight),
+            //turn back to original pos
+            new TurnDegrees(180, drivetrain),
+            new DriveStraight(1.69545 /* fix distance */, drivetrain),
+            new AutoPickUp(intake, drivetrain, 0.5842),
+            //move bacK?
             new AimRange(drivetrain, limelight),
             new AutoShootBall(launcher, feeder, limelight)
         );
