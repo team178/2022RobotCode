@@ -215,8 +215,8 @@ public class RobotContainer {
         .withSize(2, 2)
           .withPosition(6, 4);
 
-    turretCommands.add(new AutoPickUp(m_intake));
-    turretCommands.add(new AutoShootBall(m_feeder, m_arduino));
+    turretCommands.add(new AutoPickUp(m_intake, m_drivetrain, 0));
+    turretCommands.add(new AutoShootBall(m_launcher, m_feeder, m_limelight));
 
     LauncherConstants.kLauncherSpeed = testTab
       .add("Speed for Launcher", 0)
