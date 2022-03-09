@@ -148,19 +148,12 @@ public class RobotContainer {
     // Control the launcher via right trigger
     m_controller_aux.rightTrigger
       .whileHeld(new RunLauncher(m_launcher, -0.60));
-//low port shot
-    m_controller_aux.b
-      .whileHeld(new RunLauncher(m_launcher,-0.1));
 
     //m_controller_aux.leftTrigger
       //.whileHeld(new SlowIntakeUp(m_intake));
 
-    //Console Controller Mapping 
     m_controller_aux.rightBumper
       .whileHeld(new ShootBall(m_feeder));
-
-    m_controller_aux.a
-      .toggleWhenPressed(new PickUp(m_intake));
 
     m_controller_aux.topDPAD
       .whileHeld(new RaiseMast(m_climber));
@@ -173,6 +166,12 @@ public class RobotContainer {
 
     m_controller_aux.rightDPAD
       .whileHeld(new TomahawkUp(m_climber));
+
+    m_controller_aux.a
+      .toggleWhenPressed(new PickUp(m_intake));
+    
+    m_controller_aux.b
+      .whileHeld(new RunLauncher(m_launcher,-0.1));
 
     m_controller_aux.x  
       .whenPressed(new ToggleHook(m_climber));
