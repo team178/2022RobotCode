@@ -28,7 +28,7 @@ public class AutoCommands {
         */ 
         LeftAuto = new SequentialCommandGroup(
             // shoot ball & save original rotation in a var
-            new AimRange(drivetrain, limelight, .4),
+            new AimRange(drivetrain, limelight, 1.3208),
             new AutoShootBall(launcher, feeder, limelight),
             // calibrate the robot using limelight, turn 180 degrees, drive straight into ball
             new TurnDegrees(180, drivetrain),
@@ -37,13 +37,13 @@ public class AutoCommands {
             new AutoPickUp(intake, drivetrain, 0.5842),
             new TurnDegrees(180, drivetrain),
             // shoot ball, autonomous ends
-            new AimRange(drivetrain, limelight, .4),
+            new AimRange(drivetrain, limelight, 1.3208),
             new AutoShootBall(launcher, feeder, limelight)
         );
         
         MiddleAuto = new SequentialCommandGroup(
             // shoot ball & save original rotation in a var
-            new AimRange(drivetrain, limelight, .4),
+            new AimRange(drivetrain, limelight, 1.3208),
             new AutoShootBall(launcher, feeder, limelight),
             // calibrate the robot using limelight, turn 180 degrees, drive straight into ball
             new TurnDegrees(180, drivetrain),
@@ -52,13 +52,13 @@ public class AutoCommands {
             new AutoPickUp(intake, drivetrain, 0.5842),
             new TurnDegrees(180, drivetrain),
             // shoot ball, autonomous ends
-            new AimRange(drivetrain, limelight, .4),
+            new AimRange(drivetrain, limelight, 1.3208),
             new AutoShootBall(launcher, feeder, limelight)
         );
         
         RightAuto = new SequentialCommandGroup(
             // shoot ball & save original rotation in a var
-            new AimRange(drivetrain, limelight, .4),
+            new AimRange(drivetrain, limelight, 1.3208),
             new AutoShootBall(launcher, feeder, limelight),
             // calibrate the robot using limelight, turn 180 degrees, drive straight into ball
             new TurnDegrees(180, drivetrain),
@@ -67,13 +67,13 @@ public class AutoCommands {
             new AutoPickUp(intake, drivetrain, 0.5842),
             new TurnDegrees(180, drivetrain),
             // shoot ball, autonomous ends
-            new AimRange(drivetrain, limelight, .4),
+            new AimRange(drivetrain, limelight, 1.3208),
             new AutoShootBall(launcher, feeder, limelight)
         );
         
         // Use for first competition
         GeneralAuto = new SequentialCommandGroup(
-            new AimRange(drivetrain, limelight, .4),
+            new AimRange(drivetrain, limelight, 1.3208),
             new AutoShootBall(launcher,feeder,limelight),
             new DriveStraight(-2.54, drivetrain)
         );
