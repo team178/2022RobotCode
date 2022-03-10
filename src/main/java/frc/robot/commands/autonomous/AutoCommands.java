@@ -32,7 +32,7 @@ public class AutoCommands {
             new AutoShootBall(launcher, feeder, limelight),
             // calibrate the robot using original var, turn 180 degrees, drive straight into ball
             new TurnDegrees(180, drivetrain),
-            new DriveStraight(85.7263, /* fix distance */ drivetrain),
+            new DriveStraight(2.1774, drivetrain),
             // pick up ball
             new AutoPickUp(intake, drivetrain, 0.5842),
             new TurnDegrees(180, drivetrain),
@@ -47,7 +47,7 @@ public class AutoCommands {
             new AutoShootBall(launcher, feeder, limelight),
             // calibrate the robot using original var, turn 180 degrees, drive straight into ball
             new TurnDegrees(180, drivetrain),
-            new DriveStraight(83.5703, /* fix distance */ drivetrain),
+            new DriveStraight(2.1226, drivetrain),
             // pick up ball
             new AutoPickUp(intake, drivetrain, 0.5842),
             new TurnDegrees(180, drivetrain),
@@ -62,7 +62,7 @@ public class AutoCommands {
             new AutoShootBall(launcher, feeder, limelight),
             // calibrate the robot using original var, turn 180 degrees, drive straight into ball
             new TurnDegrees(180, drivetrain),
-            new DriveStraight(79.259, /* fix distance */ drivetrain),
+            new DriveStraight(2.0137, drivetrain),
             // pick up ball
             new AutoPickUp(intake, drivetrain, 0.5842),
             new TurnDegrees(180, drivetrain),
