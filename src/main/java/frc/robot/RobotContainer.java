@@ -35,7 +35,6 @@ import frc.robot.commands.climber.ToggleHook;
 import frc.robot.commands.climber.TomahawkDown;
 import frc.robot.commands.climber.TomahawkUp;
 import frc.robot.commands.drivetrain.ArcadeDrive;
-import frc.robot.commands.drivetrain.TankDrive;
 import frc.robot.commands.intake.PickUp;
 import frc.robot.subsystems.ArduinoLights;
 import frc.robot.subsystems.Climber;
@@ -63,8 +62,6 @@ public class RobotContainer {
 
   private final Climber m_climber;
   private final LimeLight m_limelight;
-  private final ArduinoLights m_arduino;
-
   //USB Camera declarations
   private final UsbCamera camera1;
   private final UsbCamera camera2;
@@ -88,7 +85,7 @@ public class RobotContainer {
 
     m_climber = new Climber();
     m_limelight = new LimeLight();
-    m_arduino = new ArduinoLights(7, 8, 9);
+    new ArduinoLights(7, 8, 9);
 
     // AutoCommands.init(m_drivetrain, m_intake, m_launcher, m_feeder, m_arduino, m_limelight);
 
@@ -190,6 +187,8 @@ public class RobotContainer {
     m_autoChooser.addOption("Modified Range", new ModifiedRange(m_drivetrain, m_limelight));
     m_autoChooser.addOption("Modified Aim", new ModifiedAim(m_drivetrain, m_limelight));
     m_autoChooser.addOption("Aim and Range", new AimRange(m_drivetrain, m_limelight));
+    m_autoChooser.addOption("Auto PickUp", new AutoPickUp(m_intake, m_drivetrain, 0.5842));
+    m_autoChooser.addOption("Auto Shoot", new AutoShootBall(m_launcher, m_feeder, m_limelight));
 
     //Creates new Shuffleboard tab called Drivebase
     ShuffleboardTab testTab = Shuffleboard.getTab("Drivebase");
@@ -217,7 +216,7 @@ public class RobotContainer {
         .withSize(2, 2)
           .withPosition(6, 4);
 
-    turretCommands.add(new AutoPickUp(m_intake, m_drivetrain, 0));
+    turretCommands.add(new AutoPickUp(m_intake, m_drivetrain, 0.5842));
     turretCommands.add(new AutoShootBall(m_launcher, m_feeder, m_limelight));
 
     LauncherConstants.kLauncherSpeed = testTab

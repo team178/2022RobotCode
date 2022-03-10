@@ -6,22 +6,15 @@ package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.subsystems.ArduinoLights;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.turret.Feeder;
 import frc.robot.subsystems.turret.Launcher;
-import frc.robot.Constants.LauncherConstants;;
 
 /** Run the Launcher */
 public class AutoShootBall extends ParallelCommandGroup {
-  private double neededVelocity; 
   private double startTime;
-  private double motorSpeed;
-  
   private final Feeder m_feeder;
   private final Launcher m_launcher;
-  private final LimeLight m_limelight;
-
   /**
    * Creates a new ShootBall command
    *
@@ -30,8 +23,6 @@ public class AutoShootBall extends ParallelCommandGroup {
   public AutoShootBall(Launcher launcher, Feeder feeder, LimeLight limeLight) {
     m_launcher = launcher;
     m_feeder = feeder;
-    m_limelight = limeLight; 
-
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(launcher, feeder);
   }
@@ -41,18 +32,18 @@ public class AutoShootBall extends ParallelCommandGroup {
   public void initialize() {
     startTime = Timer.getFPGATimestamp(); 
     
-    neededVelocity = m_limelight.calculateLauncherVelocity();
-    motorSpeed = neededVelocity / LauncherConstants.kFlyWheelRadius; 
+    //neededVelocity = m_limelight.calculateLauncherVelocity();
+    //motorSpeed = neededVelocity / LauncherConstants.kFlyWheelRadius; 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   // Note, would be better if launcher speed can be inputed with neededVelocity
   @Override
   public void execute() {
-    m_launcher.setSpeed(motorSpeed);
+    m_launcher.setSpeed(-1);
     
-    if(m_launcher.getSpeed() > neededVelocity){
-      m_feeder.setSpeed(1);
+    if(Timer.getFPGATimestamp() - startTime >= 2){
+      m_feeder.setSpeed(-1);
     }
   }
 
@@ -67,6 +58,6 @@ public class AutoShootBall extends ParallelCommandGroup {
   // Scuffed is finished, need to rethink
   @Override
   public boolean isFinished() {
-    return (Timer.getFPGATimestamp() - startTime >= 1);
+    return (Timer.getFPGATimestamp() - startTime >= 2.1);
   }
 }

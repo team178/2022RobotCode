@@ -5,7 +5,6 @@
 package frc.robot.commands.autonomous;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.turret.Intake;
@@ -41,7 +40,7 @@ public class AutoPickUp extends PIDCommand {
       m_intake.deploy();
     }
 
-    m_intake.setSpeed(1);
+    m_intake.setSpeed(-.6);
 
     m_drivetrain.reset();
     super.initialize();
@@ -54,7 +53,6 @@ public class AutoPickUp extends PIDCommand {
     m_intake.setSpeed(0);
 
     m_drivetrain.tankDrive(0, 0);
-    // m_intake.close();
   }
 
   // Returns true when the command should end.

@@ -142,7 +142,7 @@ public class LimeLight extends SubsystemBase {
      * @return whether or not shooting angle is possible
      */
     public boolean isAnglePossible(){
-        return ((getHorizontalDegToTarget() > 5) ? false : true); // 5 Represents a degree tolerance for shooting
+        return ((Math.abs(getHorizontalDegToTarget()) > 5) ? false : true); // 5 Represents a degree tolerance for shooting
     }
 
     /** The log method puts interesting information to the SmartDashboard. */
