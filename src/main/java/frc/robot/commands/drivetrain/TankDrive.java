@@ -4,7 +4,6 @@
 
 package frc.robot.commands.drivetrain;
 
-import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -34,8 +33,8 @@ public class TankDrive extends CommandBase {
 // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    double leftSpeed = m_left.getAsDouble() * OIConstants.kBaseDriveSpeedMult;
-    double rightSpeed = m_right.getAsDouble() * OIConstants.kBaseDriveSpeedMult;
+    double leftSpeed = m_left.getAsDouble();
+    double rightSpeed = m_right.getAsDouble();
 
     if(Math.abs(leftSpeed) < 0.2) {
       leftSpeed = 0;

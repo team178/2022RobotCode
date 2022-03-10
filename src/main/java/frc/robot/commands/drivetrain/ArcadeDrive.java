@@ -4,7 +4,6 @@
 
 package frc.robot.commands.drivetrain;
 
-import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -34,8 +33,8 @@ public class ArcadeDrive extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    double xaxisSpeed = m_xaxisSpeedSupplier.getAsDouble() * OIConstants.kBaseDriveSpeedMult;
-    double zaxisSpeed = m_zaxisRotateSuppplier.getAsDouble() * OIConstants.kBaseDriveSpeedMult;
+    double xaxisSpeed = m_xaxisSpeedSupplier.getAsDouble();
+    double zaxisSpeed = m_zaxisRotateSuppplier.getAsDouble();
 
     if(Math.abs(xaxisSpeed) < 0.2) {
         xaxisSpeed = 0;

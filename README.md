@@ -1,5 +1,7 @@
 # 2022 Robot Code
 
+[![Java CI with Gradle](https://github.com/team178/2022RobotCode/actions/workflows/gradle.yml/badge.svg?branch=main&event=push)](https://github.com/team178/2022RobotCode/actions/workflows/gradle.yml)
+
 The code for our 2022 robot.
 
 ## Tips for contributing

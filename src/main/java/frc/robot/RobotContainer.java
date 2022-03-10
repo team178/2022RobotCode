@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.commands.launcher.ReverseFeedLauncherWheel;
 import frc.robot.commands.launcher.RunLauncher;
 import frc.robot.commands.launcher.ShootBall;
 import frc.robot.commands.limelight.AimRange;
@@ -144,19 +145,12 @@ public class RobotContainer {
     // Control the launcher via right trigger
     m_controller_aux.rightTrigger
       .whileHeld(new RunLauncher(m_launcher, -0.60));
-//low port shot
-    m_controller_aux.b
-      .whileHeld(new RunLauncher(m_launcher,-0.1));
 
     //m_controller_aux.leftTrigger
       //.whileHeld(new SlowIntakeUp(m_intake));
 
-    //Console Controller Mapping 
     m_controller_aux.rightBumper
       .whileHeld(new ShootBall(m_feeder));
-
-    m_controller_aux.a
-      .toggleWhenPressed(new PickUp(m_intake));
 
     m_controller_aux.topDPAD
       .whileHeld(new RaiseMast(m_climber));
@@ -170,14 +164,26 @@ public class RobotContainer {
     m_controller_aux.rightDPAD
       .whileHeld(new TomahawkUp(m_climber));
 
+    m_controller_aux.a
+      .toggleWhenPressed(new PickUp(m_intake));
+    
+    m_controller_aux.b
+      .whileHeld(new RunLauncher(m_launcher,-0.1));
+
     m_controller_aux.x  
       .whenPressed(new ToggleHook(m_climber));
+
+    m_controller_aux.y  
+      .whenPressed(new ReverseFeedLauncherWheel(m_launcher,m_feeder));
 
   }
 
   private void configureShuffleBoard() {
     //Autonomous Chooser Options (How our robot is going to tackle auto)
-    m_autoChooser.setDefaultOption("Red Middle Auto", AutoCommands.MiddleAuto);
+    m_autoChooser.setDefaultOption("General Auto", AutoCommands.GeneralAuto);
+    m_autoChooser.addOption("Left Auto", AutoCommands.LeftAuto);
+    m_autoChooser.addOption("Middle Auto", AutoCommands.MiddleAuto);
+    m_autoChooser.addOption("Right Auto", AutoCommands.RightAuto);
     m_autoChooser.addOption("Modified Range", new ModifiedRange(m_drivetrain, m_limelight));
     m_autoChooser.addOption("Modified Aim", new ModifiedAim(m_drivetrain, m_limelight));
     m_autoChooser.addOption("Aim and Range", new AimRange(m_drivetrain, m_limelight));
