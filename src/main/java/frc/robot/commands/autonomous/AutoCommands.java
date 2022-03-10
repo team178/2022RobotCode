@@ -23,14 +23,14 @@ public class AutoCommands {
     public static void init(DriveTrain drivetrain, Intake intake, Launcher launcher, Feeder feeder, ArduinoLights lights, LimeLight limelight) {
         /*
             PathWeaver Test Code, currently deprecated because we couldn't get PathWeaver to work
-
+            
             
         */ 
         LeftAuto = new SequentialCommandGroup(
-            // shoot ball & save original rotation in a var
+            // shoot ball
             new AimRange(drivetrain, limelight),
             new AutoShootBall(launcher, feeder, limelight),
-            // calibrate the robot using original var, turn 180 degrees, drive straight into ball
+            // calibrate the robot using limelight, turn 180 degrees, drive straight into ball
             new TurnDegrees(180, drivetrain),
             new DriveStraight(2.1774, drivetrain),
             // pick up ball
@@ -42,10 +42,10 @@ public class AutoCommands {
         );
         
         MiddleAuto = new SequentialCommandGroup(
-            // shoot ball & save original rotation in a var
+            // shoot ball
             new AimRange(drivetrain, limelight),
             new AutoShootBall(launcher, feeder, limelight),
-            // calibrate the robot using original var, turn 180 degrees, drive straight into ball
+            // calibrate the robot using limelight, turn 180 degrees, drive straight into ball
             new TurnDegrees(180, drivetrain),
             new DriveStraight(2.1226, drivetrain),
             // pick up ball
@@ -57,10 +57,10 @@ public class AutoCommands {
         );
         
         RightAuto = new SequentialCommandGroup(
-            // shoot ball & save original rotation in a var
+            // shoot ball
             new AimRange(drivetrain, limelight),
             new AutoShootBall(launcher, feeder, limelight),
-            // calibrate the robot using original var, turn 180 degrees, drive straight into ball
+            // calibrate the robot using limelight, turn 180 degrees, drive straight into ball
             new TurnDegrees(180, drivetrain),
             new DriveStraight(2.0137, drivetrain),
             // pick up ball
