@@ -21,7 +21,7 @@ public class TomahawkDown extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_climber.setClimberMotorSpeed(-1); //may need to adjust based on motor
+        m_climber.setClimberMotorSpeed(-0.75); //may need to adjust based on motor
     }
   
     // Called once the command ends or is interrupted.
