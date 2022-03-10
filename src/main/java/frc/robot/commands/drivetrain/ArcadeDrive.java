@@ -6,7 +6,6 @@ package frc.robot.commands.drivetrain;
 
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.function.DoubleSupplier;
