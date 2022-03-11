@@ -44,7 +44,7 @@ public class ArcadeDrive extends CommandBase {
         zaxisSpeed = 0;
     }
 
-    m_drivetrain.arcadeDrive(xaxisSpeed, -zaxisSpeed);
+    m_drivetrain.arcadeDrive(xaxisSpeed,    zaxisSpeed);
   }
 
   // Called once after isFinished returns true

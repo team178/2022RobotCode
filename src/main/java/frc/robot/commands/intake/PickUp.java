@@ -40,7 +40,7 @@ public class PickUp extends CommandBase {
       m_intake.enableBouncer();
     }
 
-    m_intake.setSpeed(-0.6);
+    m_intake.setSpeed(-0.75);
   }
 
   // Called once the command ends or is interrupted.
@@ -48,7 +48,7 @@ public class PickUp extends CommandBase {
   public void end(boolean interrupted) throws RuntimeException {
     m_intake.disableBouncer();
     m_intake.retract();
-    m_intake.setSpeed(-0.45);
+    m_intake.setSpeed(-0.65);
   }
 
   // Returns true when the command should end.
