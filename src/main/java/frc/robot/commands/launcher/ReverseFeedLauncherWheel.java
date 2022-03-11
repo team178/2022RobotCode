@@ -26,7 +26,7 @@ public class ReverseFeedLauncherWheel extends CommandBase {
     m_feeder = feeder;
 
     this.speed = LauncherConstants.kLauncherSpeed.getDouble(-0.05);
-    m_feeder.setSpeed(-0.05);
+    m_feeder.setSpeed(0.05);
 
     addRequirements(launcher);
   }
