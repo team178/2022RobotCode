@@ -65,6 +65,15 @@ public class DriveTrain extends SubsystemBase {
 
     speedMult = OIConstants.kBaseDriveSpeedMult;
 
+    // Limiting ramp rate, as to not cause instant changes in speed to
+    // prevent brownouts
+    leftMaster.configOpenloopRamp(0.1);
+    leftSlave.configOpenloopRamp(0.1);
+
+    rightMaster.configOpenloopRamp(0.1);
+    rightSlave.configOpenloopRamp(0.1);
+    
+
     // Sets the distance per pulse for the encoders
 
     leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
