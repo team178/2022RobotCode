@@ -92,13 +92,13 @@ public class RobotContainer {
 
     if(RobotBase.isReal()){
       //Camera 1
-      camera1 = CameraServer.startAutomaticCapture("cam0", 0);
+      camera1 = CameraServer.startAutomaticCapture("Main", 0);
       //camera1.setResolution(160, 90);
       camera1.setFPS(14);
       camera1.setPixelFormat(PixelFormat.kYUYV); //formats video specifications for cameras
 
       //Camera 2
-      camera2 = CameraServer.startAutomaticCapture("cam1", 1);
+      camera2 = CameraServer.startAutomaticCapture("Climber", 1);
       //camera2.setResolution(160, 120);
       camera2.setFPS(14);
       camera2.setPixelFormat(PixelFormat.kYUYV); //formats video specifications for cameras
