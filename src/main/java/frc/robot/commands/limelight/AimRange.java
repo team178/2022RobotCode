@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * Based on the Getting in Range and Aim Case Studies 
  */
-public class aimRange extends CommandBase {
+public class AimRange extends CommandBase {
 
   private final DriveTrain m_drivetrain;
   private final LimeLight m_limelight;
@@ -48,7 +48,7 @@ public class aimRange extends CommandBase {
    * @param drivetrain
    * @param limelight
    */
-  public aimRange(DriveTrain drivetrain, LimeLight limelight) {
+  public AimRange(DriveTrain drivetrain, LimeLight limelight) {
     m_drivetrain = drivetrain;
     m_limelight = limelight;
 
