@@ -182,7 +182,7 @@ public class RobotContainer {
 
   private void configureShuffleBoard() {
     //Autonomous Chooser Options (How our robot is going to tackle auto)
-    m_autoChooser.setDefaultOption("General Auto", AutoCommands.GeneralAuto);
+    //m_autoChooser.setDefaultOption("General Auto", AutoCommands.GeneralAuto);
     m_autoChooser.setDefaultOption("Modified General Auto", AutoCommands.ModifiedGeneralAuto);
     //m_autoChooser.addOption("Left Auto", AutoCommands.LeftAuto);
     //m_autoChooser.addOption("Middle Auto", AutoCommands.MiddleAuto);
