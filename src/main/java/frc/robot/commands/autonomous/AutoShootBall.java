@@ -40,10 +40,10 @@ public class AutoShootBall extends ParallelCommandGroup {
   // Note, would be better if launcher speed can be inputed with neededVelocity
   @Override
   public void execute() {
-    m_launcher.setSpeed(-1);
+    m_launcher.setSpeed(-.6);
     
     if(Timer.getFPGATimestamp() - startTime >= 2){
-      m_feeder.setSpeed(-1);
+      m_feeder.setSpeed(1);
     }
   }
 
