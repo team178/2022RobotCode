@@ -66,7 +66,7 @@ public class AimRange extends CommandBase {
    * @param limelight
    * @param desiredDistance
    */
-  public aimRange(DriveTrain drivetrain, LimeLight limelight, double desiredDistance) {
+  public AimRange(DriveTrain drivetrain, LimeLight limelight, double desiredDistance) {
     m_drivetrain = drivetrain;
     m_limelight = limelight;
 
