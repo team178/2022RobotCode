@@ -2,33 +2,25 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.launcher;
+package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.LauncherConstants;
-import frc.robot.subsystems.turret.Feeder;
-import frc.robot.subsystems.turret.Launcher;
+import frc.robot.subsystems.turret.Intake;
 
 /** Run the Launcher at it's set speed */
-public class ReverseFeedLauncherWheel extends CommandBase {
-  private final Launcher m_launcher;
-  private final Feeder m_feeder;
-  private double speed; 
+public class SpitBall extends CommandBase {
+  private final Intake m_intake;
 
   /**
-   * Creates a new RunLauncher command
+   * Creates a new SpitBall command
    *
    * @param launcher The Launcher subsystem.
    */
 
-  public ReverseFeedLauncherWheel(Launcher launcher, Feeder feeder) {
-    m_launcher = launcher;
-    m_feeder = feeder;
+  public SpitBall(Intake intake) {
+    m_intake = intake;
 
-    this.speed = LauncherConstants.kLauncherSpeed.getDouble(-0.05);
-    m_feeder.setSpeed(0.05);
-
-    addRequirements(launcher);
+    addRequirements(intake);
   }
 
 
@@ -42,15 +34,13 @@ public class ReverseFeedLauncherWheel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_launcher.setSpeed(speed);
-    m_feeder.setSpeed(speed);
+    m_intake.setSpeed(.6);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_launcher.setSpeed(0);
-    m_feeder.setSpeed(0);
+    m_intake.setSpeed(0);
   }
 
   // Returns true when the command should end.

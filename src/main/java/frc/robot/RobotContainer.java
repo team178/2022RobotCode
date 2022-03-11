@@ -36,6 +36,7 @@ import frc.robot.commands.climber.TomahawkDown;
 import frc.robot.commands.climber.TomahawkUp;
 import frc.robot.commands.drivetrain.ArcadeDrive;
 import frc.robot.commands.intake.PickUp;
+import frc.robot.commands.intake.SpitBall;
 import frc.robot.subsystems.ArduinoLights;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
@@ -146,8 +147,8 @@ public class RobotContainer {
     m_controller_aux.rightTrigger
       .whileHeld(new RunLauncher(m_launcher, -0.60));
 
-    //m_controller_aux.leftTrigger
-      //.whileHeld(new SlowIntakeUp(m_intake));
+    m_controller_aux.leftTrigger
+      .whileHeld(new SpitBall(m_intake));
 
     m_controller_aux.rightBumper
       .whileHeld(new ShootBall(m_feeder));

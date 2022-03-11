@@ -110,6 +110,7 @@ public class LimeLight extends SubsystemBase {
         double angleToTargetRadians = angleToTargetDegree * (Math.PI / 180);
 
         double distanceToTarget = (LimeLightConstants.kTargetHeight - LimeLightConstants.kLensHeight) / Math.tan(angleToTargetRadians);
+        distanceToTarget = ((isTargetFound() == false) ? 0 : distanceToTarget);
 
         return distanceToTarget;
     }
@@ -151,7 +152,8 @@ public class LimeLight extends SubsystemBase {
         SmartDashboard.putNumber("LimelightY", getVerticalDegToTarget());
         SmartDashboard.putNumber("LimelightArea", getTargetArea());
         SmartDashboard.putNumber("Limelight Distance", estimateDistance());
-        SmartDashboard.putBoolean("Is Scorable", isVelocityPossible() && isAnglePossible());
+        SmartDashboard.putBoolean("Is Target Found", isTargetFound());
+        //SmartDashboard.putBoolean("Is Scorable", isVelocityPossible() && isAnglePossible());
     } 
 
     @Override
