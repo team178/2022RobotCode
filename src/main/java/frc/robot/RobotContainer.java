@@ -136,7 +136,7 @@ public class RobotContainer {
 
     // Slowness II
     m_controller_main.leftTrigger
-      .whenPressed(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult/2))
+      .whenPressed(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult/1.5))//adjust slow speed
       .whenReleased(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult));
     
     // Limelight trigger
