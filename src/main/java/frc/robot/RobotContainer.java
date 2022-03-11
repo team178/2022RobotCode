@@ -185,7 +185,7 @@ public class RobotContainer {
     //m_autoChooser.addOption("Left Auto", AutoCommands.LeftAuto);
     //m_autoChooser.addOption("Middle Auto", AutoCommands.MiddleAuto);
     //m_autoChooser.addOption("Right Auto", AutoCommands.RightAuto);
-    m_autoChooser.addOption("Modified Range", new ModifiedRange(m_drivetrain, m_limelight));
+    m_autoChooser.addOption("Modified Range", new ModifiedRange(m_drivetrain, m_limelight, 1.2192));
     m_autoChooser.addOption("Modified Aim", new ModifiedAim(m_drivetrain, m_limelight));
     m_autoChooser.addOption("Aim and Range", new AimRange(m_drivetrain, m_limelight));
     m_autoChooser.addOption("Auto PickUp", new AutoPickUp(m_intake, m_drivetrain, 0.5842));

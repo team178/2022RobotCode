@@ -25,24 +25,19 @@ public class ReverseFeedLauncherWheel extends CommandBase {
     m_launcher = launcher;
     m_feeder = feeder;
 
-    this.speed = LauncherConstants.kLauncherSpeed.getDouble(-0.05);
-
     addRequirements(launcher);
   }
 
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-
-
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_launcher.setSpeed(speed);
-    m_feeder.setSpeed(speed);
+    m_launcher.setSpeed(.25);
+    m_feeder.setSpeed(.25);
   }
 
   // Called once the command ends or is interrupted.
