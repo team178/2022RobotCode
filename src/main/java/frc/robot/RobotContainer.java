@@ -35,6 +35,7 @@ import frc.robot.commands.climber.ToggleHook;
 import frc.robot.commands.climber.TomahawkDown;
 import frc.robot.commands.climber.TomahawkUp;
 import frc.robot.commands.drivetrain.ArcadeDrive;
+import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.intake.PickUp;
 import frc.robot.commands.intake.SpitBall;
 import frc.robot.subsystems.ArduinoLights;
@@ -191,6 +192,7 @@ public class RobotContainer {
     m_autoChooser.addOption("Aim and Range", new AimRange(m_drivetrain, m_limelight,1.2192));//number got by looking at limelight distance and pushing it against the hub -.1 meter
     m_autoChooser.addOption("Auto PickUp", new AutoPickUp(m_intake, m_drivetrain, 0.5842));
     m_autoChooser.addOption("Auto Shoot", new AutoShootBall(m_launcher, m_feeder, m_limelight));
+    m_autoChooser.addOption("Drive Straight", new DriveStraight(-3.23, m_drivetrain));
 
     //Creates new Shuffleboard tab called Drivebase
     ShuffleboardTab testTab = Shuffleboard.getTab("Drivebase");
