@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.TurnDegrees;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.limelight.AimRange;
-import frc.robot.subsystems.ArduinoLights;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.turret.Feeder;
@@ -20,7 +19,7 @@ public class AutoCommands {
 
     //public static SequentialCommandGroup AutoClimb;
 
-    public static void init(DriveTrain drivetrain, Intake intake, Launcher launcher, Feeder feeder, ArduinoLights lights, LimeLight limelight) {
+    public static void init(DriveTrain drivetrain, Intake intake, Launcher launcher, Feeder feeder, LimeLight limelight) {
         /*
             PathWeaver Test Code, currently deprecated because we couldn't get PathWeaver to work
             

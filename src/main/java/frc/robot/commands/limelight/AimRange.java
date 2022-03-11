@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.limelight;
 
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimeLight;
@@ -81,7 +81,7 @@ public class AimRange extends CommandBase {
   public void initialize() {
     // Initialize Range Fields
     KpAngle = 0.005;
-    KpMeter = 0.030;
+    KpMeter = 0.065;
     
     minDriveSpeed = 0.365;
 
@@ -99,7 +99,7 @@ public class AimRange extends CommandBase {
     headingError = ((horizontalDegTarget != 0) ? horizontalDegTarget : headingError); // Ensures heading error nevers = 0
 
     if(!crosshairCalibrated){
-        double currentDistance = m_limelight.estimateDistance(2.4384); // Input actually height from target later
+        double currentDistance = m_limelight.estimateDistance(); // Input actually height from target later
         rangeTolerance = 0.1;
         
         distanceError = desiredDistance - currentDistance;
@@ -114,11 +114,13 @@ public class AimRange extends CommandBase {
     }
 
     driveAdjust = ((Math.abs(driveAdjust) < minDriveSpeed) ? minDriveSpeed + Math.abs(driveAdjust) : driveAdjust); // Added the latter condition to ensure that if the drive adjust ends earlier than the turn adjust, the robot stops moving along the x axis
-    driveAdjust = ((distanceError > 0) ? -driveAdjust: driveAdjust);
+    driveAdjust = ((distanceError > 0) ? driveAdjust: -driveAdjust);
 
     turnAdjust = KpAim * headingError; // Multiplies our error by our speed constant, that way we have a useable speed
     turnAdjust = ((Math.abs(turnAdjust) < minTurnSpeed && Math.abs(headingError) > aimTolerance) ? minTurnSpeed + Math.abs(turnAdjust) : turnAdjust); // Ensures we don't go under min speed needed to turn
     turnAdjust = ((headingError > 0) ? turnAdjust : -turnAdjust); // Ensures correct directional change
+
+    System.out.println("Drive Adjust: " + driveAdjust + " Turn Adjust: " + turnAdjust);
 
     m_drivetrain.arcadeDrive(driveAdjust, turnAdjust);
   }

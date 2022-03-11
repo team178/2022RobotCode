@@ -88,7 +88,7 @@ public class RobotContainer {
     m_limelight = new LimeLight();
     new ArduinoLights(7, 8, 9);
 
-    // AutoCommands.init(m_drivetrain, m_intake, m_launcher, m_feeder, m_arduino, m_limelight);
+    AutoCommands.init(m_drivetrain, m_intake, m_launcher, m_feeder, m_limelight);
 
     if(RobotBase.isReal()){
       //Camera 1
