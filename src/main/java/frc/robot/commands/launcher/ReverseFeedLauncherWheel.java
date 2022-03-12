@@ -37,7 +37,7 @@ public class ReverseFeedLauncherWheel extends CommandBase {
   @Override
   public void execute() {
     m_launcher.setSpeed(.25);
-    m_feeder.setSpeed(.25);
+    m_feeder.setSpeed(-.25);
   }
 
   // Called once the command ends or is interrupted.

@@ -34,7 +34,7 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void execute() {
     double xaxisSpeed = m_xaxisSpeedSupplier.getAsDouble();
-    double zaxisSpeed = m_zaxisRotateSuppplier.getAsDouble();
+    double zaxisSpeed = m_zaxisRotateSuppplier.getAsDouble() * .9;
 
     if(Math.abs(xaxisSpeed) < 0.2) {
         xaxisSpeed = 0;
@@ -44,7 +44,7 @@ public class ArcadeDrive extends CommandBase {
         zaxisSpeed = 0;
     }
 
-    m_drivetrain.arcadeDrive(xaxisSpeed,    zaxisSpeed);
+    m_drivetrain.arcadeDrive(xaxisSpeed, zaxisSpeed);
   }
 
   // Called once after isFinished returns true

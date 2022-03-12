@@ -139,6 +139,9 @@ public class RobotContainer {
     m_controller_main.leftTrigger
       .whenPressed(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult/1.5))//adjust slow speed
       .whenReleased(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult));
+
+    m_controller_main.a
+      .whenPressed(new ModifiedAim(m_drivetrain, m_limelight));
     
     // Limelight trigger
     // m_controller_main.rightTrigger
@@ -146,7 +149,7 @@ public class RobotContainer {
 
     // Control the launcher via right trigger
     m_controller_aux.rightTrigger
-      .whileHeld(new RunLauncher(m_launcher, -0.60));
+      .whileHeld(new RunLauncher(m_launcher, -0.75));
 
     m_controller_aux.leftTrigger
       .whileHeld(new SpitBall(m_intake));
@@ -187,12 +190,12 @@ public class RobotContainer {
     //m_autoChooser.addOption("Left Auto", AutoCommands.LeftAuto);
     //m_autoChooser.addOption("Middle Auto", AutoCommands.MiddleAuto);
     //m_autoChooser.addOption("Right Auto", AutoCommands.RightAuto);
-    m_autoChooser.addOption("Modified Range", new ModifiedRange(m_drivetrain, m_limelight, 1.2192));
+    m_autoChooser.addOption("Modified Range", new ModifiedRange(m_drivetrain, m_limelight, 2.5));
     m_autoChooser.addOption("Modified Aim", new ModifiedAim(m_drivetrain, m_limelight));
     m_autoChooser.addOption("Aim and Range", new AimRange(m_drivetrain, m_limelight,1.2192));//number got by looking at limelight distance and pushing it against the hub -.1 meter
     m_autoChooser.addOption("Auto PickUp", new AutoPickUp(m_intake, m_drivetrain, 0.5842));
     m_autoChooser.addOption("Auto Shoot", new AutoShootBall(m_launcher, m_feeder, m_limelight));
-    m_autoChooser.addOption("Drive Straight", new DriveStraight(-3.23, m_drivetrain));
+    m_autoChooser.addOption("Drive Straight", new DriveStraight(.055, m_drivetrain));
 
     //Creates new Shuffleboard tab called Drivebase
     ShuffleboardTab testTab = Shuffleboard.getTab("Drivebase");

@@ -81,10 +81,8 @@ public class AutoCommands {
         );
 
         ModifiedGeneralAuto = new SequentialCommandGroup(
-            new ModifiedRange(drivetrain, limelight, 1.2192),
-            new ModifiedAim(drivetrain, limelight),
             new AutoShootBall(launcher, feeder, limelight),
-            new DriveStraight(-3.3, drivetrain)
+            new DriveStraight(2.5, drivetrain)
         );
 
         

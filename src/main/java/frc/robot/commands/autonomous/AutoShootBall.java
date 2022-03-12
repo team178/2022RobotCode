@@ -40,7 +40,7 @@ public class AutoShootBall extends ParallelCommandGroup {
   // Note, would be better if launcher speed can be inputed with neededVelocity
   @Override
   public void execute() {
-    m_launcher.setSpeed(-.6);
+    m_launcher.setSpeed(-.75);
     
     if(Timer.getFPGATimestamp() - startTime >= 2){
       m_feeder.setSpeed(1);
@@ -58,6 +58,6 @@ public class AutoShootBall extends ParallelCommandGroup {
   // Scuffed is finished, need to rethink
   @Override
   public boolean isFinished() {
-    return (Timer.getFPGATimestamp() - startTime >= 2.1);
+    return (Timer.getFPGATimestamp() - startTime >= 2.3);
   }
 }
