@@ -58,6 +58,6 @@ public class AutoShootBall extends ParallelCommandGroup {
   // Scuffed is finished, need to rethink
   @Override
   public boolean isFinished() {
-    return (Timer.getFPGATimestamp() - startTime >= 2.3);
+    return (Timer.getFPGATimestamp() - startTime >= 2.5);
   }
 }

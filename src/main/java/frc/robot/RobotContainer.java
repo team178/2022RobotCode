@@ -142,14 +142,14 @@ public class RobotContainer {
     
     // Slowness II
     m_controller_main.leftTrigger
-      .whenPressed(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult/1.3))//adjust slow speed
+      .whenPressed(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult*0.6))//adjust slow speed
       .whenReleased(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult));
 
     m_controller_main.a
-      .whenPressed(new ModifiedAim(m_drivetrain, m_limelight));
+      .whileHeld(new ModifiedAim(m_drivetrain, m_limelight));
 
     m_controller_main.b
-      .whenPressed(new ModifiedRange(m_drivetrain, m_limelight, 3.31));
+      .whileHeld(new ModifiedRange(m_drivetrain, m_limelight, 3.31));
 
     // Control the launcher via right trigger
     m_controller_aux.rightTrigger
