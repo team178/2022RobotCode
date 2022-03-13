@@ -1,27 +1,28 @@
 package frc.robot.commands.climber;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
-public class TomahawkDown extends CommandBase {
+public class TomahawkMove extends CommandBase {
     private final Climber m_climber;
+    private DoubleSupplier m_speed;
 
-    public TomahawkDown(Climber climber) {
+    public TomahawkMove(DoubleSupplier speed, Climber climber) {
         m_climber = climber;
+        m_speed = speed;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(climber);
-    }
-
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {
-        m_climber.setClimberMotorSpeed(0);
     }
   
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_climber.setClimberMotorSpeed(-0.75); //may need to adjust based on motor
+        double inputSpeed = m_speed.getAsDouble();
+        inputSpeed = ((Math.abs(inputSpeed) < .1) ? 0 : inputSpeed);
+
+        m_climber.setClimberMotorSpeed(inputSpeed); //may need to adjust based on motor
     }
   
     // Called once the command ends or is interrupted.

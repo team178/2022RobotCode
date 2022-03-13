@@ -5,6 +5,7 @@
 package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.DriveTrain;
 
@@ -15,6 +16,7 @@ import frc.robot.subsystems.DriveTrain;
  */
 public class DriveStraight extends PIDCommand {
   private final DriveTrain m_drivetrain;
+  private double startTime;
 
   /**
    * Create a new DriveStraight command.
@@ -29,13 +31,14 @@ public class DriveStraight extends PIDCommand {
     m_drivetrain.reset();
     addRequirements(m_drivetrain);
 
-    getController().setTolerance(0.1);
+    getController().setTolerance(1);
   }
 
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
     // Get everything in a safe starting state.
+    startTime = Timer.getFPGATimestamp();
     m_drivetrain.reset();
     super.initialize();
   }
@@ -43,6 +46,6 @@ public class DriveStraight extends PIDCommand {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   public boolean isFinished() {
-    return getController().atSetpoint();
+    return (Timer.getFPGATimestamp() - startTime >= 1);
   }
 }

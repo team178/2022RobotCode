@@ -110,8 +110,6 @@ public class LimeLight extends SubsystemBase {
         double angleToTargetRadians = angleToTargetDegree * (Math.PI / 180);
 
         double distanceToTarget = (LimeLightConstants.kTargetHeight - LimeLightConstants.kLensHeight) / Math.tan(angleToTargetRadians);
-        distanceToTarget = ((isTargetFound() == false) ? 0 : distanceToTarget);
-
         return distanceToTarget;
     }
 
@@ -138,12 +136,20 @@ public class LimeLight extends SubsystemBase {
         return ((calculateLauncherVelocity() > LauncherConstants.kMaxVelocity) ? false : true);
     }
 
+    public boolean isTargetExistant(){
+        return ((getHorizontalDegToTarget() != 0) ? true : false);
+    }
+
+    public boolean isDistancePossible(){
+        return((estimateDistance() < 3.30 && estimateDistance() > 3.2) ? true : false);
+    }
+
     /**
      * 
      * @return whether or not shooting angle is possible
      */
     public boolean isAnglePossible(){
-        return ((Math.abs(getHorizontalDegToTarget()) > 5) ? false : true); // 5 Represents a degree tolerance for shooting
+        return ((Math.abs(getHorizontalDegToTarget()) > 2.30 || Math.abs(getHorizontalDegToTarget()) < 2.40) ? false : true); // 5 Represents a degree tolerance for shooting
     }
 
     /** The log method puts interesting information to the SmartDashboard. */
@@ -152,7 +158,9 @@ public class LimeLight extends SubsystemBase {
         SmartDashboard.putNumber("LimelightY", getVerticalDegToTarget());
         SmartDashboard.putNumber("LimelightArea", getTargetArea());
         SmartDashboard.putNumber("Limelight Distance", estimateDistance());
-        SmartDashboard.putBoolean("Is Target Found", isTargetFound());
+        SmartDashboard.putBoolean("Good Angle", isAnglePossible());
+        SmartDashboard.putBoolean("Good Distance", isDistancePossible());
+        SmartDashboard.putBoolean("Target Found", isTargetExistant());
         //SmartDashboard.putBoolean("Is Scorable", isVelocityPossible() && isAnglePossible());
     } 
 
