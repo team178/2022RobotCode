@@ -70,6 +70,7 @@ public class RobotContainer {
 
   //Creates joystick object for the Main (0) and Aux (1) controllers
   private final ConsoleController m_controller_main = new ConsoleController(0);
+  // private final FlightmasterJoystick m_controller_main = new FlightmasterJoystick(0);
   private final ConsoleController m_controller_aux = new ConsoleController(1);
 
   // Create SmartDashboard chooser for autonomous routines and drive
@@ -128,11 +129,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    // m_drivetrain.setDefaultCommand(
-    //   new TankDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickY, m_drivetrain));
-
     m_drivetrain.setDefaultCommand(
       new ArcadeDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickX, m_drivetrain));
+
+    // m_drivetrain.setDefaultCommand(
+    //   new ArcadeDrive(m_controller_main::getY, m_controller_main::getTwist, m_drivetrain));
     
     m_climber.setDefaultCommand(
       new TomahawkMove(m_controller_aux::getRightStickX, m_climber)
@@ -144,6 +145,11 @@ public class RobotContainer {
       .whenPressed(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult*0.6))//adjust slow speed
       .whenReleased(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult));
 
+    // m_controller_main.trigger
+    //   .whenPressed(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult*0.6))//adjust slow speed
+    //   .whenReleased(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult));
+
+    // figure out what the joystick buttons do then figure out what to bind these to
     m_controller_main.a
       .whileHeld(new ModifiedAim(m_drivetrain, m_limelight));
 
