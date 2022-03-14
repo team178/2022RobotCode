@@ -30,14 +30,14 @@ public class RunLauncher extends CommandBase {
     m_launcher = launcher;
     this.speed = LauncherConstants.kLauncherSpeed.getDouble(0);
 
+    m_launcher.setSpeed(0.06);
+
     addRequirements(launcher);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -49,7 +49,7 @@ public class RunLauncher extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_launcher.setSpeed(0);
+    m_launcher.setSpeed(0.06);
   }
 
   // Returns true when the command should end.

@@ -75,7 +75,7 @@ public class ModifiedRange extends CommandBase {
     angleTolerance = 0.1;
     meterTolerance = 0.1;
     
-    minDriveSpeed = .345;
+    minDriveSpeed = .355;
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -32,8 +32,7 @@ import frc.robot.commands.limelight.ModifiedRange;
 import frc.robot.commands.climber.LowerMast;
 import frc.robot.commands.climber.RaiseMast;
 import frc.robot.commands.climber.ToggleHook;
-import frc.robot.commands.climber.TomahawkDown;
-import frc.robot.commands.climber.TomahawkUp;
+import frc.robot.commands.climber.TomahawkMove;
 import frc.robot.commands.drivetrain.ArcadeDrive;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.intake.PickUp;
@@ -99,7 +98,7 @@ public class RobotContainer {
       camera1.setPixelFormat(PixelFormat.kYUYV); //formats video specifications for cameras
 
       //Camera 2
-      camera2 = CameraServer.startAutomaticCapture("Climber", 1);
+      camera2 = CameraServer.startAutomaticCapture("Intake", 1);
       //camera2.setResolution(160, 120);
       camera2.setFPS(14);
       camera2.setPixelFormat(PixelFormat.kYUYV); //formats video specifications for cameras
@@ -134,22 +133,29 @@ public class RobotContainer {
 
     m_drivetrain.setDefaultCommand(
       new ArcadeDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickX, m_drivetrain));
+    
+    m_climber.setDefaultCommand(
+      new TomahawkMove(m_controller_aux::getRightStickX, m_climber)
+    );
 
+    
     // Slowness II
     m_controller_main.leftTrigger
-      .whenPressed(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult/1.5))//adjust slow speed
+      .whenPressed(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult*0.6))//adjust slow speed
       .whenReleased(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult));
-    
-    // Limelight trigger
-    // m_controller_main.rightTrigger
-    //   .whileHeld();
+
+    m_controller_main.a
+      .whileHeld(new ModifiedAim(m_drivetrain, m_limelight));
+
+    m_controller_main.b
+      .whileHeld(new ModifiedRange(m_drivetrain, m_limelight, 3.31));
 
     // Control the launcher via right trigger
     m_controller_aux.rightTrigger
-      .whileHeld(new RunLauncher(m_launcher, -0.60));
+      .whileHeld(new RunLauncher(m_launcher, -0.725));
 
     m_controller_aux.leftTrigger
-      .whileHeld(new SpitBall(m_intake));
+      .whileHeld(new RunLauncher(m_launcher, -0.65));
 
     m_controller_aux.rightBumper
       .whileHeld(new ShootBall(m_feeder));
@@ -160,23 +166,23 @@ public class RobotContainer {
     m_controller_aux.bottomDPAD
       .whileHeld(new LowerMast(m_climber));
     
-    m_controller_aux.leftDPAD
-      .whileHeld(new TomahawkDown(m_climber));
+    //m_controller_aux.leftDPAD
+      //.whileHeld(new TomahawkDown(m_climber));
 
-    m_controller_aux.rightDPAD
-      .whileHeld(new TomahawkUp(m_climber));
+    //m_controller_aux.rightDPAD
+      //.whileHeld(new TomahawkUp(m_climber));
 
     m_controller_aux.a
       .toggleWhenPressed(new PickUp(m_intake));
     
     m_controller_aux.b
-      .whileHeld(new RunLauncher(m_launcher,-0.1));
+      .whileHeld(new SpitBall(m_intake));
 
     m_controller_aux.x  
       .whenPressed(new ToggleHook(m_climber));
 
     m_controller_aux.y  
-      .whenPressed(new ReverseFeedLauncherWheel(m_launcher,m_feeder));
+      .whileHeld(new ReverseFeedLauncherWheel(m_launcher,m_feeder));
 
   }
 
@@ -187,12 +193,12 @@ public class RobotContainer {
     //m_autoChooser.addOption("Left Auto", AutoCommands.LeftAuto);
     //m_autoChooser.addOption("Middle Auto", AutoCommands.MiddleAuto);
     //m_autoChooser.addOption("Right Auto", AutoCommands.RightAuto);
-    m_autoChooser.addOption("Modified Range", new ModifiedRange(m_drivetrain, m_limelight, 1.2192));
+    m_autoChooser.addOption("Modified Range", new ModifiedRange(m_drivetrain, m_limelight, 2.5));
     m_autoChooser.addOption("Modified Aim", new ModifiedAim(m_drivetrain, m_limelight));
     m_autoChooser.addOption("Aim and Range", new AimRange(m_drivetrain, m_limelight,1.2192));//number got by looking at limelight distance and pushing it against the hub -.1 meter
     m_autoChooser.addOption("Auto PickUp", new AutoPickUp(m_intake, m_drivetrain, 0.5842));
     m_autoChooser.addOption("Auto Shoot", new AutoShootBall(m_launcher, m_feeder, m_limelight));
-    m_autoChooser.addOption("Drive Straight", new DriveStraight(-3.23, m_drivetrain));
+    m_autoChooser.addOption("Drive Straight", new DriveStraight(2.5, m_drivetrain));
 
     //Creates new Shuffleboard tab called Drivebase
     ShuffleboardTab testTab = Shuffleboard.getTab("Drivebase");

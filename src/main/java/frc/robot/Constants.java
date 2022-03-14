@@ -22,8 +22,8 @@ public final class Constants {
     public static final int kRightMotor1Port = 2;
     public static final int kRightMotor2Port = 4;
 
-    public static final int kEncoderCPR = 1024;
-    public static final double kWheelDiameterInches = 6;
+    public static final int kEncoderCPR = 4096;
+    public static final double kWheelDiameterInches = .152;
     public static final double kEncoderDistancePerPulse =
         // Assumes the encoders are directly mounted on the wheel shafts
         (kWheelDiameterInches * Math.PI) / (double) kEncoderCPR;

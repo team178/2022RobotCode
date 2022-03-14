@@ -20,6 +20,7 @@ public class ShootBall extends CommandBase {
     m_feeder = feeder;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);
+    m_feeder.setSpeed(-.06);
   }
 
   // Called when the command is initially scheduled.
@@ -36,6 +37,7 @@ public class ShootBall extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_feeder.setSpeed(0);
+    m_feeder.setSpeed(-.06);
   }
 
   // Returns true when the command should end.
