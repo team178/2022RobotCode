@@ -33,7 +33,6 @@ import frc.robot.commands.climber.LowerMast;
 import frc.robot.commands.climber.RaiseMast;
 import frc.robot.commands.climber.ToggleHook;
 import frc.robot.commands.climber.TomahawkMove;
-import frc.robot.commands.climber.TomahawkUp;
 import frc.robot.commands.drivetrain.ArcadeDrive;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.intake.PickUp;
