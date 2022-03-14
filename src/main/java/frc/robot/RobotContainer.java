@@ -99,7 +99,7 @@ public class RobotContainer {
       camera1.setPixelFormat(PixelFormat.kYUYV); //formats video specifications for cameras
 
       //Camera 2
-      camera2 = CameraServer.startAutomaticCapture("Climber", 1);
+      camera2 = CameraServer.startAutomaticCapture("Intake", 1);
       //camera2.setResolution(160, 120);
       camera2.setFPS(14);
       camera2.setPixelFormat(PixelFormat.kYUYV); //formats video specifications for cameras
