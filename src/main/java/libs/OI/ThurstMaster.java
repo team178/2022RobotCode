@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
-public class FlightmasterJoystick {
+public class ThurstMaster {
     //JOYSTICK buttons
 	public Joystick joystick;
 	public Button trigger;
@@ -32,7 +32,7 @@ public class FlightmasterJoystick {
 	public Button rightPadBottom2;
 	public Button rightPadBottom3;
     
-    public FlightmasterJoystick(int port) {
+    public ThurstMaster(int port) {
 		joystick = new Joystick(port);
 		trigger = new JoystickButton(joystick, 1);
 		headBottom = new JoystickButton(joystick, 2);

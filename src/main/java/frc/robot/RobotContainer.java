@@ -43,6 +43,7 @@ import frc.robot.subsystems.turret.Intake;
 import frc.robot.subsystems.turret.Launcher;
 import frc.robot.subsystems.turret.Feeder;
 import libs.OI.ConsoleController;
+import libs.OI.ThurstMaster;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -67,8 +68,7 @@ public class RobotContainer {
   private final UsbCamera camera3;
 
   //Creates joystick object for the Main (0) and Aux (1) controllers
-  private final ConsoleController m_controller_main = new ConsoleController(0);
-  // private final FlightmasterJoystick m_controller_main = new FlightmasterJoystick(0);
+  private final ThurstMaster m_controller_main = new ThurstMaster(0);
   private final ConsoleController m_controller_aux = new ConsoleController(1);
 
   // Create SmartDashboard chooser for autonomous routines and drive
@@ -128,10 +128,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     m_drivetrain.setDefaultCommand(
-      new ArcadeDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickX, m_drivetrain));
-
-    // m_drivetrain.setDefaultCommand(
-    //   new ArcadeDrive(m_controller_main::getY, m_controller_main::getTwist, m_drivetrain));
+      new ArcadeDrive(m_controller_main::getY, m_controller_main::getTwist, m_drivetrain));
     
     m_climber.setDefaultCommand(
       new ClimberMove(m_controller_aux::getLeftStickY, m_controller_aux::getRightStickX, m_climber)
@@ -139,24 +136,23 @@ public class RobotContainer {
 
     
     // Slowness II
-    m_controller_main.leftTrigger
-      .whenPressed(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult*0.6))//adjust slow speed
-      .whenReleased(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult));
-
-    // m_controller_main.trigger
-    //   .whenPressed(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult*0.6))//adjust slow speed
-    //   .whenReleased(() -> m_drivetrain.setSpeedMultiplier(OIConstants.kBaseDriveSpeedMult));
+    m_controller_main.trigger
+      .whenPressed(() -> m_drivetrain.setSpeedMultiplier(true))//adjust slow speed
+      .whenReleased(() -> m_drivetrain.setSpeedMultiplier(false));
 
     // figure out what the joystick buttons do then figure out what to bind these to
-    m_controller_main.a
+    m_controller_main.headLeft
       .whileHeld(new ModifiedAim(m_drivetrain, m_limelight));
 
-    m_controller_main.b
+    m_controller_main.headRight
       .whileHeld(new ModifiedRange(m_drivetrain, m_limelight, 3.31));
 
     // Control the launcher via right trigger
     m_controller_aux.rightTrigger
       .whileHeld(new FireBall(m_launcher, m_feeder, -0.65));
+
+    m_controller_aux.leftTrigger
+      .whileHeld(new PickUp(m_intake));
 
     //m_controller_aux.rightTrigger
       //.whileHeld(new RunLauncher(m_launcher, -0.725));
@@ -179,8 +175,8 @@ public class RobotContainer {
     //m_controller_aux.rightDPAD
       //.whileHeld(new TomahawkUp(m_climber));
 
-    m_controller_aux.a
-      .toggleWhenPressed(new PickUp(m_intake));
+    //m_controller_aux.a
+      //.toggleWhenPressed(new PickUp(m_intake));
     
     m_controller_aux.b
       .whileHeld(new SpitBall(m_intake));

@@ -13,6 +13,10 @@ import frc.robot.subsystems.turret.Launcher;
 /** Run the Launcher */
 public class AutoShootBall extends ParallelCommandGroup {
   private double startTime;
+  private double m_speed;
+
+  private double m_desiredSpeed;
+
   private final Feeder m_feeder;
   private final Launcher m_launcher;
   /**
@@ -20,9 +24,21 @@ public class AutoShootBall extends ParallelCommandGroup {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public AutoShootBall(Launcher launcher, Feeder feeder, LimeLight limeLight) {
+  public AutoShootBall(Launcher launcher, Feeder feeder, LimeLight limeLight, double speed) {
     m_launcher = launcher;
     m_feeder = feeder;
+    m_speed = speed;
+
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(launcher, feeder);
+  }
+
+  public AutoShootBall(Launcher launcher, Feeder feeder, LimeLight limeLight){
+    m_launcher = launcher;
+    m_feeder = feeder;
+
+    m_desiredSpeed = limeLight.calculateLauncherVelocity();
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(launcher, feeder);
   }
@@ -40,7 +56,9 @@ public class AutoShootBall extends ParallelCommandGroup {
   // Note, would be better if launcher speed can be inputed with neededVelocity
   @Override
   public void execute() {
-    m_launcher.setSpeed(-.65);
+    if(m_desiredSpeed > 0 && m_desiredSpeed != m_launcher.getSpeed())
+
+    m_launcher.setSpeed(m_speed);
     
     if(Timer.getFPGATimestamp() - startTime >= 2){
       m_feeder.setSpeed(1);
