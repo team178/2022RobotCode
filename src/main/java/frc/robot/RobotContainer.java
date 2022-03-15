@@ -18,9 +18,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.robot.commands.launcher.ReverseFeedLauncherWheel;
-import frc.robot.commands.launcher.RunLauncher;
-import frc.robot.commands.launcher.ShootBall;
+import frc.robot.commands.launcher.FireBall;
 import frc.robot.commands.limelight.AimRange;
 import frc.robot.Constants.LauncherConstants;
 import frc.robot.Constants.OIConstants;
@@ -136,7 +134,7 @@ public class RobotContainer {
     //   new ArcadeDrive(m_controller_main::getY, m_controller_main::getTwist, m_drivetrain));
     
     m_climber.setDefaultCommand(
-      new TomahawkMove(m_controller_aux::getRightStickX, m_climber)
+      new TomahawkMove(m_controller_aux::getLeftStickY, m_controller_aux::getRightStickX, m_climber)
     );
 
     
@@ -158,13 +156,16 @@ public class RobotContainer {
 
     // Control the launcher via right trigger
     m_controller_aux.rightTrigger
-      .whileHeld(new RunLauncher(m_launcher, -0.725));
+      .whileHeld(new FireBall(m_launcher, m_feeder, -0.65));
 
-    m_controller_aux.leftTrigger
-      .whileHeld(new RunLauncher(m_launcher, -0.65));
+    //m_controller_aux.rightTrigger
+      //.whileHeld(new RunLauncher(m_launcher, -0.725));
 
-    m_controller_aux.rightBumper
-      .whileHeld(new ShootBall(m_feeder));
+    //m_controller_aux.leftTrigger
+      //.whileHeld(new RunLauncher(m_launcher, -0.65));
+
+    //m_controller_aux.rightBumper
+      //.whileHeld(new ShootBall(m_feeder));
 
     m_controller_aux.topDPAD
       .whileHeld(new RaiseMast(m_climber));
@@ -186,9 +187,6 @@ public class RobotContainer {
 
     m_controller_aux.x  
       .whenPressed(new ToggleHook(m_climber));
-
-    m_controller_aux.y  
-      .whileHeld(new ReverseFeedLauncherWheel(m_launcher,m_feeder));
 
   }
 

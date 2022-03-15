@@ -7,11 +7,13 @@ import frc.robot.subsystems.Climber;
 
 public class TomahawkMove extends CommandBase {
     private final Climber m_climber;
-    private DoubleSupplier m_speed;
+    private DoubleSupplier m_mastSpeed;
+    private DoubleSupplier m_tomahawkSpeed;
 
-    public TomahawkMove(DoubleSupplier speed, Climber climber) {
+    public TomahawkMove(DoubleSupplier mastSpeed, DoubleSupplier tomahawkSpeed, Climber climber) {
         m_climber = climber;
-        m_speed = speed;
+        m_mastSpeed = mastSpeed;
+        m_tomahawkSpeed = tomahawkSpeed;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(climber);
     }
@@ -19,16 +21,15 @@ public class TomahawkMove extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double inputSpeed = m_speed.getAsDouble();
-        inputSpeed = ((Math.abs(inputSpeed) < .1) ? 0 : inputSpeed);
-
-        m_climber.setClimberMotorSpeed(inputSpeed); //may need to adjust based on motor
+        m_climber.setClimberMotorSpeed(m_tomahawkSpeed.getAsDouble()); //may need to adjust based on motor
+        m_climber.setExtendingArmWinchSpeed(m_mastSpeed.getAsDouble());
     }
   
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         m_climber.setClimberMotorSpeed(0);
+        m_climber.setExtendingArmWinchSpeed(0);
     }
   
     // Returns true when the command should end.

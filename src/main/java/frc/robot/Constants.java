@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableEntry;
 
 // Copyright (c) FIRST and other WPILib contributors.
@@ -23,10 +24,10 @@ public final class Constants {
     public static final int kRightMotor2Port = 4;
 
     public static final int kEncoderCPR = 4096;
-    public static final double kWheelDiameterInches = .152;
+    public static final double kWheelDiameterMeters = Units.inchesToMeters(6);
     public static final double kEncoderDistancePerPulse =
         // Assumes the encoders are directly mounted on the wheel shafts
-        (kWheelDiameterInches * Math.PI) / (double) kEncoderCPR;
+        (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
 
     public static final double kTurnP = 1;
     public static final double kTurnI = 0;

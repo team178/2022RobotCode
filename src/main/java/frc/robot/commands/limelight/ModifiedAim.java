@@ -22,6 +22,8 @@ public class ModifiedAim extends CommandBase {
 
   private final DriveTrain m_drivetrain;
   private final LimeLight m_limelight;
+
+  private double m_degrees;
   
   private double Kp;
   private double minTurnSpeed;
@@ -35,9 +37,18 @@ public class ModifiedAim extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
+  public ModifiedAim(double degrees, DriveTrain drivetrain, LimeLight limelight) {
+    m_drivetrain = drivetrain;
+    m_limelight = limelight;
+    m_degrees = degrees;
+    
+    addRequirements(drivetrain, limelight);
+  }
+
   public ModifiedAim(DriveTrain drivetrain, LimeLight limelight) {
     m_drivetrain = drivetrain;
     m_limelight = limelight;
+    m_degrees = 0;
     
     addRequirements(drivetrain, limelight);
   }
@@ -55,11 +66,11 @@ public class ModifiedAim extends CommandBase {
   public void execute() {
     double horizontalDegTarget = m_limelight.getHorizontalDegToTarget(); 
 
-    headingError = ((horizontalDegTarget != 0) ? horizontalDegTarget : headingError); // Ensures heading error nevers = 0
+    headingError = ((horizontalDegTarget != 0) ? m_degrees - horizontalDegTarget : headingError); // Ensures heading error nevers = 0
 
     turnAdjust = Kp * headingError; // Multiplies our error by our speed constant, that way we have a useable speed
     turnAdjust = ((Math.abs(turnAdjust) < minTurnSpeed) ? minTurnSpeed + Math.abs(turnAdjust) : turnAdjust); // Ensures we don't go under min speed needed to turn
-    turnAdjust = ((headingError > 0) ? turnAdjust : -turnAdjust); // Ensures correct directional change
+    turnAdjust = ((headingError > 0) ? -turnAdjust : turnAdjust); // Ensures correct directional change
     
     m_drivetrain.arcadeDrive(0, turnAdjust);
   }

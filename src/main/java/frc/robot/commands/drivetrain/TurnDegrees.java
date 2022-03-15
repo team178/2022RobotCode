@@ -87,7 +87,6 @@ public class TurnDegrees extends CommandBase {
   }
 
   private double getHeading() {
-    return 0;
-    //return m_drive.getHeading();
+    return m_drive.getHeading();
   }
 }
