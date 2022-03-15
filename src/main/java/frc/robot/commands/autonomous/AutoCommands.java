@@ -24,10 +24,26 @@ public class AutoCommands {
 
     public static void init(DriveTrain drivetrain, Intake intake, Launcher launcher, Feeder feeder, LimeLight limelight) {
         // Use for first competition
+        /*
+        OLD
         GeneralAuto = new SequentialCommandGroup(
             new AimRange(drivetrain, limelight, 1.2192),
             new AutoShootBall(launcher,feeder,limelight),
             new DriveStraight(-3.3, drivetrain)
+        );
+        */
+
+        GeneralAuto = new SequentialCommandGroup(
+            new ModifiedAim(drivetrain, limelight),
+            new AutoShootBall(launcher, feeder, limelight),
+            new TurnDegrees(180 - drivetrain.getHeading(), drivetrain),
+            new AutoPickUp(intake, drivetrain, 1 /* MOVE OUT DISTANCE CHANGE */),
+            new TurnDegrees(180, drivetrain),
+            new ModifiedAim(drivetrain, limelight),
+            new ModifiedRange(drivetrain, limelight, 1 /* MOVE TO BORDER CHANGE */),
+            new AutoShootBall(launcher, feeder, limelight),
+            new TurnDegrees(-drivetrain.getHeading(), drivetrain),
+            new DriveStraight(-1, drivetrain)
         );
 
         ModifiedGeneralAuto = new SequentialCommandGroup(
