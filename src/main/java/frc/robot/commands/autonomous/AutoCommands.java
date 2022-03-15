@@ -37,10 +37,10 @@ public class AutoCommands {
             new ModifiedAim(drivetrain, limelight),
             new AutoShootBall(launcher, feeder, limelight),
             new TurnDegrees(180 - drivetrain.getHeading(), drivetrain),
-            new AutoPickUp(intake, drivetrain, 1 /* MOVE OUT DISTANCE CHANGE */),
+            new AutoPickUp(intake, drivetrain, 1.634 /* MOVE OUT DISTANCE */),
             new TurnDegrees(180, drivetrain),
             new ModifiedAim(drivetrain, limelight),
-            new ModifiedRange(drivetrain, limelight, 1 /* MOVE TO BORDER CHANGE */),
+            new ModifiedRange(drivetrain, limelight, 0.911 /* MOVE TO BORDER */),
             new AutoShootBall(launcher, feeder, limelight),
             new TurnDegrees(-drivetrain.getHeading(), drivetrain),
             new DriveStraight(-1, drivetrain)
