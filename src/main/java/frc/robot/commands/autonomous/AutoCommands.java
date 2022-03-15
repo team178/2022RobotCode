@@ -23,14 +23,20 @@ public class AutoCommands {
     //public static SequentialCommandGroup AutoClimb;
 
     public static void init(DriveTrain drivetrain, Intake intake, Launcher launcher, Feeder feeder, LimeLight limelight) {
-        // Use for first competition
+        // PathWeaver Test Code (DO NOT USE, CREATE A FILE CALLED robotInit)
         /*
-        OLD
-        GeneralAuto = new SequentialCommandGroup(
-            new AimRange(drivetrain, limelight, 1.2192),
-            new AutoShootBall(launcher,feeder,limelight),
-            new DriveStraight(-3.3, drivetrain)
-        );
+        String trajectoryJSON = "paths/YourPath.wpilib.json"; // replace YourPath with the path name
+        Trajectory trajectory = new Trajectory();
+
+        @Override
+        public void robotInit() {
+            try {
+                Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+                trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath); 
+            } catch (IOException ex) {
+                DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+            }
+        }
         */
 
         GeneralAuto = new SequentialCommandGroup(
