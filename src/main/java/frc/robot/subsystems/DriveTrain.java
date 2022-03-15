@@ -45,7 +45,8 @@ public class DriveTrain extends SubsystemBase {
   public DoubleSupplier leftRate;
   public DoubleSupplier rightRate;
 
-  private double speedMult;
+  private double yMult;
+  private double twistMult;
 
   private final MotorController m_leftMotor =
     new MotorControllerGroup(leftMaster, leftSlave);
@@ -63,7 +64,8 @@ public class DriveTrain extends SubsystemBase {
     m_rightMotor.setInverted(true);
     m_leftMotor.setInverted(false);
 
-    speedMult = OIConstants.kBaseDriveSpeedMult;
+    yMult = OIConstants.kBaseDriveSpeedMult;
+    twistMult = OIConstants.kBaseDriveSpeedMult;
 
     // Limiting ramp rate, as to not cause instant changes in speed to
     // prevent brownouts
@@ -101,7 +103,7 @@ public class DriveTrain extends SubsystemBase {
    * @param right Speed in range [-1,1]
    */
   public void tankDrive(double leftSpeed, double rightSpeed) {
-    m_drive.tankDrive(leftSpeed * speedMult, rightSpeed * speedMult);
+    m_drive.tankDrive(leftSpeed, rightSpeed);
   }
 
   /**
@@ -111,7 +113,7 @@ public class DriveTrain extends SubsystemBase {
    * @param rot the commanded rotation
    */
   public void arcadeDrive(double fwd, double rot) {
-    m_drive.arcadeDrive(fwd * speedMult, rot * speedMult);
+    m_drive.arcadeDrive(fwd, rot);
   }
 
   /** Reset the robots sensors to the zero states. */
@@ -121,8 +123,9 @@ public class DriveTrain extends SubsystemBase {
     m_gyro.reset();
   }
 
-  public void setSpeedMultiplier(double mult) {
-    speedMult = mult;
+  public void setSpeedMultiplier(Boolean triggered) {
+    yMult = ((triggered == true) ? 0.5 : 1);
+    twistMult = ((triggered == true) ? 0.2 : 03);
   }
 
   public double getHeading(){
@@ -172,6 +175,14 @@ public class DriveTrain extends SubsystemBase {
    */
   public double getDistance() {
     return (getLeftDistance() + getRightDistance()) / 2;
+  }
+
+  public double getTwistMult() {
+    return twistMult;
+  }
+
+  public double getYMult() {
+    return yMult;
   }
 
 
