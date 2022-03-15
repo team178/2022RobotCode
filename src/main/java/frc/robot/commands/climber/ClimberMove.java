@@ -5,12 +5,12 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
-public class TomahawkMove extends CommandBase {
+public class ClimberMove extends CommandBase {
     private final Climber m_climber;
     private DoubleSupplier m_mastSpeed;
     private DoubleSupplier m_tomahawkSpeed;
 
-    public TomahawkMove(DoubleSupplier mastSpeed, DoubleSupplier tomahawkSpeed, Climber climber) {
+    public ClimberMove(DoubleSupplier mastSpeed, DoubleSupplier tomahawkSpeed, Climber climber) {
         m_climber = climber;
         m_mastSpeed = mastSpeed;
         m_tomahawkSpeed = tomahawkSpeed;

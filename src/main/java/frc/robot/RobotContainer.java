@@ -30,7 +30,7 @@ import frc.robot.commands.limelight.ModifiedRange;
 import frc.robot.commands.climber.LowerMast;
 import frc.robot.commands.climber.RaiseMast;
 import frc.robot.commands.climber.ToggleHook;
-import frc.robot.commands.climber.TomahawkMove;
+import frc.robot.commands.climber.ClimberMove;
 import frc.robot.commands.drivetrain.ArcadeDrive;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.intake.PickUp;
@@ -134,7 +134,7 @@ public class RobotContainer {
     //   new ArcadeDrive(m_controller_main::getY, m_controller_main::getTwist, m_drivetrain));
     
     m_climber.setDefaultCommand(
-      new TomahawkMove(m_controller_aux::getLeftStickY, m_controller_aux::getRightStickX, m_climber)
+      new ClimberMove(m_controller_aux::getLeftStickY, m_controller_aux::getRightStickX, m_climber)
     );
 
     
