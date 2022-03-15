@@ -23,61 +23,27 @@ public class AutoCommands {
     //public static SequentialCommandGroup AutoClimb;
 
     public static void init(DriveTrain drivetrain, Intake intake, Launcher launcher, Feeder feeder, LimeLight limelight) {
-        /*
-            PathWeaver Test Code, currently deprecated because we couldn't get PathWeaver to work
-            
-            
-        */ 
-        LeftAuto = new SequentialCommandGroup(
-            // shoot ball & save original rotation in a var
-            new AimRange(drivetrain, limelight, 1.2192),
-            new AutoShootBall(launcher, feeder, limelight),
-            // calibrate the robot using limelight, turn 180 degrees, drive straight into ball
-            new TurnDegrees(180, drivetrain),
-            new DriveStraight(2.1774, drivetrain),
-            // pick up ball
-            new AutoPickUp(intake, drivetrain, 0.5842),
-            new TurnDegrees(180, drivetrain),
-            // shoot ball, autonomous ends
-            new AimRange(drivetrain, limelight, 1.2192),
-            new AutoShootBall(launcher, feeder, limelight)
-        );
-        
-        MiddleAuto = new SequentialCommandGroup(
-            // shoot ball & save original rotation in a var
-            new AimRange(drivetrain, limelight, 1.2192),
-            new AutoShootBall(launcher, feeder, limelight),
-            // calibrate the robot using limelight, turn 180 degrees, drive straight into ball
-            new TurnDegrees(180, drivetrain),
-            new DriveStraight(2.1226, drivetrain),
-            // pick up ball
-            new AutoPickUp(intake, drivetrain, 0.5842),
-            new TurnDegrees(180, drivetrain),
-            // shoot ball, autonomous ends
-            new AimRange(drivetrain, limelight, 1.2192),
-            new AutoShootBall(launcher, feeder, limelight)
-        );
-        
-        RightAuto = new SequentialCommandGroup(
-            // shoot ball & save original rotation in a var
-            new AimRange(drivetrain, limelight, 1.2192),
-            new AutoShootBall(launcher, feeder, limelight),
-            // calibrate the robot using limelight, turn 180 degrees, drive straight into ball
-            new TurnDegrees(180, drivetrain),
-            new DriveStraight(2.0137, drivetrain),
-            // pick up ball
-            new AutoPickUp(intake, drivetrain, 0.5842),
-            new TurnDegrees(180, drivetrain),
-            // shoot ball, autonomous ends
-            new AimRange(drivetrain, limelight, 1.2192),
-            new AutoShootBall(launcher, feeder, limelight)
-        );
-        
         // Use for first competition
+        /*
+        OLD
         GeneralAuto = new SequentialCommandGroup(
             new AimRange(drivetrain, limelight, 1.2192),
             new AutoShootBall(launcher,feeder,limelight),
             new DriveStraight(-3.3, drivetrain)
+        );
+        */
+
+        GeneralAuto = new SequentialCommandGroup(
+            new ModifiedAim(drivetrain, limelight),
+            new AutoShootBall(launcher, feeder, limelight),
+            new TurnDegrees(180 - drivetrain.getHeading(), drivetrain),
+            new AutoPickUp(intake, drivetrain, 1.634 /* MOVE OUT DISTANCE */),
+            new TurnDegrees(180, drivetrain),
+            new ModifiedAim(drivetrain, limelight),
+            new ModifiedRange(drivetrain, limelight, 0.911 /* MOVE TO BORDER */),
+            new AutoShootBall(launcher, feeder, limelight),
+            new TurnDegrees(-drivetrain.getHeading(), drivetrain),
+            new DriveStraight(-1, drivetrain)
         );
 
         ModifiedGeneralAuto = new SequentialCommandGroup(
@@ -85,6 +51,5 @@ public class AutoCommands {
             new DriveStraight(2.5, drivetrain)
         );
 
-        
     }
 }
