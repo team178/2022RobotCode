@@ -87,6 +87,8 @@ public class ModifiedRange extends CommandBase {
         
         distanceError = desiredDistance - currentDistance;
         driveAdjust = KpMeter * Math.abs(distanceError);
+        
+        //driveAdjust = distanceError/desiredDistance
     }
     else{
         double verticalDegTarget = m_limelight.getVerticalDegToTarget();
@@ -96,6 +98,7 @@ public class ModifiedRange extends CommandBase {
     }
 
     driveAdjust = ((Math.abs(driveAdjust) < minDriveSpeed) ? minDriveSpeed + driveAdjust : driveAdjust);
+    //driveAdjust = ((Math.abs(driveAdjust) < minDriveSpeed) ? minDriveSpeed : driveAdjust);
     driveAdjust = ((distanceError > 0) ? -driveAdjust: driveAdjust);
 
     m_drivetrain.arcadeDrive(driveAdjust, 0);
