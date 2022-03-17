@@ -22,7 +22,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.OIConstants;
 
 
 /**
@@ -45,9 +44,6 @@ public class DriveTrain extends SubsystemBase {
   public DoubleSupplier leftRate;
   public DoubleSupplier rightRate;
 
-  private double xMult;
-  private double zMult;
-
   private final MotorController m_leftMotor =
     new MotorControllerGroup(leftMaster, leftSlave);
   
@@ -63,9 +59,6 @@ public class DriveTrain extends SubsystemBase {
     // gearbox is constructed, you might have to invert the left side instead.
     m_rightMotor.setInverted(false);
     m_leftMotor.setInverted(true);
-
-    xMult = OIConstants.kBaseDriveSpeedMult;
-    zMult = OIConstants.kBaseDriveSpeedMult;
 
     // Limiting ramp rate, as to not cause instant changes in speed to
     // prevent brownouts
@@ -123,11 +116,6 @@ public class DriveTrain extends SubsystemBase {
     m_gyro.reset();
   }
 
-  public void setSpeedMultiplier(Boolean triggered) {
-    xMult = ((triggered == true) ? 0.5 : 1);
-    zMult = ((triggered == true) ? 0.3 : 0.5);
-  }
-
   public double getHeading(){
     return m_gyro.getAngle();
   }
@@ -177,15 +165,6 @@ public class DriveTrain extends SubsystemBase {
     return (getLeftDistance() + getRightDistance()) / 2;
   }
 
-  public double getZMult() {
-    return zMult;
-  }
-
-  public double getXMult() {
-    return xMult;
-  }
-
-
   /** The log method puts interesting information to the SmartDashboard. */
   public void log() {
     SmartDashboard.putNumber("Left Distance", leftPosition.getAsDouble());
@@ -198,7 +177,6 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     log();
-    setSpeedMultiplier(false);
   }
 
 }

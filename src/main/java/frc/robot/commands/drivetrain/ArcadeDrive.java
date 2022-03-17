@@ -4,8 +4,10 @@
 
 package frc.robot.commands.drivetrain;
 
+import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import java.util.function.DoubleSupplier;
 
@@ -16,6 +18,8 @@ public class ArcadeDrive extends CommandBase {
   private DoubleSupplier m_xaxisSpeedSupplier;
   private DoubleSupplier m_zaxisRotateSuppplier;
 
+  private boolean m_trigger;
+
   /**
    * Creates a new TankDrive command.
    *
@@ -23,20 +27,26 @@ public class ArcadeDrive extends CommandBase {
    * @param zaxisRotateSuppplier The control input for the z axis of the drive
    * @param drivetrain The drivetrain subsystem to drive
    */
-  public ArcadeDrive(DoubleSupplier xaxisSpeedSupplier, DoubleSupplier zaxisRotateSuppplier, DriveTrain drivetrain) {
+  public ArcadeDrive(DoubleSupplier xaxisSpeedSupplier, DoubleSupplier zaxisRotateSuppplier, DriveTrain drivetrain, boolean trigger) {
     m_drivetrain = drivetrain;
     m_xaxisSpeedSupplier = xaxisSpeedSupplier;
     m_zaxisRotateSuppplier = zaxisRotateSuppplier;
+
+    m_trigger = trigger;
+
     addRequirements(drivetrain);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    double xaxisSpeed = m_xaxisSpeedSupplier.getAsDouble() * .8;
-    double zaxisSpeed = m_zaxisRotateSuppplier.getAsDouble() * -.7;
-
-    m_drivetrain.arcadeDrive(xaxisSpeed, zaxisSpeed);
+    double xaxisSpeed = ((m_trigger) ? m_xaxisSpeedSupplier.getAsDouble() * OIConstants.kXAxisSpeedMult.getDouble(.8) : 
+      m_xaxisSpeedSupplier.getAsDouble() * OIConstants.kSlowXAxisSpeedMult.getDouble(.5));
+    
+    double zaxisSpeed = ((m_trigger) ? m_zaxisRotateSuppplier.getAsDouble() * OIConstants.kZAxisSpeedMult.getDouble(.8) : 
+      m_zaxisRotateSuppplier.getAsDouble() * OIConstants.kSlowZAxisSpeedMult.getDouble(.5));
+    
+    m_drivetrain.arcadeDrive(xaxisSpeed, -zaxisSpeed);
   }
 
   // Called once after isFinished returns true

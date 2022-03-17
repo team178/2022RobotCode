@@ -38,7 +38,7 @@ public class FireBall extends CommandBase {
     m_launcher = launcher;
     m_feeder = feeder;
 
-    this.speed = LauncherConstants.kLauncherSpeed.getDouble(0);
+    this.speed = LauncherConstants.kLauncherSpeed.getDouble(-.65);
 
     addRequirements(launcher);
   }
