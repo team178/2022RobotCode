@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.launcher.FireBall;
 import frc.robot.commands.limelight.AimRange;
 import frc.robot.Constants.LauncherConstants;
-import frc.robot.Constants.OIConstants;
 import frc.robot.commands.autonomous.AutoCommands;
 import frc.robot.commands.autonomous.AutoPickUp;
 import frc.robot.commands.autonomous.AutoShootBall;
@@ -43,7 +42,6 @@ import frc.robot.subsystems.turret.Intake;
 import frc.robot.subsystems.turret.Launcher;
 import frc.robot.subsystems.turret.Feeder;
 import libs.OI.ConsoleController;
-import libs.OI.ThurstMaster;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -68,7 +66,7 @@ public class RobotContainer {
   private final UsbCamera camera3;
 
   //Creates joystick object for the Main (0) and Aux (1) controllers
-  private final ThurstMaster m_controller_main = new ThurstMaster(0);
+  private final ConsoleController m_controller_main = new ConsoleController(0);
   private final ConsoleController m_controller_aux = new ConsoleController(1);
 
   // Create SmartDashboard chooser for autonomous routines and drive
@@ -128,7 +126,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     m_drivetrain.setDefaultCommand(
-      new ArcadeDrive(m_controller_main::getY, m_controller_main::getTwist, m_drivetrain));
+      new ArcadeDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickX, m_drivetrain));
     
     m_climber.setDefaultCommand(
       new ClimberMove(m_controller_aux::getLeftStickY, m_controller_aux::getRightStickX, m_climber)
@@ -136,16 +134,16 @@ public class RobotContainer {
 
     
     // Slowness II
-    m_controller_main.trigger
+    m_controller_main.leftTrigger
       .whenPressed(() -> m_drivetrain.setSpeedMultiplier(true))//adjust slow speed
       .whenReleased(() -> m_drivetrain.setSpeedMultiplier(false));
 
     // figure out what the joystick buttons do then figure out what to bind these to
-    m_controller_main.headLeft
+    m_controller_main.a
       .whileHeld(new ModifiedAim(m_drivetrain, m_limelight));
 
-    m_controller_main.headRight
-      .whileHeld(new ModifiedRange(m_drivetrain, m_limelight, 3.31));
+    m_controller_main.b
+      .whileHeld(new ModifiedRange(m_drivetrain, m_limelight, 1.9));
 
     // Control the launcher via right trigger
     m_controller_aux.rightTrigger
@@ -194,11 +192,11 @@ public class RobotContainer {
     //m_autoChooser.addOption("Middle Auto", AutoCommands.MiddleAuto);
     //m_autoChooser.addOption("Right Auto", AutoCommands.RightAuto);
     m_autoChooser.addOption("Modified Range", new ModifiedRange(m_drivetrain, m_limelight, 2.5));
-    m_autoChooser.addOption("Modified Aim", new ModifiedAim(m_drivetrain, m_limelight));
+    m_autoChooser.addOption("Modified Aim", new ModifiedAim(2, m_drivetrain, m_limelight));
     m_autoChooser.addOption("Aim and Range", new AimRange(m_drivetrain, m_limelight,1.2192));//number got by looking at limelight distance and pushing it against the hub -.1 meter
     m_autoChooser.addOption("Auto PickUp", new AutoPickUp(m_intake, m_drivetrain, 0.5842));
     m_autoChooser.addOption("Auto Shoot", new AutoShootBall(m_launcher, m_feeder, m_limelight));
-    m_autoChooser.addOption("Drive Straight", new DriveStraight(2.5, m_drivetrain));
+    m_autoChooser.addOption("Drive Straight", new DriveStraight(-1.5, m_drivetrain));
 
     //Creates new Shuffleboard tab called Drivebase
     ShuffleboardTab testTab = Shuffleboard.getTab("Drivebase");

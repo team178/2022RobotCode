@@ -45,8 +45,8 @@ public class DriveTrain extends SubsystemBase {
   public DoubleSupplier leftRate;
   public DoubleSupplier rightRate;
 
-  private double yMult;
-  private double twistMult;
+  private double xMult;
+  private double zMult;
 
   private final MotorController m_leftMotor =
     new MotorControllerGroup(leftMaster, leftSlave);
@@ -61,11 +61,11 @@ public class DriveTrain extends SubsystemBase {
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
-    m_rightMotor.setInverted(true);
-    m_leftMotor.setInverted(false);
+    m_rightMotor.setInverted(false);
+    m_leftMotor.setInverted(true);
 
-    yMult = OIConstants.kBaseDriveSpeedMult;
-    twistMult = OIConstants.kBaseDriveSpeedMult;
+    xMult = OIConstants.kBaseDriveSpeedMult;
+    zMult = OIConstants.kBaseDriveSpeedMult;
 
     // Limiting ramp rate, as to not cause instant changes in speed to
     // prevent brownouts
@@ -81,8 +81,8 @@ public class DriveTrain extends SubsystemBase {
     leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     
-    leftMaster.setSensorPhase(true);
-    rightMaster.setSensorPhase(false);
+    leftMaster.setSensorPhase(false);
+    rightMaster.setSensorPhase(true);
     
     leftPosition = () -> leftMaster.getSelectedSensorPosition(0) * DriveConstants.kEncoderDistancePerPulse; //r
     leftRate = () -> leftMaster.getSelectedSensorVelocity(0) * DriveConstants.kEncoderDistancePerPulse * 10; //r
@@ -124,8 +124,8 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void setSpeedMultiplier(Boolean triggered) {
-    yMult = ((triggered == true) ? 0.5 : 1);
-    twistMult = ((triggered == true) ? 0.2 : 03);
+    xMult = ((triggered == true) ? 0.5 : 1);
+    zMult = ((triggered == true) ? 0.3 : 0.5);
   }
 
   public double getHeading(){
@@ -177,12 +177,12 @@ public class DriveTrain extends SubsystemBase {
     return (getLeftDistance() + getRightDistance()) / 2;
   }
 
-  public double getTwistMult() {
-    return twistMult;
+  public double getZMult() {
+    return zMult;
   }
 
-  public double getYMult() {
-    return yMult;
+  public double getXMult() {
+    return xMult;
   }
 
 
@@ -198,6 +198,7 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     log();
+    setSpeedMultiplier(false);
   }
 
 }

@@ -63,13 +63,15 @@ public final class Constants {
     public static final int kFlyWheelMotorPort2 = 9;
     public static final int kFeedWheelMotorPort = 8;
     
-    public static double kMaxRPM = 5000; // just a guess, will need to be tuned
+    public static double kMaxRPM = 5700; // just a guess, will need to be tuned
     
-    public static double kP = 1;
+    public static double kP = 6E-5;
     public static double kI = 0;
     public static double kD = 0;
     public static double kIz = 0;
-    public static double kFF = 0;
+    public static double kFF = 0.000015;
+    public static double kMaxOutput = 1;
+    public static double kMinOutput = 0;
 
     public static NetworkTableEntry kLauncherSpeed; // Used for testing purposes
     

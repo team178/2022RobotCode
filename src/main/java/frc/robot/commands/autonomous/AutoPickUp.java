@@ -22,7 +22,7 @@ public class AutoPickUp extends PIDCommand {
    */
   public AutoPickUp(Intake intake, DriveTrain drivetrain, double distance) {
     super(
-        new PIDController(4, 0, 0), drivetrain::getDistance, distance, d -> drivetrain.tankDrive(d, d));
+        new PIDController(1, 0, 0), drivetrain::getDistance, distance, d -> drivetrain.tankDrive(d, d));
 
     m_drivetrain = drivetrain;
     m_drivetrain.reset();

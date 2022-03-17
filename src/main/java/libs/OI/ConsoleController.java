@@ -78,7 +78,7 @@ public class ConsoleController {
     }
 	
     public double getLeftStickY() {
-	    return controller.getRawAxis(1);
+	    return -(controller.getRawAxis(1));
     }
 	
     public double getRightStickX() {
@@ -86,7 +86,7 @@ public class ConsoleController {
     }
 	
     public double getRightStickY() {
-	    return controller.getRawAxis(5);
+	    return -(controller.getRawAxis(5));
     }
 	
     public double getLeftTrigger() {

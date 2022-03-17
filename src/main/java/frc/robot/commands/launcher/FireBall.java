@@ -55,10 +55,10 @@ public class FireBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Timer.getFPGATimestamp() > .15){
+    if(Timer.getFPGATimestamp() - startTime > .15){
         m_launcher.setSpeed(speed);
     }
-    if(Timer.getFPGATimestamp() > 1){
+    if(Timer.getFPGATimestamp() - startTime > 1.5){
         m_feeder.setSpeed(1);
     }
   }
@@ -67,12 +67,12 @@ public class FireBall extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_launcher.setSpeed(0.06);
-    m_feeder.setSpeed(0.06);
+    m_feeder.setSpeed(-0.1);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Timer.getFPGATimestamp() - startTime >= 1.25);
+    return (Timer.getFPGATimestamp() - startTime >= 1.75);
   }
 }

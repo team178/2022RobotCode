@@ -25,7 +25,7 @@ public class DriveStraight extends PIDCommand {
    */
   public DriveStraight(double distance, DriveTrain drivetrain) {
     super(
-        new PIDController(3, 0, 0), drivetrain::getDistance, distance, d -> drivetrain.tankDrive(d, d));
+        new PIDController(1, 0, 0), drivetrain::getDistance, distance, d -> drivetrain.tankDrive(d, d));
 
     m_drivetrain = drivetrain;
     m_drivetrain.reset();
@@ -46,6 +46,6 @@ public class DriveStraight extends PIDCommand {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   public boolean isFinished() {
-    return (Timer.getFPGATimestamp() - startTime >= 1);
+    return (getController().atSetpoint());
   }
 }
