@@ -4,11 +4,10 @@
 
 package frc.robot.commands.drivetrain;
 
+import frc.robot.RobotContainer;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-
 import java.util.function.DoubleSupplier;
 
 /** Have the robot drive tank style. */
@@ -37,6 +36,11 @@ public class ArcadeDrive extends CommandBase {
     addRequirements(drivetrain);
   }
 
+  @Override
+  public void initialize() {
+    RobotContainer.m_lights.enforcers();
+  }
+
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
@@ -53,6 +57,7 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_drivetrain.arcadeDrive(0, 0);
+    RobotContainer.m_lights.sendNormal();
   }
 
   // Make this return true when this Command no longer needs to run execute()

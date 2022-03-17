@@ -6,6 +6,7 @@ package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.turret.Feeder;
 import frc.robot.subsystems.turret.Launcher;
@@ -47,6 +48,7 @@ public class AutoShootBall extends ParallelCommandGroup {
   @Override
   public void initialize() {
     startTime = Timer.getFPGATimestamp(); 
+    RobotContainer.m_lights.shoot();
     
     //neededVelocity = m_limelight.calculateLauncherVelocity();
     //motorSpeed = neededVelocity / LauncherConstants.kFlyWheelRadius; 
@@ -70,6 +72,8 @@ public class AutoShootBall extends ParallelCommandGroup {
   public void end(boolean interrupted) {
     m_feeder.setSpeed(0);
     m_launcher.setSpeed(0);
+
+    RobotContainer.m_lights.sendNormal();
   }
 
   // Returns true when the command should end.

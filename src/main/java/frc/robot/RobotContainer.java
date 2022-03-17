@@ -59,6 +59,9 @@ public class RobotContainer {
 
   private final Climber m_climber;
   private final LimeLight m_limelight;
+
+  public static ArduinoLights m_lights;
+
   //USB Camera declarations
   private final UsbCamera camera1;
   private final UsbCamera camera2;
@@ -82,7 +85,7 @@ public class RobotContainer {
 
     m_climber = new Climber();
     m_limelight = new LimeLight();
-    new ArduinoLights(7, 8, 9);
+    m_lights = new ArduinoLights(7, 8, 9);
 
     AutoCommands.init(m_drivetrain, m_intake, m_launcher, m_feeder, m_limelight);
 

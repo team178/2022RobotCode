@@ -3,7 +3,6 @@ package frc.robot.commands.autonomous;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.TurnDegrees;
 import frc.robot.commands.drivetrain.DriveStraight;
-import frc.robot.commands.limelight.AimRange;
 import frc.robot.commands.limelight.ModifiedAim;
 import frc.robot.commands.limelight.ModifiedRange;
 import frc.robot.subsystems.DriveTrain;
