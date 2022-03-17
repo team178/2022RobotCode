@@ -11,6 +11,7 @@ import frc.robot.subsystems.turret.Intake;
 public class PickUp extends CommandBase {
   
   private final Intake m_intake;
+  //private final Feeder m_feeder;
 
   /**
    * Creates a new PickUp command.
@@ -19,9 +20,17 @@ public class PickUp extends CommandBase {
    */
   public PickUp(Intake intake) {
     m_intake = intake;
+    //m_feeder = null;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
   }
+  
+  //public PickUp(Intake intake, Feeder feeder) {
+    //m_intake = intake;
+    //m_feeder = feeder;
+    // Use addRequirements() here to declare subsystem dependencies.
+    //addRequirements(intake);
+  //}
 
   // Called when the command is initially scheduled.
   @Override
@@ -39,6 +48,10 @@ public class PickUp extends CommandBase {
     if (m_intake.getSwitchState()) {
       m_intake.enableBouncer();
     }
+    
+    //if (m_feeder != null) {
+      //m_feeder.setSpeed(0.25);
+    //}
 
     m_intake.setSpeed(-0.6);
   }
@@ -48,7 +61,9 @@ public class PickUp extends CommandBase {
   public void end(boolean interrupted) throws RuntimeException {
     m_intake.disableBouncer();
     m_intake.retract();
+    
     m_intake.setSpeed(-0.25);
+    //m_feeder.setSpeed(-0.25);
   }
 
   // Returns true when the command should end.

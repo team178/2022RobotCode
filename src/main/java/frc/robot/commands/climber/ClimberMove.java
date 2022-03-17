@@ -3,6 +3,8 @@ package frc.robot.commands.climber;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.ArduinoLights;
 import frc.robot.subsystems.Climber;
 
 public class ClimberMove extends CommandBase {
@@ -17,6 +19,11 @@ public class ClimberMove extends CommandBase {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(climber);
     }
+
+    @Override
+    public void initialize() {
+        RobotContainer.m_lights.climb();
+    }
   
     // Called every time the scheduler runs while the command is scheduled.
     @Override
@@ -30,11 +37,13 @@ public class ClimberMove extends CommandBase {
     public void end(boolean interrupted) {
         m_climber.setClimberMotorSpeed(0);
         m_climber.setExtendingArmWinchSpeed(0);
+
+        RobotContainer.m_lights.sendNormal();
     }
   
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-      return false;
+      return (m_climber.getLowLimitSwitch().get() || !m_climber.getHighLimitSwitch().get());
     }
 }

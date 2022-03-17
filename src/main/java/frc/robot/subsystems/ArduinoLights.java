@@ -32,6 +32,8 @@ public class ArduinoLights extends SubsystemBase {
         do0 = new DigitalOutput(d0);
         do1 = new DigitalOutput(d1);
         do2 = new DigitalOutput(d2);
+
+        sendNormal();
     }
 
     public void sendNormal(){

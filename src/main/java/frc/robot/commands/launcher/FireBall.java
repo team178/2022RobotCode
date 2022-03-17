@@ -6,6 +6,7 @@ package frc.robot.commands.launcher;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.turret.Feeder;
 import frc.robot.subsystems.turret.Launcher;
@@ -38,7 +39,7 @@ public class FireBall extends CommandBase {
     m_launcher = launcher;
     m_feeder = feeder;
 
-    this.speed = LauncherConstants.kLauncherSpeed.getDouble(0);
+    this.speed = LauncherConstants.kLauncherSpeed.getDouble(-.65);
 
     addRequirements(launcher);
   }
@@ -47,6 +48,7 @@ public class FireBall extends CommandBase {
   @Override
   public void initialize() {
     startTime = Timer.getFPGATimestamp(); 
+    RobotContainer.m_lights.shoot();
 
     m_feeder.setSpeed(-.25);
     m_launcher.setSpeed(.25);
@@ -68,6 +70,8 @@ public class FireBall extends CommandBase {
   public void end(boolean interrupted) {
     m_launcher.setSpeed(0.06);
     m_feeder.setSpeed(-0.1);
+
+    RobotContainer.m_lights.sendNormal();
   }
 
   // Returns true when the command should end.

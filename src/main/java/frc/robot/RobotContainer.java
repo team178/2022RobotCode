@@ -12,15 +12,14 @@ import edu.wpi.first.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.launcher.FireBall;
 import frc.robot.commands.limelight.AimRange;
 import frc.robot.Constants.LauncherConstants;
+import frc.robot.Constants.OIConstants;
 import frc.robot.commands.autonomous.AutoCommands;
 import frc.robot.commands.limelight.ModifiedAim;
 import frc.robot.commands.limelight.ModifiedRange;
@@ -57,6 +56,9 @@ public class RobotContainer {
 
   private final Climber m_climber;
   private final LimeLight m_limelight;
+
+  public static ArduinoLights m_lights;
+
   //USB Camera declarations
   private final UsbCamera camera1;
   private final UsbCamera camera2;
@@ -80,7 +82,7 @@ public class RobotContainer {
 
     m_climber = new Climber();
     m_limelight = new LimeLight();
-    new ArduinoLights(7, 8, 9);
+    m_lights = new ArduinoLights(7, 8, 9);
 
     AutoCommands.init(m_drivetrain, m_intake, m_launcher, m_feeder, m_limelight);
 
@@ -123,7 +125,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     m_drivetrain.setDefaultCommand(
-      new ArcadeDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickX, m_drivetrain));
+      new ArcadeDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickX, m_drivetrain, false));
     
     m_climber.setDefaultCommand(
       new ClimberMove(m_controller_aux::getLeftStickY, m_controller_aux::getRightStickX, m_climber)
@@ -132,8 +134,8 @@ public class RobotContainer {
     
     // Slowness II
     m_controller_main.leftTrigger
-      .whenPressed(() -> m_drivetrain.setSpeedMultiplier(true))//adjust slow speed
-      .whenReleased(() -> m_drivetrain.setSpeedMultiplier(false));
+      .whenPressed(new ArcadeDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickX, m_drivetrain, true))
+      .whenReleased(new ArcadeDrive(m_controller_main::getLeftStickY, m_controller_main::getRightStickX, m_drivetrain, false));
 
     // figure out what the joystick buttons do then figure out what to bind these to
     m_controller_main.a
@@ -144,7 +146,7 @@ public class RobotContainer {
 
     // Controller Aux
     m_controller_aux.rightTrigger
-      .whileHeld(new FireBall(m_launcher, m_feeder, -0.65));
+      .whileHeld(new FireBall(m_launcher, m_feeder));
 
     m_controller_aux.leftTrigger
       .whileHeld(new PickUp(m_intake));
@@ -175,39 +177,47 @@ public class RobotContainer {
     m_autoChooser.addOption("Drive Straight", new DriveStraight(-1.5, m_drivetrain));
 
     //Creates new Shuffleboard tab called Drivebase
-    ShuffleboardTab testTab = Shuffleboard.getTab("Drivebase");
+    ShuffleboardTab testTab = Shuffleboard.getTab("Test Tab");
 
     //Adds a chooser to the Drivebase tab to select autonomous routine (before anything is ran)
     testTab
       .add("Autonomous Routine", m_autoChooser)
         .withSize(2, 1)
           .withPosition(0, 3);
-    
-    // //Adds a Layout (basically a empty list) to the Drivebase tab for Limelight Commands 
-    // ShuffleboardLayout limelightCommands = testTab
-    //   .getLayout("Limelight Commands", BuiltInLayouts.kList)
-    //     .withSize(2, 2)
-    //       .withPosition(2, 4)
-    //         .withProperties(Map.of("Label position", "HIDDEN")); // hide labels for commands
-    
-    // //Adds buttons to the aforementioned Layout that run Limelight related commands when selected
-    // limelightCommands.add(new modifiedAim(m_drivetrain, m_limelight));
-    // limelightCommands.add(new modifiedRange(m_drivetrain, m_limelight));
-
-    //Adds a Layout (basically a empty list) to the Drivebase tab for Limelight Commands 
-    ShuffleboardLayout turretCommands = testTab
-      .getLayout("Turret Commands", BuiltInLayouts.kList)
-        .withSize(2, 2)
-          .withPosition(6, 4);
-
-    turretCommands.add(new AutoPickUp(m_intake, m_drivetrain, 0.5842));
-    turretCommands.add(new FireBall(m_launcher, m_feeder));
 
     LauncherConstants.kLauncherSpeed = testTab
       .add("Speed for Launcher", 0)
         .withWidget(BuiltInWidgets.kNumberSlider)
           .withProperties(Map.of("min", -1, "max", 1))
             .withPosition(0, 2)
+              .getEntry();
+    
+    OIConstants.kXAxisSpeedMult = testTab
+      .add("Speed for Launcher", 0)
+        .withWidget(BuiltInWidgets.kNumberSlider)
+          .withProperties(Map.of("min", -1, "max", 1))
+            .withPosition(1, 2)
+              .getEntry();
+    
+    OIConstants.kSlowXAxisSpeedMult = testTab
+      .add("Speed for Launcher", 0)
+        .withWidget(BuiltInWidgets.kNumberSlider)
+          .withProperties(Map.of("min", -1, "max", 1))
+            .withPosition(1, 4)
+              .getEntry();
+    
+    OIConstants.kZAxisSpeedMult = testTab
+      .add("Speed for Launcher", 0)
+        .withWidget(BuiltInWidgets.kNumberSlider)
+          .withProperties(Map.of("min", -1, "max", 1))
+            .withPosition(2, 2)
+              .getEntry();
+
+    OIConstants.kSlowZAxisSpeedMult = testTab
+      .add("Speed for Launcher", 0)
+        .withWidget(BuiltInWidgets.kNumberSlider)
+          .withProperties(Map.of("min", -1, "max", 1))
+            .withPosition(1, 4)
               .getEntry();
     
   }

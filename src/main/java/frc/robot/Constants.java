@@ -44,7 +44,11 @@ public final class Constants {
     public static final int kJoystickPort = 0;
     public static final int kControllerPort = 1;
 
-    public static final double kBaseDriveSpeedMult = 1.0;
+    public static NetworkTableEntry kXAxisSpeedMult;
+    public static NetworkTableEntry kZAxisSpeedMult;
+
+    public static NetworkTableEntry kSlowXAxisSpeedMult;
+    public static NetworkTableEntry kSlowZAxisSpeedMult;
   }
   
   public static final class IntakeConstants{
