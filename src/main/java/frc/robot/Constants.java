@@ -88,7 +88,7 @@ public final class Constants {
   public static final class LimeLightConstants{
     public static final double kTargetHeight = 2.4384;
     
-    public static final double kMountAngle = 27.5;
+    public static final double kMountAngle = 35;
     public static final double kLensHeight = .737; 
   }
   

@@ -2,8 +2,9 @@ package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.TurnDegrees;
+import frc.robot.commands.intake.AutoPickUp;
+import frc.robot.commands.launcher.FireBall;
 import frc.robot.commands.drivetrain.DriveStraight;
-import frc.robot.commands.limelight.AimRange;
 import frc.robot.commands.limelight.ModifiedAim;
 import frc.robot.commands.limelight.ModifiedRange;
 import frc.robot.subsystems.DriveTrain;
@@ -41,19 +42,19 @@ public class AutoCommands {
 
         GeneralAuto = new SequentialCommandGroup(
             new ModifiedAim(drivetrain, limelight),
-            new AutoShootBall(launcher, feeder, limelight),
+            new FireBall(launcher, feeder, -0.65),
             new TurnDegrees(180 - drivetrain.getHeading(), drivetrain),
             new AutoPickUp(intake, drivetrain, 1.634 /* MOVE OUT DISTANCE */),
             new TurnDegrees(180, drivetrain),
             new ModifiedAim(drivetrain, limelight),
             new ModifiedRange(drivetrain, limelight, 0.911 /* MOVE TO BORDER */),
-            new AutoShootBall(launcher, feeder, limelight),
+            new FireBall(launcher, feeder, -0.65),
             new TurnDegrees(-drivetrain.getHeading(), drivetrain),
             new DriveStraight(-1, drivetrain)
         );
 
         ModifiedGeneralAuto = new SequentialCommandGroup(
-            new AutoShootBall(launcher, feeder, limelight),
+            new FireBall(launcher, feeder, -0.65),
             new DriveStraight(2.5, drivetrain)
         );
 

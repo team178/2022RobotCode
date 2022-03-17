@@ -22,16 +22,13 @@ import frc.robot.commands.launcher.FireBall;
 import frc.robot.commands.limelight.AimRange;
 import frc.robot.Constants.LauncherConstants;
 import frc.robot.commands.autonomous.AutoCommands;
-import frc.robot.commands.autonomous.AutoPickUp;
-import frc.robot.commands.autonomous.AutoShootBall;
 import frc.robot.commands.limelight.ModifiedAim;
 import frc.robot.commands.limelight.ModifiedRange;
-import frc.robot.commands.climber.LowerMast;
-import frc.robot.commands.climber.RaiseMast;
-import frc.robot.commands.climber.ToggleHook;
 import frc.robot.commands.climber.ClimberMove;
+import frc.robot.commands.climber.ToggleHook;
 import frc.robot.commands.drivetrain.ArcadeDrive;
 import frc.robot.commands.drivetrain.DriveStraight;
+import frc.robot.commands.intake.AutoPickUp;
 import frc.robot.commands.intake.PickUp;
 import frc.robot.commands.intake.SpitBall;
 import frc.robot.subsystems.ArduinoLights;
@@ -145,42 +142,21 @@ public class RobotContainer {
     m_controller_main.b
       .whileHeld(new ModifiedRange(m_drivetrain, m_limelight, 1.9));
 
-    // Control the launcher via right trigger
+    // Controller Aux
     m_controller_aux.rightTrigger
       .whileHeld(new FireBall(m_launcher, m_feeder, -0.65));
 
     m_controller_aux.leftTrigger
       .whileHeld(new PickUp(m_intake));
-
-    //m_controller_aux.rightTrigger
-      //.whileHeld(new RunLauncher(m_launcher, -0.725));
-
-    //m_controller_aux.leftTrigger
-      //.whileHeld(new RunLauncher(m_launcher, -0.65));
-
-    //m_controller_aux.rightBumper
-      //.whileHeld(new ShootBall(m_feeder));
-
-    m_controller_aux.topDPAD
-      .whileHeld(new RaiseMast(m_climber));
-
-    m_controller_aux.bottomDPAD
-      .whileHeld(new LowerMast(m_climber));
-    
-    //m_controller_aux.leftDPAD
-      //.whileHeld(new TomahawkDown(m_climber));
-
-    //m_controller_aux.rightDPAD
-      //.whileHeld(new TomahawkUp(m_climber));
-
-    //m_controller_aux.a
-      //.toggleWhenPressed(new PickUp(m_intake));
     
     m_controller_aux.b
       .whileHeld(new SpitBall(m_intake));
 
-    m_controller_aux.x  
+    m_controller_aux.leftBumper 
       .whenPressed(new ToggleHook(m_climber));
+    
+    m_controller_aux.rightBumper
+      .whileHeld(new FireBall(m_launcher, m_feeder));
 
   }
 
@@ -195,7 +171,7 @@ public class RobotContainer {
     m_autoChooser.addOption("Modified Aim", new ModifiedAim(2, m_drivetrain, m_limelight));
     m_autoChooser.addOption("Aim and Range", new AimRange(m_drivetrain, m_limelight,1.2192));//number got by looking at limelight distance and pushing it against the hub -.1 meter
     m_autoChooser.addOption("Auto PickUp", new AutoPickUp(m_intake, m_drivetrain, 0.5842));
-    m_autoChooser.addOption("Auto Shoot", new AutoShootBall(m_launcher, m_feeder, m_limelight));
+    m_autoChooser.addOption("Auto Shoot", new FireBall(m_launcher, m_feeder));
     m_autoChooser.addOption("Drive Straight", new DriveStraight(-1.5, m_drivetrain));
 
     //Creates new Shuffleboard tab called Drivebase
@@ -225,7 +201,7 @@ public class RobotContainer {
           .withPosition(6, 4);
 
     turretCommands.add(new AutoPickUp(m_intake, m_drivetrain, 0.5842));
-    turretCommands.add(new AutoShootBall(m_launcher, m_feeder, m_limelight));
+    turretCommands.add(new FireBall(m_launcher, m_feeder));
 
     LauncherConstants.kLauncherSpeed = testTab
       .add("Speed for Launcher", 0)

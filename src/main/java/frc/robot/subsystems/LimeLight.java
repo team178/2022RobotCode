@@ -75,10 +75,6 @@ public class LimeLight extends SubsystemBase {
         return table.getEntry("tl").getDouble(0);
     }
 
-    private void resetPipelineLatency() {
-        table.getEntry("tl").setValue(0.0);
-    }
-
     /**
      * @param pipeline sets the limelight’s current pipeline
      */

@@ -16,8 +16,6 @@ import frc.robot.subsystems.DriveTrain;
  */
 public class DriveStraight extends PIDCommand {
   private final DriveTrain m_drivetrain;
-  private double startTime;
-
   /**
    * Create a new DriveStraight command.
    *
@@ -37,8 +35,7 @@ public class DriveStraight extends PIDCommand {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    // Get everything in a safe starting state.
-    startTime = Timer.getFPGATimestamp();
+    Timer.getFPGATimestamp();
     m_drivetrain.reset();
     super.initialize();
   }
