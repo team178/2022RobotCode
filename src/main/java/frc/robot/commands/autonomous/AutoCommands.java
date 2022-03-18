@@ -55,7 +55,7 @@ public class AutoCommands {
 
         ModifiedGeneralAuto = new SequentialCommandGroup(
             new FireBall(launcher, feeder, intake, -0.65),
-            new DriveStraight(2.5, drivetrain)
+            new DriveStraight(-2.5, drivetrain)
         );
 
     }
