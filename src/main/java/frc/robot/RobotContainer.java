@@ -26,6 +26,7 @@ import frc.robot.commands.limelight.ModifiedRange;
 import frc.robot.commands.climber.ClimberMove;
 import frc.robot.commands.climber.ToggleHook;
 import frc.robot.commands.drivetrain.ArcadeDrive;
+import frc.robot.commands.drivetrain.DriveDistance;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.intake.AutoPickUp;
 import frc.robot.commands.intake.PickUp;
@@ -174,7 +175,7 @@ public class RobotContainer {
     m_autoChooser.addOption("Auto PickUp", new AutoPickUp(m_intake, m_drivetrain, 1.5));
     m_autoChooser.addOption("Auto Shoot", new FireBall(m_launcher, m_feeder, m_intake, -0.65));
     m_autoChooser.addOption("Drive Straight", new DriveStraight(-1.5, m_drivetrain));
-    
+    m_autoChooser.addOption("Drive Distance", new DriveDistance(m_drivetrain, 1, .1));
 
     //Creates new Shuffleboard tab called Drivebase
     ShuffleboardTab testTab = Shuffleboard.getTab("Test Tab");

@@ -137,7 +137,7 @@ public class LimeLight extends SubsystemBase {
     }
 
     public boolean isDistancePossible(){
-        return((estimateDistance() < 3.30 && estimateDistance() > 3.2) ? true : false);
+        return((estimateDistance() < 1.16 && estimateDistance() > 1.32) ? true : false);
     }
 
     /**
@@ -145,7 +145,7 @@ public class LimeLight extends SubsystemBase {
      * @return whether or not shooting angle is possible
      */
     public boolean isAnglePossible(){
-        return ((Math.abs(getHorizontalDegToTarget()) > 2.30 || Math.abs(getHorizontalDegToTarget()) < 2.40) ? false : true); // 5 Represents a degree tolerance for shooting
+        return ((Math.abs(getHorizontalDegToTarget()) > -.5 || Math.abs(getHorizontalDegToTarget()) < .5) ? false : true); // 5 Represents a degree tolerance for shooting
     }
 
     /** The log method puts interesting information to the SmartDashboard. */
