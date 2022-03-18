@@ -35,7 +35,7 @@ public class Climber extends SubsystemBase {
     highlimitSwitch = new DigitalInput(ClimberConstants.kHighLimitSwitchPort);
     LowlimitSwitch = new DigitalInput(ClimberConstants.kLowLimitSwitchPort);
 
-    hookSolenoid.set(Value.kForward);
+    hookSolenoid.set(Value.kReverse);
   }
 
   /**
