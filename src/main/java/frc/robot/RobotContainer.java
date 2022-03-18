@@ -142,11 +142,11 @@ public class RobotContainer {
       .whileHeld(new ModifiedAim(m_drivetrain, m_limelight));
 
     m_controller_main.b
-      .whileHeld(new ModifiedRange(m_drivetrain, m_limelight, 1.9));
+      .whileHeld(new ModifiedRange(m_drivetrain, m_limelight, 1.22));
 
     // Controller Aux
-    m_controller_aux.rightTrigger
-      .whileHeld(new FireBall(m_launcher, m_feeder));
+    //m_controller_aux.rightTrigger
+      //.whileHeld(new FireBall(m_launcher, m_feeder, m_intake, -.7));
 
     m_controller_aux.leftTrigger
       .whileHeld(new PickUp(m_intake));
@@ -157,24 +157,24 @@ public class RobotContainer {
     m_controller_aux.leftBumper 
       .whenPressed(new ToggleHook(m_climber));
     
-    m_controller_aux.rightBumper
-      .whileHeld(new FireBall(m_launcher, m_feeder));
 
   }
 
   private void configureShuffleBoard() {
     //Autonomous Chooser Options (How our robot is going to tackle auto)
-    //m_autoChooser.setDefaultOption("General Auto", AutoCommands.GeneralAuto);
     m_autoChooser.setDefaultOption("Modified General Auto", AutoCommands.ModifiedGeneralAuto);
+    m_autoChooser.addOption("General Auto", AutoCommands.GeneralAuto);
+
     //m_autoChooser.addOption("Left Auto", AutoCommands.LeftAuto);
     //m_autoChooser.addOption("Middle Auto", AutoCommands.MiddleAuto);
     //m_autoChooser.addOption("Right Auto", AutoCommands.RightAuto);
     m_autoChooser.addOption("Modified Range", new ModifiedRange(m_drivetrain, m_limelight, 2.5));
     m_autoChooser.addOption("Modified Aim", new ModifiedAim(2, m_drivetrain, m_limelight));
     m_autoChooser.addOption("Aim and Range", new AimRange(m_drivetrain, m_limelight,1.2192));//number got by looking at limelight distance and pushing it against the hub -.1 meter
-    m_autoChooser.addOption("Auto PickUp", new AutoPickUp(m_intake, m_drivetrain, 0.5842));
-    m_autoChooser.addOption("Auto Shoot", new FireBall(m_launcher, m_feeder));
+    m_autoChooser.addOption("Auto PickUp", new AutoPickUp(m_intake, m_drivetrain, 1.5));
+    m_autoChooser.addOption("Auto Shoot", new FireBall(m_launcher, m_feeder, m_intake, -0.65));
     m_autoChooser.addOption("Drive Straight", new DriveStraight(-1.5, m_drivetrain));
+    
 
     //Creates new Shuffleboard tab called Drivebase
     ShuffleboardTab testTab = Shuffleboard.getTab("Test Tab");
@@ -186,35 +186,35 @@ public class RobotContainer {
           .withPosition(0, 3);
 
     LauncherConstants.kLauncherSpeed = testTab
-      .add("Speed for Launcher", 0)
+      .add("Speed for Launcher", -0.65)
         .withWidget(BuiltInWidgets.kNumberSlider)
           .withProperties(Map.of("min", -1, "max", 1))
             .withPosition(0, 2)
               .getEntry();
     
     OIConstants.kXAxisSpeedMult = testTab
-      .add("Speed for Launcher", 0)
+      .add("X Axis Speed Mult", 0.8)
         .withWidget(BuiltInWidgets.kNumberSlider)
           .withProperties(Map.of("min", -1, "max", 1))
             .withPosition(1, 2)
               .getEntry();
     
     OIConstants.kSlowXAxisSpeedMult = testTab
-      .add("Speed for Launcher", 0)
+      .add("Slow X Axis Speed Mult", 0.6)
         .withWidget(BuiltInWidgets.kNumberSlider)
           .withProperties(Map.of("min", -1, "max", 1))
             .withPosition(1, 4)
               .getEntry();
     
     OIConstants.kZAxisSpeedMult = testTab
-      .add("Speed for Launcher", 0)
+      .add("Z Axis Speed Mult", 0.8)
         .withWidget(BuiltInWidgets.kNumberSlider)
           .withProperties(Map.of("min", -1, "max", 1))
             .withPosition(2, 2)
               .getEntry();
 
     OIConstants.kSlowZAxisSpeedMult = testTab
-      .add("Speed for Launcher", 0)
+      .add("Slow Z Axis Speed Mult", 0.6)
         .withWidget(BuiltInWidgets.kNumberSlider)
           .withProperties(Map.of("min", -1, "max", 1))
             .withPosition(1, 4)

@@ -74,8 +74,8 @@ public class DriveTrain extends SubsystemBase {
     leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     
-    leftMaster.setSensorPhase(false);
-    rightMaster.setSensorPhase(true);
+    leftMaster.setSensorPhase(true);
+    rightMaster.setSensorPhase(false);
     
     leftPosition = () -> leftMaster.getSelectedSensorPosition(0) * DriveConstants.kEncoderDistancePerPulse; //r
     leftRate = () -> leftMaster.getSelectedSensorVelocity(0) * DriveConstants.kEncoderDistancePerPulse * 10; //r

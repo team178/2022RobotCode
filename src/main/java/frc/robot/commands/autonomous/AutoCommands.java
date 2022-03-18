@@ -42,19 +42,19 @@ public class AutoCommands {
 
         GeneralAuto = new SequentialCommandGroup(
             new ModifiedAim(drivetrain, limelight),
-            new FireBall(launcher, feeder, -0.65),
+            new FireBall(launcher, feeder, intake, -0.65),
             new TurnDegrees(180 - drivetrain.getHeading(), drivetrain),
             new AutoPickUp(intake, drivetrain, 1.634 /* MOVE OUT DISTANCE */),
             new TurnDegrees(180, drivetrain),
             new ModifiedAim(drivetrain, limelight),
             new ModifiedRange(drivetrain, limelight, 0.911 /* MOVE TO BORDER */),
-            new FireBall(launcher, feeder, -0.65),
+            new FireBall(launcher, feeder, intake, -0.65),
             new TurnDegrees(-drivetrain.getHeading(), drivetrain),
             new DriveStraight(-1, drivetrain)
         );
 
         ModifiedGeneralAuto = new SequentialCommandGroup(
-            new FireBall(launcher, feeder, -0.65),
+            new FireBall(launcher, feeder, intake, -0.65),
             new DriveStraight(2.5, drivetrain)
         );
 

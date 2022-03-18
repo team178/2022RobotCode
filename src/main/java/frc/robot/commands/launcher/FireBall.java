@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.turret.Feeder;
+import frc.robot.subsystems.turret.Intake;
 import frc.robot.subsystems.turret.Launcher;
 
 /** Run the Launcher at it's set speed */
@@ -17,6 +18,7 @@ public class FireBall extends CommandBase {
 
   private final Feeder m_feeder;  
   private final Launcher m_launcher;
+  private final Intake m_intake;
 
   private double speed; 
 
@@ -25,9 +27,10 @@ public class FireBall extends CommandBase {
    *
    * @param launcher The Launcher subsystem.
    */
-  public FireBall(Launcher launcher, Feeder feeder, double inputSpeed) {
+  public FireBall(Launcher launcher, Feeder feeder, Intake intake, double inputSpeed) {
     m_launcher = launcher;
     m_feeder = feeder;
+    m_intake = intake;
 
     this.speed = inputSpeed;
 
@@ -35,9 +38,10 @@ public class FireBall extends CommandBase {
     addRequirements(launcher);
   }
 
-  public FireBall(Launcher launcher, Feeder feeder) {
+  public FireBall(Launcher launcher, Feeder feeder, Intake intake) {
     m_launcher = launcher;
     m_feeder = feeder;
+    m_intake = intake;
 
     this.speed = LauncherConstants.kLauncherSpeed.getDouble(-.65);
 
@@ -52,6 +56,7 @@ public class FireBall extends CommandBase {
 
     m_feeder.setSpeed(-.25);
     m_launcher.setSpeed(.25);
+    m_intake.setSpeed(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -60,7 +65,7 @@ public class FireBall extends CommandBase {
     if(Timer.getFPGATimestamp() - startTime > .15){
         m_launcher.setSpeed(speed);
     }
-    if(Timer.getFPGATimestamp() - startTime > 1.5){
+    if(Timer.getFPGATimestamp() - startTime > 1.75){
         m_feeder.setSpeed(1);
     }
   }
@@ -77,6 +82,6 @@ public class FireBall extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Timer.getFPGATimestamp() - startTime >= 1.75);
+    return (Timer.getFPGATimestamp() - startTime >= 2);
   }
 }
