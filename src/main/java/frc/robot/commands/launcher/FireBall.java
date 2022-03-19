@@ -54,7 +54,7 @@ public class FireBall extends CommandBase {
     startTime = Timer.getFPGATimestamp(); 
     RobotContainer.m_lights.shoot();
 
-    m_feeder.setSpeed(-.25);
+    m_feeder.setSpeed(-0.1);
     m_launcher.setSpeed(.25);
     m_intake.setSpeed(0);
   }
