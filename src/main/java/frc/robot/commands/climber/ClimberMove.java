@@ -28,9 +28,14 @@ public class ClimberMove extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+
+        if (m_climber.getLowLimitSwitch().get() && m_mastSpeed.getAsDouble() <= 0) {
+            m_climber.setExtendingArmWinchSpeed(0);
+        } else {
+            m_climber.setExtendingArmWinchSpeed(this.m_mastSpeed.getAsDouble());
+        }
         m_climber.setClimberMotorSpeed(m_tomahawkSpeed.getAsDouble()); //may need to adjust based on motor
-        m_climber.setExtendingArmWinchSpeed(m_mastSpeed.getAsDouble());
-    }
+    } 
   
     // Called once the command ends or is interrupted.
     @Override
@@ -44,6 +49,6 @@ public class ClimberMove extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-      return (m_climber.getLowLimitSwitch().get() || !m_climber.getHighLimitSwitch().get());
+      return false;
     }
 }
