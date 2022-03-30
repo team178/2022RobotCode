@@ -143,11 +143,14 @@ public class RobotContainer {
       .whileHeld(new ModifiedAim(m_drivetrain, m_limelight));
 
     m_controller_main.b
-      .whileHeld(new ModifiedRange(m_drivetrain, m_limelight, 1.22));
+      .whileHeld(new ModifiedRange(m_drivetrain, m_limelight, 1.51));
 
     // Controller Aux
-    //m_controller_aux.rightTrigger
-      //.whileHeld(new FireBall(m_launcher, m_feeder, m_intake, -.7));
+    m_controller_aux.rightTrigger
+      .whileHeld(new FireBall(m_launcher, m_feeder, m_intake, -.7));
+
+    m_controller_aux.rightBumper
+      .whileHeld(new FireBall(m_launcher, m_feeder, m_intake, -.4));
 
     m_controller_aux.leftTrigger
       .whileHeld(new PickUp(m_intake));
