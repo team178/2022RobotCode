@@ -10,7 +10,8 @@ def runPipeline(image, llrobot):
     # convert the hsv to a binary image by removing any pixels
     # that do not fall within the following HSV Min/Max values(min(H,S,V), (max(H,S,V)))
     #img_threshold = cv2.inRange(img_hsv, (78, 39, 48), (90, 237, 244))
-    img_threshold = cv2.inRange(img_hsv, (30, 55, 35), (90, 237, 244))
+    img_threshold = cv2.inRange(img_hsv, (50, 50, 100), (65, 200, 200))
+                                        #dont adjust the first two unless you change the setting on the first page, which are 2,0, 500,500 respectively
     # find contours in the new binary image
     contours, _ = cv2.findContours(img_threshold,
     cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -40,7 +41,7 @@ def runPipeline(image, llrobot):
         #finding the bottom right vaues within given threshold
         returnContour = [[[(left+right)/(2.0),(top+bottom)/(2.0)]]]
        #Find the average of both to find the center of the given rectangle(should work for any size rectangle)
-        cv2.rectangle(image, (left, top), (right, bottom), (255, 255,255), 2)
+        cv2.rectangle(image, (left, top), (right, bottom), (0, 0,255), 2)
       
         # record some custom data to send back to the robot
         llpython = [1,x,y,w,h,9,8,7]
